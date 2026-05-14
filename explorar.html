@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explorar Pesquisas | SINNOVATION</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "on-primary-fixed-variant": "#2d4960",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-tertiary-fixed": "#001f24",
+                    "surface-container-low": "#f2f4f7",
+                    "on-secondary-fixed": "#25005a",
+                    "secondary-fixed": "#eaddff",
+                    "on-primary-fixed": "#001e30",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d8dadd",
+                    "surface-container-high": "#e6e8eb",
+                    "on-tertiary-container": "#009fb1",
+                    "outline-variant": "#c3c7cd",
+                    "inverse-primary": "#adcae5",
+                    "surface-bright": "#f7f9fc",
+                    "primary-fixed": "#cbe6ff",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eceef1",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f4",
+                    "tertiary-fixed-dim": "#00daf3",
+                    "tertiary": "#00181c",
+                    "outline": "#73777d",
+                    "inverse-surface": "#2d3133",
+                    "primary-fixed-dim": "#adcae5",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#6a09e6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fc",
+                    "tertiary-fixed": "#9cf0ff",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#0b2b40",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#42474c",
+                    "on-primary-container": "#7793ac",
+                    "on-secondary-container": "#f6edff",
+                    "on-secondary-fixed-variant": "#5900c6",
+                    "tertiary-container": "#002e34",
+                    "surface-tint": "#456179",
+                    "background": "#f7f9fc",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "on-tertiary-fixed-variant": "#004f58",
+                    "secondary-container": "#833cff",
+                    "primary": "#001625",
+                    "on-surface": "#191c1e",
+                    "surface-variant": "#e0e3e6"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+                "spacing": {
+                    "xs": "0.5rem",
+                    "xl": "4rem",
+                    "md": "1.5rem",
+                    "lg": "2.5rem",
+                    "container-max": "1280px",
+                    "unit": "4px",
+                    "sm": "1rem",
+                    "gutter": "24px"
+                },
+                "fontFamily": {
+                    "body-md": ["Inter"],
+                    "h2": ["Inter"],
+                    "h3": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+                },
+                "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h2": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.5%", "fontWeight": "700"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.5%", "fontWeight": "700"}],
+                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.5%", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                }
+            },
+        },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        color: #00E5FF;
+        font-size: 20px;
+    }
+    .gradient-button {
+        background: linear-gradient(135deg, #7B2FF7 0%, #00E5FF 100%);
+    }
+    .ods-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 4px;
+    }
+    .custom-shadow {
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+    }
+    .trl-active {
+        background: #833cff;
+        color: white;
+    }
+    .trl-btn {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #c3c7cd;
+        border-radius: 0.5rem;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.15s;
+        user-select: none;
+    }
+    .trl-btn:hover:not(.trl-active) {
+        background: #eaddff;
+        border-color: #833cff;
+    }
+    .ods-btn {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        opacity: 0.45;
+        transform: scale(0.9);
+    }
+    .ods-btn.active {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #00daf3;
+    }
+    .card-item {
+        transition: all 0.3s ease;
+    }
+    .card-item.hidden-card {
+        display: none;
+    }
+    /* Range slider styling */
+    input[type=range] {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #6a09e6;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+    #range-min { background: linear-gradient(to right, #e0e3e6 0%, #e0e3e6 72%, #7B2FF7 72%, #00E5FF 100%); }
+</style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+
+<div class="flex min-h-screen">
+    <!-- SideNavBar / Filters -->
+    <aside class="fixed left-0 top-0 bottom-0 w-80 overflow-y-auto p-md flex flex-col gap-sm bg-surface-container-low border-r border-outline-variant/20">
+        <!-- Logo -->
+        <div class="flex items-center gap-sm mb-md pt-sm">
+            <a href="index.html" class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors">
+                <span class="material-symbols-outlined" style="color:#6a09e6; font-size:18px;">arrow_back</span>
+            </a>
+            <span class="font-h3 text-h3 font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-tertiary-fixed-dim">SINNOVATION</span>
+        </div>
+
+        <div class="mb-md">
+            <h2 class="font-h3 text-h3 text-primary-container mb-xs">Filtros Avançados</h2>
+            <p class="text-on-surface-variant text-body-md">Refine sua busca por inovações de alto impacto.</p>
+        </div>
+
+        <!-- Potencial de Inovação -->
+        <div class="space-y-sm mb-lg">
+            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                Potencial de Inovação: <span id="range-label" class="text-secondary font-bold">0 – 100</span>
+            </label>
+            <div class="flex gap-xs items-center">
+                <span class="text-label-caps text-outline">0</span>
+                <input type="range" id="range-min" min="0" max="100" value="0" class="flex-1" style="background: #e0e3e6;"/>
+                <span class="text-label-caps text-outline">100</span>
+            </div>
+            <div class="flex gap-xs items-center">
+                <span class="text-label-caps text-outline">0</span>
+                <input type="range" id="range-max" min="0" max="100" value="100" class="flex-1" style="background: linear-gradient(to right, #7B2FF7 0%, #00E5FF 100%);"/>
+                <span class="text-label-caps text-outline">100</span>
+            </div>
+        </div>
+
+        <!-- Área da Pesquisa -->
+        <div class="space-y-sm mb-lg">
+            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Área da Pesquisa</label>
+            <div class="flex flex-col gap-xs">
+                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
+                    <input checked class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="engenharias"/>
+                    Engenharias
+                </label>
+                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
+                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="saude"/>
+                    Ciências da Saúde
+                </label>
+                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
+                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="agrarias"/>
+                    Ciências Agrárias
+                </label>
+                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
+                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="exatas"/>
+                    Ciências Exatas e da Terra
+                </label>
+            </div>
+        </div>
+
+        <!-- ODS Grid -->
+        <div class="space-y-sm mb-lg">
+            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Objetivos ODS <span class="text-secondary" id="ods-count"></span></label>
+            <div class="ods-grid">
+                <div class="ods-btn active" data-ods="1" style="background:#E5243B;"><span class="material-symbols-outlined !text-white !text-[18px]">emergency</span></div>
+                <div class="ods-btn" data-ods="2" style="background:#DDA63A;"><span class="material-symbols-outlined !text-white !text-[18px]">nutrition</span></div>
+                <div class="ods-btn" data-ods="3" style="background:#4C9F38;"><span class="material-symbols-outlined !text-white !text-[18px]">medical_services</span></div>
+                <div class="ods-btn" data-ods="4" style="background:#C5192D;"><span class="material-symbols-outlined !text-white !text-[18px]">school</span></div>
+                <div class="ods-btn active" data-ods="5" style="background:#FF3A21;"><span class="material-symbols-outlined !text-white !text-[18px]">wc</span></div>
+                <div class="ods-btn" data-ods="6" style="background:#26BDE2;"><span class="material-symbols-outlined !text-white !text-[18px]">water_drop</span></div>
+                <div class="ods-btn" data-ods="7" style="background:#FCC30B;"><span class="material-symbols-outlined !text-white !text-[18px]">bolt</span></div>
+                <div class="ods-btn" data-ods="8" style="background:#A21942;"><span class="material-symbols-outlined !text-white !text-[18px]">work</span></div>
+                <div class="ods-btn" data-ods="9" style="background:#FD6925;"><span class="material-symbols-outlined !text-white !text-[18px]">factory</span></div>
+                <div class="ods-btn" data-ods="10" style="background:#DD1367;"><span class="material-symbols-outlined !text-white !text-[18px]">diversity_3</span></div>
+                <div class="ods-btn" data-ods="11" style="background:#FD9D24;"><span class="material-symbols-outlined !text-white !text-[18px]">location_city</span></div>
+                <div class="ods-btn" data-ods="12" style="background:#BF8B2E;"><span class="material-symbols-outlined !text-white !text-[18px]">recycling</span></div>
+                <div class="ods-btn" data-ods="13" style="background:#3F7E44;"><span class="material-symbols-outlined !text-white !text-[18px]">public</span></div>
+                <div class="ods-btn" data-ods="14" style="background:#0A97D9;"><span class="material-symbols-outlined !text-white !text-[18px]">waves</span></div>
+                <div class="ods-btn" data-ods="15" style="background:#56C02B;"><span class="material-symbols-outlined !text-white !text-[18px]">forest</span></div>
+                <div class="ods-btn" data-ods="16" style="background:#00689D;"><span class="material-symbols-outlined !text-white !text-[18px]">gavel</span></div>
+                <div class="ods-btn" data-ods="17" style="background:#19486A;"><span class="material-symbols-outlined !text-white !text-[18px]">handshake</span></div>
+            </div>
+        </div>
+
+        <!-- TRL Grid -->
+        <div class="space-y-sm mb-lg">
+            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Nível TRL</label>
+            <div class="grid grid-cols-5 gap-xs" id="trl-grid">
+                <div class="trl-btn" data-trl="1">1</div>
+                <div class="trl-btn" data-trl="2">2</div>
+                <div class="trl-btn" data-trl="3">3</div>
+                <div class="trl-btn trl-active" data-trl="4">4</div>
+                <div class="trl-btn trl-active" data-trl="5">5</div>
+                <div class="trl-btn trl-active" data-trl="6">6</div>
+                <div class="trl-btn trl-active" data-trl="7">7</div>
+                <div class="trl-btn" data-trl="8">8</div>
+                <div class="trl-btn" data-trl="9">9</div>
+            </div>
+        </div>
+
+        <div class="mt-auto pt-md space-y-sm">
+            <button id="btn-apply" class="w-full py-3 rounded-xl text-white font-bold gradient-button shadow-lg active:scale-95 transition-all">
+                Aplicar Filtros
+            </button>
+            <button id="btn-clear" class="w-full text-center text-body-md text-secondary hover:underline transition-all">
+                Limpar filtros
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-80 flex-1 p-lg bg-background">
+        <div class="max-w-container-max mx-auto">
+            <!-- Header -->
+            <header class="mb-lg">
+                <h1 class="font-h2 text-h2 text-primary-container">Explorar Pesquisas</h1>
+                <p class="text-body-lg text-on-surface-variant mt-xs">Encontre projetos com alto potencial de inovação e conecte-se aos pesquisadores.</p>
+            </header>
+
+            <!-- Sorting and View Controls -->
+            <div class="flex justify-between items-center mb-md">
+                <span id="result-count" class="text-body-md font-semibold text-on-surface-variant">Exibindo 4 pesquisas</span>
+                <div class="flex items-center gap-md">
+                    <div class="flex items-center gap-xs">
+                        <span class="text-label-caps text-outline uppercase">Ordenar por:</span>
+                        <select id="sort-select" class="bg-transparent border-none text-body-md font-semibold focus:ring-0 cursor-pointer">
+                            <option value="inovacao">Maior Potencial</option>
+                            <option value="recentes">Recentes</option>
+                            <option value="trl">TRL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div id="results-grid" class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+
+                <!-- Card 1 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="7" data-inovacao="84" data-ano="2026" data-area="engenharias" data-ods="1,5,6">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 7</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#E5243B] flex items-center justify-center" title="ODS 1"><span class="material-symbols-outlined !text-white !text-[14px]">emergency</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FF3A21] flex items-center justify-center" title="ODS 5"><span class="material-symbols-outlined !text-white !text-[14px]">wc</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Sistema de Purificação de Hidrogênio Verde via Membranas Cerâmicas</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dr. Roberto Fernandes</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Desenvolvimento de uma nova classe de membranas cerâmicas de alta porosidade para separação ultra-eficiente de hidrogênio em processos de eletrólise, reduzindo o custo operacional em até 35%...
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Inovação</span>
+                            <span class="text-h3 font-bold text-tertiary-fixed-dim">84/100</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">ODS</span>
+                            <span class="flex items-center gap-1 mt-1">
+                                <div class="w-5 h-5 rounded-full bg-[#E5243B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">emergency</span></div>
+                                <div class="w-5 h-5 rounded-full bg-[#FF3A21] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">wc</span></div>
+                                <div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div>
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Conexões</span>
+                            <span class="text-h3 font-bold text-on-surface-variant">8</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
+                            Ver detalhes
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="6" data-inovacao="91" data-ano="2025" data-area="saude" data-ods="3,6">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Nanobiossensores para Detecção Precoce de Patógenos em Águas Residuais</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dra. Alice Moretti</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Uso de nanopartículas de ouro funcionalizadas para detecção em tempo real de contaminantes biológicos em matrizes complexas, com sensibilidade superior aos métodos ELISA tradicionais.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Inovação</span>
+                            <span class="text-h3 font-bold text-tertiary-fixed-dim">91/100</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">ODS</span>
+                            <span class="flex items-center gap-1 mt-1">
+                                <div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div>
+                                <div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div>
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Conexões</span>
+                            <span class="text-h3 font-bold text-on-surface-variant">12</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
+                            Ver detalhes
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="4" data-inovacao="78" data-ano="2026" data-area="exatas" data-ods="7,9">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 4</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#FCC30B] flex items-center justify-center" title="ODS 7"><span class="material-symbols-outlined !text-white !text-[14px]">bolt</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Algoritmos de IA para Otimização de Micro-grids de Energia Solar</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Prof. Marcos Silva</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Plataforma baseada em Reinforcement Learning para gestão dinâmica de carga em comunidades isoladas, permitindo autonomia energética total com fontes renováveis intermitentes.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Inovação</span>
+                            <span class="text-h3 font-bold text-tertiary-fixed-dim">78/100</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">ODS</span>
+                            <span class="flex items-center gap-1 mt-1">
+                                <div class="w-5 h-5 rounded-full bg-[#FCC30B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">bolt</span></div>
+                                <div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div>
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Conexões</span>
+                            <span class="text-h3 font-bold text-on-surface-variant">4</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
+                            Ver detalhes
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="8" data-inovacao="95" data-ano="2024" data-area="agrarias" data-ods="12">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 8</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#BF8B2E] flex items-center justify-center" title="ODS 12"><span class="material-symbols-outlined !text-white !text-[14px]">recycling</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Bioplásticos de Base Amilácea para Embalagens de Logística Reversa</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dr. Jonas Albuquerque</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Polímero 100% biodegradável derivado de subprodutos da agroindústria com propriedades mecânicas similares ao polietileno, já testado em ambiente operacional de larga escala.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Inovação</span>
+                            <span class="text-h3 font-bold text-tertiary-fixed-dim">95/100</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">ODS</span>
+                            <span class="flex items-center gap-1 mt-1">
+                                <div class="w-5 h-5 rounded-full bg-[#BF8B2E] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">recycling</span></div>
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-label-caps text-outline uppercase">Conexões</span>
+                            <span class="text-h3 font-bold text-on-surface-variant">21</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
+                            Ver detalhes
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="3" data-inovacao="72" data-ano="2025" data-area="saude" data-ods="3,10">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 3</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#DD1367] flex items-center justify-center" title="ODS 10"><span class="material-symbols-outlined !text-white !text-[14px]">diversity_3</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Plataforma de Diagnóstico de Doenças Raras por Análise de Expressão Gênica</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dra. Fernanda Oliveira</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Modelo de aprendizado de máquina treinado em perfis transcriptômicos para identificar padrões associados a mais de 200 doenças raras com acurácia superior a 92%, reduzindo o tempo médio de diagnóstico de anos para semanas.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">72/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#DD1367] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">diversity_3</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">6</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="5" data-inovacao="88" data-ano="2026" data-area="engenharias" data-ods="9,11,13">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FD9D24] flex items-center justify-center" title="ODS 11"><span class="material-symbols-outlined !text-white !text-[14px]">location_city</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#3F7E44] flex items-center justify-center" title="ODS 13"><span class="material-symbols-outlined !text-white !text-[14px]">public</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Concreto Geopolimérico com Resíduos Industriais para Construção de Baixo Carbono</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Prof. André Carvalho</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Formulação de concreto geopolimérico utilizando escória de alto-forno e cinzas volantes como substitutos ao cimento Portland, com redução de 65% nas emissões de CO₂ e resistência mecânica equivalente.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">88/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#FD9D24] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">location_city</span></div><div class="w-5 h-5 rounded-full bg-[#3F7E44] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">public</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">14</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="6" data-inovacao="80" data-ano="2024" data-area="agrarias" data-ods="2,15">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#DDA63A] flex items-center justify-center" title="ODS 2"><span class="material-symbols-outlined !text-white !text-[14px]">nutrition</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#56C02B] flex items-center justify-center" title="ODS 15"><span class="material-symbols-outlined !text-white !text-[14px]">forest</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Inoculantes Microbianos para Fixação Biológica de Nitrogênio em Culturas de Soja</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dra. Camila Ramos</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Consórcio de bactérias diazotróficas selecionadas por critérios genômicos para máxima eficiência de fixação de N₂ em condições de estresse hídrico, reduzindo em 40% a necessidade de fertilizantes nitrogenados sintéticos.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">80/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#DDA63A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">nutrition</span></div><div class="w-5 h-5 rounded-full bg-[#56C02B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">forest</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">9</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="2" data-inovacao="65" data-ano="2026" data-area="exatas" data-ods="4,9,17">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 2</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#C5192D] flex items-center justify-center" title="ODS 4"><span class="material-symbols-outlined !text-white !text-[14px]">school</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#19486A] flex items-center justify-center" title="ODS 17"><span class="material-symbols-outlined !text-white !text-[14px]">handshake</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Computação Quântica Aplicada à Resolução de Problemas de Otimização Combinatória</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Prof. Lucas Mendonça</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Implementação de algoritmos variacionais quânticos (VQE e QAOA) em hardware supercondutivo para resolução de problemas NP-difíceis em logística e design de materiais, com vantagem quântica demonstrada em escala laboratorial.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">65/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#C5192D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">school</span></div><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#19486A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">handshake</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">3</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 9 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="7" data-inovacao="90" data-ano="2025" data-area="saude" data-ods="3,16">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 7</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#00689D] flex items-center justify-center" title="ODS 16"><span class="material-symbols-outlined !text-white !text-[14px]">gavel</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Exoesqueleto Robótico Leve para Reabilitação de Pacientes com AVC</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dra. Beatriz Cunha</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Exoesqueleto de membros inferiores com controle baseado em intenção de movimento detectada por EMG de superfície, permitindo sessões de fisioterapia intensiva com feedback háptico em tempo real e custo 70% inferior ao estado da arte.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">90/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#00689D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">gavel</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">17</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 10 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="5" data-inovacao="76" data-ano="2024" data-area="engenharias" data-ods="6,14">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#0A97D9] flex items-center justify-center" title="ODS 14"><span class="material-symbols-outlined !text-white !text-[14px]">waves</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Reatores Eletroquímicos para Remoção de Microplásticos em Efluentes Industriais</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Prof. Thiago Pinto</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Sistema de eletrocoagulação acoplado a filtros de nanofibras de celulose bacteriana para remoção de partículas plásticas menores que 1 µm em efluentes têxteis, com eficiência de remoção superior a 99,4%.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">76/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div><div class="w-5 h-5 rounded-full bg-[#0A97D9] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">waves</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">11</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 11 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="9" data-inovacao="97" data-ano="2023" data-area="saude" data-ods="3,1">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 9</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#E5243B] flex items-center justify-center" title="ODS 1"><span class="material-symbols-outlined !text-white !text-[14px]">emergency</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Kit de Diagnóstico Rápido para Arboviroses Tropicais em Regiões Remotas</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dr. Rafael Sousa</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Dispositivo lab-on-chip baseado em LAMP isotérmica para detecção simultânea de dengue, zika e chikungunya em amostras de saliva, sem necessidade de laboratório ou cadeia de frio, com resultado em 12 minutos.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">97/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#E5243B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">emergency</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">30</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2023</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 12 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="4" data-inovacao="74" data-ano="2025" data-area="exatas" data-ods="7,13">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 4</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#FCC30B] flex items-center justify-center" title="ODS 7"><span class="material-symbols-outlined !text-white !text-[14px]">bolt</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#3F7E44] flex items-center justify-center" title="ODS 13"><span class="material-symbols-outlined !text-white !text-[14px]">public</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Perovskitas de Haleto para Células Solares Tândem de Alta Eficiência</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dra. Juliana Freitas</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Desenvolvimento de células solares tândem perovskita/silício com camada de interface passivada por auto-assembled monolayers, atingindo eficiência de conversão certificada de 31,2% em área de 1 cm², com estabilidade superior a 1000h sob iluminação contínua.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">74/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#FCC30B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">bolt</span></div><div class="w-5 h-5 rounded-full bg-[#3F7E44] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">public</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">7</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 13 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="6" data-inovacao="83" data-ano="2026" data-area="agrarias" data-ods="2,12,15">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#DDA63A] flex items-center justify-center" title="ODS 2"><span class="material-symbols-outlined !text-white !text-[14px]">nutrition</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#BF8B2E] flex items-center justify-center" title="ODS 12"><span class="material-symbols-outlined !text-white !text-[14px]">recycling</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#56C02B] flex items-center justify-center" title="ODS 15"><span class="material-symbols-outlined !text-white !text-[14px]">forest</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Fertirrigação de Precisão por Sensoriamento Remoto Hiperespectral em Drones</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Prof. Eduardo Lopes</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Sistema integrado de drones com câmera hiperespectral e algoritmos de visão computacional para mapeamento nutricional em tempo real de lavouras, permitindo fertirrigação diferenciada por zonas de manejo com redução de 30% no uso de insumos.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">83/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#DDA63A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">nutrition</span></div><div class="w-5 h-5 rounded-full bg-[#BF8B2E] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">recycling</span></div><div class="w-5 h-5 rounded-full bg-[#56C02B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">forest</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">13</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 14 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="8" data-inovacao="93" data-ano="2024" data-area="engenharias" data-ods="8,9,11">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 8</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#A21942] flex items-center justify-center" title="ODS 8"><span class="material-symbols-outlined !text-white !text-[14px]">work</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#FD9D24] flex items-center justify-center" title="ODS 11"><span class="material-symbols-outlined !text-white !text-[14px]">location_city</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Robô Colaborativo de Inspeção Submarina para Infraestrutura Portuária</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Dr. Fábio Azevedo</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        ROV autônomo equipado com sonar multifeixe, câmeras de fluorescência UV e braço manipulador de 6 graus de liberdade para inspeção e reparos menores em cascos, píeres e dutos submersos, reduzindo tempo de docagem em 80%.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">93/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#A21942] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">work</span></div><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#FD9D24] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">location_city</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">19</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+                <!-- Card 15 -->
+                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                    data-trl="5" data-inovacao="85" data-ano="2025" data-area="exatas" data-ods="4,10,17">
+                    <div class="flex justify-between items-start mb-md">
+                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
+                        <div class="flex gap-1">
+                            <div class="w-6 h-6 rounded-full bg-[#C5192D] flex items-center justify-center" title="ODS 4"><span class="material-symbols-outlined !text-white !text-[14px]">school</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#DD1367] flex items-center justify-center" title="ODS 10"><span class="material-symbols-outlined !text-white !text-[14px]">diversity_3</span></div>
+                            <div class="w-6 h-6 rounded-full bg-[#19486A] flex items-center justify-center" title="ODS 17"><span class="material-symbols-outlined !text-white !text-[14px]">handshake</span></div>
+                        </div>
+                    </div>
+                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Modelo de Linguagem Multimodal para Língua Brasileira de Sinais (LIBRAS)</h3>
+                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>Profa. Mariana Costa</span>
+                    </div>
+                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
+                        Sistema de tradução automática bidirecional entre LIBRAS e português escrito/falado, baseado em visão computacional 3D e modelos de linguagem adaptados, com corpus de 500h anotado por surdos nativos e acurácia de 87% em contextos espontâneos.
+                    </p>
+                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">85/100</span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#C5192D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">school</span></div><div class="w-5 h-5 rounded-full bg-[#DD1367] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">diversity_3</span></div><div class="w-5 h-5 rounded-full bg-[#19486A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">handshake</span></div></span></div>
+                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">15</span></div>
+                    </div>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
+                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Empty state -->
+            <div id="empty-state" class="hidden flex-col items-center justify-center py-xl text-center">
+                <span class="material-symbols-outlined" style="font-size:48px; color:#c3c7cd;">search_off</span>
+                <p class="text-h3 text-on-surface-variant mt-md">Nenhuma pesquisa encontrada</p>
+                <p class="text-body-md text-outline mt-xs">Tente ajustar os filtros para ver mais resultados.</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- FAB -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full gradient-button text-white shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+    <span class="material-symbols-outlined" style="color: white; font-size: 32px;">add</span>
+</button>
+
+<script>
+    // ── State ──────────────────────────────────────────────────────────────────
+    let activeTRL = new Set([4, 5, 6, 7]);
+    let activeODS = new Set([1, 5]);
+    let rangeMin = 0;
+    let rangeMax = 100;
+    let activeAreas = new Set();
+
+    // ── TRL toggle ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.trl-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = parseInt(btn.dataset.trl);
+            if (activeTRL.has(val)) {
+                activeTRL.delete(val);
+                btn.classList.remove('trl-active');
+            } else {
+                activeTRL.add(val);
+                btn.classList.add('trl-active');
+            }
+        });
+    });
+
+    // ── ODS toggle ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.ods-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = parseInt(btn.dataset.ods);
+            if (activeODS.has(val)) {
+                activeODS.delete(val);
+                btn.classList.remove('active');
+            } else {
+                activeODS.add(val);
+                btn.classList.add('active');
+            }
+            updateODSCount();
+        });
+    });
+
+    function updateODSCount() {
+        const el = document.getElementById('ods-count');
+        el.textContent = activeODS.size > 0 ? `(${activeODS.size} selecionado${activeODS.size > 1 ? 's' : ''})` : '';
+    }
+    updateODSCount();
+
+    // ── Range sliders ──────────────────────────────────────────────────────────
+    const rMin = document.getElementById('range-min');
+    const rMax = document.getElementById('range-max');
+    const rLabel = document.getElementById('range-label');
+
+    function updateRangeLabel() {
+        rangeMin = parseInt(rMin.value);
+        rangeMax = parseInt(rMax.value);
+        if (rangeMin > rangeMax) {
+            [rangeMin, rangeMax] = [rangeMax, rangeMin];
+            rMin.value = rangeMin;
+            rMax.value = rangeMax;
+        }
+        rLabel.textContent = `${rangeMin} – ${rangeMax}`;
+    }
+
+    rMin.addEventListener('input', updateRangeLabel);
+    rMax.addEventListener('input', updateRangeLabel);
+    updateRangeLabel();
+
+    // ── Area checkboxes ────────────────────────────────────────────────────────
+    document.querySelectorAll('.area-check').forEach(cb => {
+        if (cb.checked) activeAreas.add(cb.value);
+        cb.addEventListener('change', () => {
+            if (cb.checked) activeAreas.add(cb.value);
+            else activeAreas.delete(cb.value);
+        });
+    });
+
+    // ── Apply filters ──────────────────────────────────────────────────────────
+    function applyFilters() {
+        const cards = document.querySelectorAll('.card-item');
+        let visible = 0;
+
+        cards.forEach(card => {
+            const trl    = parseInt(card.dataset.trl);
+            const inov   = parseInt(card.dataset.inovacao);
+            const area   = card.dataset.area;
+            const cardODS = card.dataset.ods.split(',').map(Number);
+
+            const trlOk  = activeTRL.size === 0 || activeTRL.has(trl);
+            const inovOk = inov >= rangeMin && inov <= rangeMax;
+            const areaOk = activeAreas.size === 0 || activeAreas.has(area);
+            const odsOk  = activeODS.size === 0 || cardODS.some(o => activeODS.has(o));
+
+            const show = trlOk && inovOk && areaOk && odsOk;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        document.getElementById('result-count').textContent = `Exibindo ${visible} pesquisa${visible !== 1 ? 's' : ''}`;
+        const empty = document.getElementById('empty-state');
+        if (visible === 0) {
+            empty.classList.remove('hidden');
+            empty.classList.add('flex');
+        } else {
+            empty.classList.add('hidden');
+            empty.classList.remove('flex');
+        }
+    }
+
+    document.getElementById('btn-apply').addEventListener('click', applyFilters);
+
+    // ── Clear filters ──────────────────────────────────────────────────────────
+    document.getElementById('btn-clear').addEventListener('click', () => {
+        // TRL: select all
+        activeTRL = new Set([1,2,3,4,5,6,7,8,9]);
+        document.querySelectorAll('.trl-btn').forEach(b => b.classList.add('trl-active'));
+
+        // ODS: deselect all
+        activeODS = new Set();
+        document.querySelectorAll('.ods-btn').forEach(b => b.classList.remove('active'));
+        updateODSCount();
+
+        // Range: reset
+        rMin.value = 0; rMax.value = 100;
+        updateRangeLabel();
+
+        // Areas: check all
+        activeAreas = new Set(['engenharias','saude','agrarias','exatas']);
+        document.querySelectorAll('.area-check').forEach(cb => { cb.checked = true; });
+
+        applyFilters();
+    });
+
+    // ── Sort ───────────────────────────────────────────────────────────────────
+    document.getElementById('sort-select').addEventListener('change', function () {
+        const grid = document.getElementById('results-grid');
+        const cards = [...grid.querySelectorAll('.card-item')];
+        cards.sort((a, b) => {
+            if (this.value === 'inovacao') return parseInt(b.dataset.inovacao) - parseInt(a.dataset.inovacao);
+            if (this.value === 'recentes') return parseInt(b.dataset.ano) - parseInt(a.dataset.ano);
+            if (this.value === 'trl')      return parseInt(b.dataset.trl) - parseInt(a.dataset.trl);
+            return 0;
+        });
+        cards.forEach(c => grid.appendChild(c));
+    });
+
+    // Initial render
+    applyFilters();
+
+    // ── Assign data-id to each card and enable click-to-detail navigation ─────
+    const cardIds = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    document.querySelectorAll(".card-item").forEach((card, i) => {
+        const id = cardIds[i];
+        if (!id) return;
+        card.dataset.id = id;
+        card.style.cursor = "pointer";
+        card.addEventListener("click", (e) => {
+            if (e.target.closest("button")) return;
+            window.location.href = "pesquisa.html?id=" + id;
+        });
+        const btn = card.querySelector("button");
+        if (btn) {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.location.href = "pesquisa.html?id=" + id;
+            });
+        }
+    });
+</script>
+</body>
+</html>

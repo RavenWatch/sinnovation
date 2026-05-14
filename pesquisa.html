@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detalhe da Pesquisa | SINNOVATION</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+    .gradient-primary { background: linear-gradient(135deg, #7B2FF7 0%, #00E5FF 100%); }
+    .shadow-soft { box-shadow: 0px 8px 20px rgba(0,0,0,0.06); }
+    .transition-spring { transition: all 0.2s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+        font-size: 20px; vertical-align: middle;
+    }
+    .tab-btn { padding-bottom: 0.5rem; white-space: nowrap; cursor: pointer; transition: color .2s; }
+    .tab-btn.active { color: #6a09e6; font-weight: 700; border-bottom: 2px solid #6a09e6; }
+    .tab-btn:not(.active) { color: #42474c; }
+    .tab-btn:not(.active):hover { color: #001625; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode:"class",
+        theme:{ extend:{
+            colors:{
+                "surface-container":"#eceef1","surface-tint":"#456179","on-tertiary-fixed":"#001f24",
+                "error":"#ba1a1a","on-primary-fixed":"#001e30","on-primary-container":"#7793ac",
+                "surface-container-lowest":"#ffffff","tertiary-fixed":"#9cf0ff","secondary":"#6a09e6",
+                "on-secondary-container":"#f6edff","primary-fixed":"#cbe6ff","background":"#f7f9fc",
+                "surface-variant":"#e0e3e6","error-container":"#ffdad6","surface-dim":"#d8dadd",
+                "on-primary":"#ffffff","surface-container-low":"#f2f4f7","on-error":"#ffffff",
+                "secondary-fixed-dim":"#d2bbff","secondary-fixed":"#eaddff","on-surface":"#191c1e",
+                "on-secondary-fixed-variant":"#5900c6","on-secondary":"#ffffff","inverse-surface":"#2d3133",
+                "inverse-on-surface":"#eff1f4","surface":"#f7f9fc","outline-variant":"#c3c7cd",
+                "on-primary-fixed-variant":"#2d4960","on-background":"#191c1e","on-tertiary-fixed-variant":"#004f58",
+                "on-tertiary-container":"#009fb1","on-error-container":"#93000a","primary":"#001625",
+                "on-tertiary":"#ffffff","surface-container-high":"#e6e8eb","secondary-container":"#833cff",
+                "surface-container-highest":"#e0e3e6","surface-bright":"#f7f9fc","tertiary":"#00181c",
+                "tertiary-fixed-dim":"#00daf3","on-secondary-fixed":"#25005a","tertiary-container":"#002e34",
+                "primary-container":"#0b2b40","outline":"#73777d","primary-fixed-dim":"#adcae5",
+                "inverse-primary":"#adcae5","on-surface-variant":"#42474c"
+            },
+            borderRadius:{"DEFAULT":"0.25rem","lg":"12px","xl":"16px","full":"9999px"},
+            spacing:{"md":"1.5rem","sm":"1rem","container-max":"1280px","lg":"2.5rem","gutter":"24px","xs":"0.5rem","xl":"4rem","unit":"4px"},
+            fontFamily:{"body-lg":["Inter"],"label-caps":["Inter"],"h3":["Inter"],"h1":["Inter"],"h2":["Inter"],"body-md":["Inter"]},
+            fontSize:{
+                "body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"0","fontWeight":"400"}],
+                "label-caps":["12px",{"lineHeight":"1","letterSpacing":"0.05em","fontWeight":"600"}],
+                "h3":["24px",{"lineHeight":"1.3","letterSpacing":"-0.5%","fontWeight":"700"}],
+                "h1":["48px",{"lineHeight":"1.1","letterSpacing":"-0.5%","fontWeight":"700"}],
+                "h2":["36px",{"lineHeight":"1.2","letterSpacing":"-0.5%","fontWeight":"700"}],
+                "body-md":["16px",{"lineHeight":"1.6","letterSpacing":"0","fontWeight":"400"}]
+            }
+        }}
+    }
+</script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased">
+
+<main class="max-w-container-max mx-auto px-gutter py-md">
+
+    <!-- Breadcrumbs & back -->
+    <nav class="flex items-center gap-xs text-on-surface-variant text-label-caps mb-sm">
+        <a href="explorar.html" class="hover:text-secondary transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
+            Explorar
+        </a>
+        <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+        <span id="breadcrumb-title" class="text-primary font-bold truncate max-w-xs"></span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md mb-lg">
+        <div>
+            <h1 id="page-title" class="text-[32px] leading-tight font-bold text-primary-container mb-xs"></h1>
+            <div id="page-tags" class="flex flex-wrap gap-xs items-center"></div>
+        </div>
+        <button class="gradient-primary text-white px-lg py-sm rounded-lg font-bold hover:scale-[1.02] transition-spring shadow-lg whitespace-nowrap">
+            Conectar-se a esta pesquisa
+        </button>
+    </div>
+
+    <!-- Section 1: Executive Summary + Score Card -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-lg">
+        <div class="md:col-span-8 bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10">
+            <h2 class="text-h3 text-primary mb-md">Sumário Executivo</h2>
+            <p id="executive-summary" class="text-body-lg text-on-surface-variant leading-relaxed"></p>
+        </div>
+        <div class="md:col-span-4 bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10 flex flex-col justify-between">
+            <div class="flex justify-between items-center mb-md">
+                <div class="relative flex items-center justify-center">
+                    <svg class="w-24 h-24 transform -rotate-90">
+                        <circle class="text-surface-container-high" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+                        <circle id="score-ring" class="text-secondary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="55" stroke-width="8"></circle>
+                    </svg>
+                    <span id="score-value" class="absolute text-h3 font-bold text-primary"></span>
+                </div>
+                <div class="text-right">
+                    <p class="text-label-caps text-outline">PONTUAÇÃO</p>
+                    <p id="score-label" class="text-body-md font-bold text-on-surface"></p>
+                </div>
+            </div>
+            <div class="space-y-md">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-label-caps text-on-surface-variant">POTENCIAL DE INOVAÇÃO</span>
+                        <span id="inov-pct" class="text-label-caps font-bold"></span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+                        <div id="inov-bar" class="gradient-primary h-full"></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-sm bg-surface-container-low p-sm rounded-lg">
+                    <span class="material-symbols-outlined text-secondary">hub</span>
+                    <div>
+                        <p id="conexoes-value" class="text-h3 font-bold text-primary leading-none"></p>
+                        <p class="text-label-caps text-outline">Conexões Ativas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Tabs + Researcher -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-lg">
+        <div class="md:col-span-8">
+            <div class="flex gap-md border-b border-outline-variant/30 mb-md overflow-x-auto">
+                <button class="tab-btn active" data-tab="descricao">Descrição Completa</button>
+                <button class="tab-btn" data-tab="metodologia">Metodologia</button>
+                <button class="tab-btn" data-tab="resultados">Resultados</button>
+            </div>
+            <div class="bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10">
+                <div id="tab-descricao" class="tab-panel active text-on-surface-variant text-body-md leading-relaxed space-y-md"></div>
+                <div id="tab-metodologia" class="tab-panel text-on-surface-variant text-body-md leading-relaxed space-y-md"></div>
+                <div id="tab-resultados" class="tab-panel text-on-surface-variant text-body-md leading-relaxed space-y-md"></div>
+            </div>
+        </div>
+
+        <!-- Researcher card -->
+        <aside class="md:col-span-4">
+            <div class="bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10 sticky top-6">
+                <div class="flex items-center gap-md mb-md">
+                    <div id="researcher-avatar" class="w-20 h-20 rounded-full border-2 border-secondary/20 flex items-center justify-center bg-surface-container text-4xl font-bold text-secondary"></div>
+                    <div>
+                        <h3 id="researcher-name" class="font-bold text-primary"></h3>
+                        <p class="text-on-tertiary-container font-label-caps bg-tertiary-fixed/30 px-2 py-0.5 rounded inline-block mb-1">Pesquisador verificado</p>
+                        <p id="researcher-inst" class="text-label-caps text-on-surface-variant"></p>
+                    </div>
+                </div>
+                <div class="space-y-sm mb-md">
+                    <p id="researcher-bio" class="text-body-md text-on-surface-variant"></p>
+                    <div class="flex flex-col gap-xs">
+                        <a id="researcher-email" class="flex items-center gap-2 text-label-caps text-secondary hover:underline" href="#">
+                            <span class="material-symbols-outlined text-[18px]">mail</span>
+                            <span id="researcher-email-text"></span>
+                        </a>
+                        <a class="flex items-center gap-2 text-label-caps text-secondary hover:underline" href="#">
+                            <span class="material-symbols-outlined text-[18px]">link</span> Currículo Lattes
+                        </a>
+                    </div>
+                </div>
+                <button class="w-full border-2 border-secondary text-secondary font-bold py-xs rounded-lg hover:bg-secondary/5 transition-all">Ver perfil completo</button>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Section 3: Bibliometric Analysis -->
+    <section class="mb-lg">
+        <h2 class="text-h2 text-primary-container mb-md flex items-center gap-sm">
+            <span class="material-symbols-outlined text-secondary" style="font-size:32px;">analytics</span>
+            Análise Bibliométrica
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-md">
+            <div class="bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10">
+                <h3 class="text-body-lg font-bold text-primary mb-md">Referências Citadas (Top 5)</h3>
+                <div id="biblio-chart" class="space-y-sm"></div>
+            </div>
+            <div class="bg-surface-container-lowest rounded-lg p-lg shadow-soft border border-outline-variant/10">
+                <h3 class="text-body-lg font-bold text-primary mb-md">Parecidos na Base</h3>
+                <ul id="similar-list" class="space-y-md"></ul>
+            </div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-lg shadow-soft border border-outline-variant/10 overflow-hidden">
+            <div class="p-md bg-surface-container-low border-b border-outline-variant/30">
+                <h3 class="text-body-lg font-bold text-primary">Referências Bibliográficas</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-surface-container-high/30">
+                            <th class="px-md py-sm text-label-caps text-primary">Autores (ano)</th>
+                            <th class="px-md py-sm text-label-caps text-primary">Título</th>
+                            <th class="px-md py-sm text-label-caps text-primary">Periódico</th>
+                            <th class="px-md py-sm text-label-caps text-primary text-right">Citações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refs-table" class="text-on-surface-variant text-body-md"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Partnerships -->
+    <section class="mb-lg">
+        <h2 class="text-h3 text-primary mb-md">Conexões e Parcerias</h2>
+        <div id="partnerships-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter"></div>
+    </section>
+
+    <!-- Section 5: Award -->
+    <section id="award-section" class="mb-xl hidden flex-col md:flex-row items-center justify-center gap-lg bg-surface-container-lowest p-xl rounded-lg border border-outline-variant/10 shadow-soft">
+        <div class="relative w-32 h-32">
+            <div class="absolute inset-0 bg-yellow-400/20 blur-2xl rounded-full"></div>
+            <span class="material-symbols-outlined text-[100px] text-yellow-500 relative z-10" style="font-variation-settings:'FILL' 1;">workspace_premium</span>
+        </div>
+        <div class="text-center md:text-left">
+            <p class="text-label-caps text-yellow-600 font-bold mb-1">RECONHECIMENTO GLOBAL</p>
+            <h3 id="award-title" class="text-h2 text-primary leading-tight"></h3>
+            <p id="award-desc" class="text-body-lg text-on-surface-variant"></p>
+        </div>
+    </section>
+
+    <!-- Bottom Actions -->
+    <div class="border-t border-outline-variant/20 pt-lg pb-xl">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-md">
+            <div class="flex gap-md flex-wrap">
+                <button class="flex items-center gap-2 bg-surface-container-high text-primary px-md py-sm rounded-lg font-bold hover:bg-surface-variant transition-colors">
+                    <span class="material-symbols-outlined">download</span>
+                    Baixar relatório completo (PDF)
+                </button>
+                <button class="flex items-center gap-2 border border-outline-variant text-on-surface-variant px-md py-sm rounded-lg font-bold hover:bg-surface-container transition-colors">
+                    <span class="material-symbols-outlined">share</span>
+                    Compartilhar
+                </button>
+            </div>
+            <div class="flex items-center gap-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings:'FILL' 1;">shield</span>
+                <span class="text-label-caps">Dados sensíveis protegidos pela governança SINOVA</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-surface-container-lowest border-t border-outline-variant/20">
+    <div class="w-full px-gutter py-xl flex flex-col md:flex-row justify-between items-center gap-md max-w-container-max mx-auto">
+        <div class="font-h3 text-h3 text-primary">SINNOVATION</div>
+        <p class="font-label-caps text-label-caps text-on-surface-variant">© 2025 SINNOVATION. Pesquisa e Tecnologia.</p>
+        <div class="flex gap-md">
+            <a class="text-on-surface-variant font-label-caps text-label-caps hover:text-secondary transition-colors" href="#">Privacidade</a>
+            <a class="text-on-surface-variant font-label-caps text-label-caps hover:text-secondary transition-colors" href="#">Termos</a>
+            <a class="text-on-surface-variant font-label-caps text-label-caps hover:text-secondary transition-colors" href="#">Institucional</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ── ODS metadata ───────────────────────────────────────────────────────────────
+const ODS = {
+    1:  { color:'#E5243B', icon:'emergency',       label:'ODS 1 – Erradicação da Pobreza' },
+    2:  { color:'#DDA63A', icon:'nutrition',        label:'ODS 2 – Fome Zero' },
+    3:  { color:'#4C9F38', icon:'medical_services', label:'ODS 3 – Saúde e Bem-Estar' },
+    4:  { color:'#C5192D', icon:'school',           label:'ODS 4 – Educação de Qualidade' },
+    5:  { color:'#FF3A21', icon:'wc',               label:'ODS 5 – Igualdade de Gênero' },
+    6:  { color:'#26BDE2', icon:'water_drop',       label:'ODS 6 – Água Potável e Saneamento' },
+    7:  { color:'#FCC30B', icon:'bolt',             label:'ODS 7 – Energia Limpa' },
+    8:  { color:'#A21942', icon:'work',             label:'ODS 8 – Trabalho Decente' },
+    9:  { color:'#FD6925', icon:'factory',          label:'ODS 9 – Indústria e Inovação' },
+    10: { color:'#DD1367', icon:'diversity_3',      label:'ODS 10 – Redução das Desigualdades' },
+    11: { color:'#FD9D24', icon:'location_city',    label:'ODS 11 – Cidades Sustentáveis' },
+    12: { color:'#BF8B2E', icon:'recycling',        label:'ODS 12 – Consumo Responsável' },
+    13: { color:'#3F7E44', icon:'public',           label:'ODS 13 – Ação Climática' },
+    14: { color:'#0A97D9', icon:'waves',            label:'ODS 14 – Vida na Água' },
+    15: { color:'#56C02B', icon:'forest',           label:'ODS 15 – Vida Terrestre' },
+    16: { color:'#00689D', icon:'gavel',            label:'ODS 16 – Paz e Justiça' },
+    17: { color:'#19486A', icon:'handshake',        label:'ODS 17 – Parcerias e Meios de Implementação' },
+};
+
+// ── Full research database ─────────────────────────────────────────────────────
+const RESEARCH = {
+    1: {
+        title: 'Sistema de Purificação de Hidrogênio Verde via Membranas Cerâmicas',
+        trl: 7, ods: [1,5,6], inovacao: 84, conexoes: 8, ano: 2026, area: 'Engenharias',
+        researcher: {
+            name: 'Dr. Roberto Fernandes', initials: 'RF',
+            institution: 'USP • Depto. Engenharia Química',
+            email: 'roberto.fernandes@usp.br',
+            bio: 'Especialista em materiais avançados para processos eletroquímicos, com 12 anos de experiência e 38 publicações em periódicos Qualis A1.'
+        },
+        executiveSummary: 'Esta pesquisa propõe uma nova geração de membranas cerâmicas de alta porosidade controlada para separação ultra-eficiente de hidrogênio produzido por eletrólise de água. O sistema reduz o custo operacional em até 35% em relação às membranas poliméricas convencionais, com vida útil três vezes superior em ambientes de alta temperatura e pressão.',
+        descricao: ['As membranas cerâmicas desenvolvidas utilizam óxido de zircônio estabilizado com ítria (YSZ) como matriz, com canais de nanoporos alinhados por deposição eletroforética. A estrutura resultante apresenta seletividade H₂/N₂ acima de 1200, superando todos os benchmarks reportados na literatura para o mesmo intervalo de temperatura operacional (300–550 °C).', 'O processo de fabricação é escalável e compatível com linhas de produção cerâmica já existentes, eliminando a necessidade de equipamentos especializados e reduzindo barreiras à comercialização. O módulo de membrana integra selagem vítrea patenteada que elimina vazamentos mesmo após 10.000 ciclos de temperatura.'],
+        metodologia: ['A síntese parte de pós cerâmicos nanométricos (<50 nm) obtidos por co-precipitação química. Os pós são depositados por EPD (Electrophoretic Deposition) sobre suportes tubulares de α-alumina, seguido de sinterização em atmosfera controlada a 1450 °C por 4 horas.', 'O desempenho de separação é avaliado em bancada de testes com mistura sintética H₂/CO₂/H₂O a diferentes pressões transmembrana (0,1–5 bar) e temperaturas, com monitoramento contínuo por espectrometria de massa quadrupolar.'],
+        resultados: ['Os protótipos de escala piloto atingiram fluxo de H₂ de 2,4 mol·m⁻²·h⁻¹ a 450 °C e 3 bar, com pureza de 99,97% no permeado. Em 500 horas de operação contínua, a degradação do fluxo foi inferior a 3%, validando a estabilidade do material.', 'Análise de ciclo de vida comparativa indicou redução de 41% nas emissões de CO₂ associadas ao processo de purificação em relação à tecnologia PSA (Pressure Swing Adsorption) convencional.'],
+        biblioChart: [
+            { label: 'Phair & Badwal (2006)', citas: 210, pct: 100 },
+            { label: 'Meng et al. (2019)', citas: 178, pct: 85 },
+            { label: 'Ryi et al. (2022)', citas: 134, pct: 64 },
+        ],
+        similar: [
+            { title: 'Membranas de Perovskita para H₂', meta: '2024 • UNICAMP' },
+            { title: 'Separação de CO₂ em Altas Temperaturas', meta: '2025 • INPE' },
+            { title: 'Eletrólise PEM de Alta Pressão', meta: '2023 • ITA' },
+        ],
+        refs: [
+            { authors: 'Phair, J. W. & Badwal, S. P. S. (2006)', title: 'Materials for separation membranes in hydrogen and oxygen production', journal: 'Science and Technology of Advanced Materials', citas: '210' },
+            { authors: 'Meng, B. et al. (2019)', title: 'Dense ceramic membranes for hydrogen separation', journal: 'Journal of Membrane Science', citas: '178' },
+            { authors: 'Ryi, S.-K. et al. (2022)', title: 'Zirconia-based ceramic membranes for H₂ purification', journal: 'International Journal of Hydrogen Energy', citas: '134' },
+        ],
+        partnerships: [
+            { name: 'Petrobras P&D', role: 'FINANCIAMENTO', desc: 'Patrocinador principal da fase de escalonamento industrial.', icon: 'corporate_fare' },
+            { name: 'CNEN – Lab. Hidrogênio', role: 'VALIDAÇÃO', desc: 'Responsável pelos ensaios de pureza e certificação do H₂ produzido.', icon: 'biotech' },
+            { name: 'FAPESP', role: 'APOIO INSTITUCIONAL', desc: 'Bolsas de pesquisa e custeio de insumos laboratoriais.', icon: 'account_balance' },
+        ],
+        award: { show: false },
+    },
+    2: {
+        title: 'Nanobiossensores para Detecção Precoce de Patógenos em Águas Residuais',
+        trl: 6, ods: [3,6], inovacao: 91, conexoes: 12, ano: 2025, area: 'Ciências da Saúde',
+        researcher: {
+            name: 'Dra. Alice Moretti', initials: 'AM',
+            institution: 'FIOCRUZ • Depto. Biotecnologia',
+            email: 'alice.moretti@fiocruz.br',
+            bio: 'Pesquisadora em nanobiotecnologia aplicada à saúde pública, com 10 anos de experiência e 52 publicações indexadas em bases Scopus e Web of Science.'
+        },
+        executiveSummary: 'Desenvolvimento de nanobiossensores baseados em nanopartículas de ouro funcionalizadas com aptâmeros específicos para detecção em tempo real de patógenos biológicos em matrizes aquosas complexas. A sensibilidade é superior em duas ordens de grandeza aos métodos ELISA tradicionais, viabilizando alertas precoces em sistemas de vigilância epidemiológica de águas residuais.',
+        descricao: ['O sensor utiliza nanopartículas de ouro (AuNPs) de 20 nm decoradas com aptâmeros de DNA selecionados por SELEX para reconhecimento seletivo de E. coli O157:H7, Salmonella spp. e SARS-CoV-2. A ligação analito-aptâmero provoca agregação controlada das AuNPs detectável por espectroscopia UV-Vis com limite de detecção de 1 UFC/mL.', 'O dispositivo é integrado em plataforma microfluidica descartável compatível com leitores portáteis Bluetooth, permitindo monitoramento in situ sem necessidade de laboratório. O custo por teste é estimado em R$ 2,80, viabilizando implantação em larga escala em sistemas de saneamento.'],
+        metodologia: ['A síntese das AuNPs segue o método de Turkevich modificado, com funcionalização posterior por ligação tiol-ouro e bloqueio com PEG-SH para minimizar adsorção inespecífica. Os aptâmeros são imobilizados com eficiência >95% confirmada por DLS e zeta potencial.', 'A validação analítica é conduzida em amostras de esgoto bruto coletadas em 5 ETEs do estado do Rio de Janeiro, com comparação por PCR quantitativa como método de referência.'],
+        resultados: ['O sensor apresentou seletividade >99% para os alvos frente a uma matriz de 40 interferentes comuns em esgoto. A precisão inter-dia (CV) foi de 4,2% para E. coli e 5,8% para Salmonella em n=30 réplicas.', 'Em estudo piloto de 6 meses em 3 ETEs metropolitanas, o sistema detectou surtos de norovírus 7 dias antes de notificações epidemiológicas convencionais, demonstrando seu potencial de vigilância em saúde pública.'],
+        biblioChart: [
+            { label: 'Ellington & Szostak (1990)', citas: 890, pct: 100 },
+            { label: 'Daniels & Pourmand (2007)', citas: 512, pct: 58 },
+            { label: 'Riu & Rius (2020)', citas: 341, pct: 38 },
+        ],
+        similar: [
+            { title: 'LAMP em Microfluidica para Vírus', meta: '2023 • IMT-SP' },
+            { title: 'Sensores Eletroquímicos para Água', meta: '2025 • UFMG' },
+            { title: 'AuNPs para Detecção de Antibióticos', meta: '2024 • USP' },
+        ],
+        refs: [
+            { authors: 'Ellington, A. D. & Szostak, J. W. (1990)', title: 'In vitro selection of RNA molecules that bind specific ligands', journal: 'Nature', citas: '890' },
+            { authors: 'Daniels, J. S. & Pourmand, N. (2007)', title: 'Label-free impedance biosensors: opportunities and challenges', journal: 'Electroanalysis', citas: '512' },
+            { authors: 'Riu, J. & Rius, F. X. (2020)', title: 'Nanomaterial-based biosensors for food safety', journal: 'Analytical Chemistry', citas: '341' },
+        ],
+        partnerships: [
+            { name: 'SABESP', role: 'PARCEIRO OPERACIONAL', desc: 'Implantação do piloto em ETEs da Grande São Paulo.', icon: 'water' },
+            { name: 'Ministério da Saúde', role: 'APOIO REGULATÓRIO', desc: 'Suporte para registro sanitário e validação normativa.', icon: 'account_balance' },
+            { name: 'WHO – GOARN', role: 'PARCERIA INTERNACIONAL', desc: 'Expansão para redes de vigilância epidemiológica global.', icon: 'public' },
+        ],
+        award: { show: true, title: 'Innovation Award 2025', desc: 'Melhor projeto em Saúde Pública e Biotecnologia pela Academia Brasileira de Ciências.' },
+    },
+    3: {
+        title: 'Algoritmos de IA para Otimização de Micro-grids de Energia Solar',
+        trl: 4, ods: [7,9], inovacao: 78, conexoes: 4, ano: 2026, area: 'Ciências Exatas e da Terra',
+        researcher: {
+            name: 'Prof. Marcos Silva', initials: 'MS',
+            institution: 'UFMG • Depto. Engenharia Elétrica',
+            email: 'marcos.silva@ufmg.br',
+            bio: 'Professor associado com foco em sistemas de energia inteligentes e aprendizado por reforço aplicado a redes elétricas distribuídas, com 28 publicações e 3 patentes depositadas.'
+        },
+        executiveSummary: 'Plataforma de software baseada em Reinforcement Learning profundo (Deep RL) para gestão autônoma de carga, geração e armazenamento em micro-grids alimentadas por energia solar fotovoltaica. O sistema garante autonomia energética total em comunidades isoladas mesmo com intermitência solar elevada, sem necessidade de operador humano.',
+        descricao: ['O agente de RL é treinado em ambiente de simulação construído sobre dados reais de irradiação solar de 12 localidades brasileiras. A política aprendida é depois transferida (transfer learning) para controle em tempo real com latência inferior a 50ms por ciclo de decisão.', 'A arquitetura suporta micro-grids com até 500 kWp de capacidade instalada, baterias de íon-lítio e hidrogênio como buffer energético, e geração diesel como backup de última instância. O modelo aprende sazonalidades e padrões de consumo locais sem intervenção humana.'],
+        metodologia: ['O ambiente de treinamento é desenvolvido em Python com OpenAI Gym customizado. O agente usa algoritmo SAC (Soft Actor-Critic) com rede neural de 4 camadas e 256 neurônios por camada. O treinamento utiliza 10 milhões de passos em simulação acelerada 100x.', 'A validação é feita em hardware-in-the-loop (HIL) com controlador real conectado a simulador de potência RTDS, reproduzindo perturbações de carga e falhas de geração com fidelidade de milissegundos.'],
+        resultados: ['Em simulação, o sistema reduziu o descarte de energia solar (curtailment) em 62% e o acionamento do gerador diesel em 89% em comparação ao controle baseado em regras convencionais.', 'O piloto em HIL demonstrou estabilidade de tensão dentro de ±2% nominal em todos os cenários testados, incluindo transientes de carga de 150% da capacidade nominal por 30 segundos.'],
+        biblioChart: [
+            { label: 'Mnih et al. (2015)', citas: 1820, pct: 100 },
+            { label: 'Haarnoja et al. (2018)', citas: 940, pct: 52 },
+            { label: 'Antonanzas et al. (2016)', citas: 612, pct: 34 },
+        ],
+        similar: [
+            { title: 'RL para Gestão de Baterias Estacionárias', meta: '2024 • UFRJ' },
+            { title: 'Previsão de Geração Solar por LSTM', meta: '2025 • INPE' },
+            { title: 'Micro-grids Híbridos em Comunidades Rurais', meta: '2023 • UnB' },
+        ],
+        refs: [
+            { authors: 'Mnih, V. et al. (2015)', title: 'Human-level control through deep reinforcement learning', journal: 'Nature', citas: '1.820' },
+            { authors: 'Haarnoja, T. et al. (2018)', title: 'Soft Actor-Critic: Off-Policy Maximum Entropy Deep RL', journal: 'ICML 2018', citas: '940' },
+            { authors: 'Antonanzas, J. et al. (2016)', title: 'Review of photovoltaic power forecasting', journal: 'Solar Energy', citas: '612' },
+        ],
+        partnerships: [
+            { name: 'Eletrobras P&D', role: 'FINANCIAMENTO', desc: 'Financiamento do piloto em comunidades isoladas do Amazonas.', icon: 'bolt' },
+            { name: 'ANEEL', role: 'REGULAÇÃO', desc: 'Apoio regulatório para certificação do sistema de controle.', icon: 'account_balance' },
+            { name: 'MIT Energy Initiative', role: 'PARCERIA ACADÊMICA', desc: 'Colaboração científica e acesso a datasets de energia.', icon: 'school' },
+        ],
+        award: { show: false },
+    },
+    4: {
+        title: 'Bioplásticos de Base Amilácea para Embalagens de Logística Reversa',
+        trl: 8, ods: [12], inovacao: 95, conexoes: 21, ano: 2024, area: 'Ciências Agrárias',
+        researcher: {
+            name: 'Dr. Jonas Albuquerque', initials: 'JA',
+            institution: 'EMBRAPA • Agroindustria de Alimentos',
+            email: 'jonas.albuquerque@embrapa.br',
+            bio: 'Pesquisador sênior em tecnologia de polímeros verdes, com 20 anos de experiência, 67 publicações e 8 patentes concedidas no Brasil e exterior.'
+        },
+        executiveSummary: 'Polímero 100% biodegradável derivado de amido de mandioca e proteínas de soja (subprodutos agroindustriais de baixo valor) com propriedades mecânicas equivalentes ao polietileno de baixa densidade (LDPE). O material apresenta degradação completa em solo em 90 dias e é certificado para contato com alimentos, já testado em linha de produção industrial em escala de 2 t/dia.',
+        descricao: ['A formulação combina amido termoplástico (TPS) plastificado com glicerol, proteína de soja hidrolisada como agente compatibilizante e nanoargilas como reforço mecânico. O processamento por extrusão reativa em dupla rosca permite produção contínua com custo de matéria-prima 30% abaixo do polietileno.', 'O material é projetado para sistemas de logística reversa: incorpora marcadores fluorescentes UV rastreáveis que permitem identificação automática em esteiras de triagem, viabilizando circularidade econômica sem custo adicional para o consumidor.'],
+        metodologia: ['A caracterização mecânica segue normas ASTM D638 (tração), D256 (impacto Izod) e D1003 (turbidez). Testes de biodegradabilidade seguem ISO 14855 em compostagem controlada. Estudos de migração de componentes para alimentos seguem ANVISA RDC 56/2012.', 'O scale-up industrial foi conduzido em parceria com indústria de embalagens, utilizando extrusoras de 80mm de diâmetro com capacidade de 500 kg/h. Foram produzidos 15 toneladas de material para testes em campo com 8 redes de supermercados.'],
+        resultados: ['Resistência à tração de 28 MPa e módulo de Young de 1,1 GPa, comparáveis ao LDPE convencional. Elongação na ruptura de 180%, superior à maioria dos bioplásticos comerciais disponíveis.', 'Taxa de biodegradação de 94% em 90 dias em compostagem a 58 °C. Nos testes de campo com supermercados, 87% das embalagens foram recuperadas pelo sistema de logística reversa rastreada.'],
+        biblioChart: [
+            { label: 'Avérous & Pollet (2012)', citas: 445, pct: 100 },
+            { label: 'Mano et al. (2020)', citas: 312, pct: 70 },
+            { label: 'Dufresne, A. (2017)', citas: 289, pct: 65 },
+        ],
+        similar: [
+            { title: 'PLA Reforçado com Nanocelulose', meta: '2023 • UFSCAR' },
+            { title: 'Filmes de Proteína de Soja Ativa', meta: '2024 • UNICAMP' },
+            { title: 'Embalagens Ativas Antimicrobianas', meta: '2025 • ITAL' },
+        ],
+        refs: [
+            { authors: 'Avérous, L. & Pollet, E. (2012)', title: 'Environmental Silicate Nano-Biocomposites', journal: 'Green Energy and Technology', citas: '445' },
+            { authors: 'Mano, J. F. et al. (2020)', title: 'Starch-based polymers: from design to applications', journal: 'Progress in Polymer Science', citas: '312' },
+            { authors: 'Dufresne, A. (2017)', title: 'Nanocellulose: a new ageless bionanomaterial', journal: 'Materials Today', citas: '289' },
+        ],
+        partnerships: [
+            { name: 'Grupo Pão de Açúcar', role: 'PARCEIRO COMERCIAL', desc: 'Piloto de logística reversa em 120 lojas com rastreamento UV.', icon: 'storefront' },
+            { name: 'BNDES Fundo Verde', role: 'FINANCIAMENTO', desc: 'Crédito para expansão da linha de produção a 5 t/dia.', icon: 'account_balance' },
+            { name: 'INMETRO', role: 'CERTIFICAÇÃO', desc: 'Validação e emissão de certificados de biodegradabilidade.', icon: 'verified' },
+        ],
+        award: { show: true, title: 'Innovation Award 2024', desc: 'Melhor projeto em Economia Circular e Sustentabilidade pela Academia Global de Ciência.' },
+    },
+    5: {
+        title: 'Plataforma de Diagnóstico de Doenças Raras por Análise de Expressão Gênica',
+        trl: 3, ods: [3,10], inovacao: 72, conexoes: 6, ano: 2025, area: 'Ciências da Saúde',
+        researcher: {
+            name: 'Dra. Fernanda Oliveira', initials: 'FO',
+            institution: 'USP-Ribeirão • Depto. Genética',
+            email: 'fernanda.oliveira@usp.br',
+            bio: 'Geneticista especializada em doenças raras e transcriptômica de células únicas, com 8 anos de experiência, 31 publicações e coordenadora do maior biobank de doenças raras do Brasil.'
+        },
+        executiveSummary: 'Modelo de aprendizado de máquina treinado em perfis transcriptômicos de RNA-seq de célula única para identificar padrões moleculares associados a mais de 200 doenças raras com acurácia de 92%. A plataforma reduz o tempo médio de diagnóstico de 7 anos (média nacional) para menos de 4 semanas, democratizando o acesso ao diagnóstico genômico.',
+        descricao: ['O modelo combina autoencoder variacional (VAE) para compressão do espaço transcriptômico e classificador XGBoost para identificação da doença rara mais provável a partir do perfil de expressão do paciente. O treinamento utiliza mais de 50.000 amostras de RNA-seq de 28 países, anotadas por especialistas.', 'A interface clínica é uma plataforma web que recebe o arquivo FASTQ bruto do sequenciamento e retorna em 4 horas um relatório diagnóstico com probabilidade por doença, genes diferencialmente expressos e referências bibliográficas contextuais.'],
+        metodologia: ['Pipeline bioinformático em Snakemake com alinhamento STAR, quantificação Salmon e normalização scran. Treinamento em cluster GPU com 8× NVIDIA A100, utilizando framework PyTorch Lightning com validação cruzada 10-fold estratificada por doença e centro clínico.', 'Validação prospectiva cega em coorte de 312 pacientes com diagnóstico confirmado por painéis genéticos convencionais, mantidos ocultos do algoritmo até análise final.'],
+        resultados: ['Acurácia top-1 de 92,1% e top-3 de 97,4% na coorte de validação. Para doenças metabólicas raras, acurácia top-1 de 95,8%. O sistema identificou corretamente 14 casos em que o diagnóstico convencional havia sido equivocado.', 'Análise de custo-efetividade indicou economia de R$ 42.000 por diagnóstico correto em comparação ao percurso diagnóstico médio atual, com potencial de economizar R$ 2,1 bilhões/ano ao SUS.'],
+        biblioChart: [
+            { label: 'Orphanet Report (2023)', citas: 310, pct: 100 },
+            { label: 'Luecken & Theis (2019)', citas: 245, pct: 79 },
+            { label: 'Chen & Guestrin (2016)', citas: 198, pct: 64 },
+        ],
+        similar: [
+            { title: 'scRNA-seq para Diagnóstico Oncológico', meta: '2024 • A.C. Camargo Cancer Center' },
+            { title: 'Painel Genômico para EIM Neonatal', meta: '2025 • UNIFESP' },
+            { title: 'IA para Fenótipo Clínico Raro', meta: '2023 • Hospital das Clínicas' },
+        ],
+        refs: [
+            { authors: 'Orphanet Report Series (2023)', title: 'Rare Diseases collection – data collection from January 2020', journal: 'Orphanet', citas: '310' },
+            { authors: 'Luecken, M. D. & Theis, F. J. (2019)', title: 'Current best practices in single-cell RNA-seq analysis', journal: 'Molecular Systems Biology', citas: '245' },
+            { authors: 'Chen, T. & Guestrin, C. (2016)', title: 'XGBoost: A Scalable Tree Boosting System', journal: 'KDD 2016', citas: '198' },
+        ],
+        partnerships: [
+            { name: 'Hospital das Clínicas – USP', role: 'VALIDAÇÃO CLÍNICA', desc: 'Coorte prospectiva de pacientes com suspeita de doença rara.', icon: 'local_hospital' },
+            { name: 'CONASS – Ministério da Saúde', role: 'POLÍTICA PÚBLICA', desc: 'Avaliação para incorporação no protocolo de diagnóstico do SUS.', icon: 'account_balance' },
+            { name: 'Genomics England', role: 'PARCERIA INTERNACIONAL', desc: 'Acesso a 100.000 Genomes Project para enriquecimento do dataset.', icon: 'public' },
+        ],
+        award: { show: false },
+    },
+    6: {
+        title: 'Concreto Geopolimérico com Resíduos Industriais para Construção de Baixo Carbono',
+        trl: 5, ods: [9,11,13], inovacao: 88, conexoes: 14, ano: 2026, area: 'Engenharias',
+        researcher: {
+            name: 'Prof. André Carvalho', initials: 'AC',
+            institution: 'UFPA • Depto. Engenharia Civil',
+            email: 'andre.carvalho@ufpa.br',
+            bio: 'Especialista em materiais cimentícios sustentáveis e análise de ciclo de vida na construção civil, com 15 anos de experiência, 44 publicações e consultor da ABNT para normas de geopolímeros.'
+        },
+        executiveSummary: 'Formulação de concreto geopolimérico que substitui 100% o cimento Portland por escória granulada de alto-forno e cinzas volantes da indústria termelétrica, ativadas alcalinamente por solução de silicato e hidróxido de sódio. O material apresenta resistência mecânica equivalente ao concreto convencional com redução de 65% nas emissões de CO₂ associadas à produção.',
+        descricao: ['A ativação alcalina transforma os aluminossilicatos presentes nos resíduos industriais em uma rede tridimensional de geopolímeros (sialatos) com resistência à compressão de 45–60 MPa e excelente durabilidade química. A relação Si/Al e a concentração da solução ativadora são otimizadas por planejamento de experimentos Box-Behnken.', 'O material é formulado para aplicações estruturais em edificações de até 5 pavimentos, pavimentação industrial e elementos pré-moldados. A emissão de CO₂ de produção é de 142 kg/t, contra 900 kg/t do cimento Portland CPI-S.'],
+        metodologia: ['Dosagem experimental com 4 relações Si/Al (1,8–2,4) e 3 concentrações de NaOH (8, 10 e 12 M), totalizando 36 misturas avaliadas por resistência à compressão simples (NBR 5739), tração na flexão e módulo de elasticidade.', 'Análise microestrutural por DRX, FTIR, MEV-EDS e termogravimetria. Durabilidade avaliada por exposição a H₂SO₄ 5%, NaCl 3,5% e ciclos de gelo-degelo.'],
+        resultados: ['A formulação otimizada atingiu fc28 = 52 MPa com relação Si/Al = 2,1 e NaOH 10M, com módulo de elasticidade de 28 GPa. Após 1.000 horas em ambiente ácido, a perda de massa foi 60% inferior ao concreto convencional.', 'Análise de ciclo de vida (ISO 14040/14044) confirmou redução de 65% no GWP100 e de 78% na depleção de recursos naturais fósseis. O custo de produção é equivalente ao concreto convencional quando se contabiliza o valor dos resíduos como subprodutos.'],
+        biblioChart: [
+            { label: 'Davidovits, J. (1991)', citas: 780, pct: 100 },
+            { label: 'Duxson et al. (2007)', citas: 620, pct: 79 },
+            { label: 'Provis & van Deventer (2014)', citas: 480, pct: 62 },
+        ],
+        similar: [
+            { title: 'Concreto com Metacaulim Calcinado', meta: '2024 • UFC' },
+            { title: 'Argamassa Álcali-Ativada para Reparo', meta: '2025 • USP-SC' },
+            { title: 'Geopolímeros para Alta Temperatura', meta: '2023 • IME' },
+        ],
+        refs: [
+            { authors: 'Davidovits, J. (1991)', title: 'Geopolymers – inorganic polymeric new materials', journal: 'Journal of Thermal Analysis', citas: '780' },
+            { authors: 'Duxson, P. et al. (2007)', title: 'Geopolymer technology: the current state of the art', journal: 'Journal of Materials Science', citas: '620' },
+            { authors: 'Provis, J. L. & van Deventer, J. S. J. (2014)', title: 'Alkali Activated Materials', journal: 'RILEM State-of-the-Art Reports', citas: '480' },
+        ],
+        partnerships: [
+            { name: 'CSN – Companhia Siderúrgica', role: 'FORNECIMENTO DE RESÍDUOS', desc: 'Doação de escória granulada para pesquisa e piloto industrial.', icon: 'factory' },
+            { name: 'CBIC', role: 'ADOÇÃO NORMATIVA', desc: 'Articulação para inclusão em normas técnicas ABNT.', icon: 'gavel' },
+            { name: 'MCTIC / Edital Verde', role: 'FINANCIAMENTO', desc: 'Recurso para construção de edifício-piloto em Belém-PA.', icon: 'account_balance' },
+        ],
+        award: { show: false },
+    },
+    7: {
+        title: 'Inoculantes Microbianos para Fixação Biológica de Nitrogênio em Culturas de Soja',
+        trl: 6, ods: [2,15], inovacao: 80, conexoes: 9, ano: 2024, area: 'Ciências Agrárias',
+        researcher: {
+            name: 'Dra. Camila Ramos', initials: 'CR',
+            institution: 'EMBRAPA Soja • Depto. Microbiologia Agrícola',
+            email: 'camila.ramos@embrapa.br',
+            bio: 'Microbiologista agrícola especializada em simbiose rizobiana e microbioma de solo, com 14 anos de experiência, 49 publicações e inventora de 5 inoculantes comercializados no mercado brasileiro.'
+        },
+        executiveSummary: 'Consórcio de três estirpes de Bradyrhizobium japonicum selecionadas por genômica funcional para máxima eficiência de fixação biológica de N₂ sob condições de estresse hídrico (-1,0 MPa de potencial hídrico). O inoculante reduz em 40% a necessidade de fertilizantes nitrogenados sintéticos, com incremento de produtividade de 8–12% em safras com déficit hídrico.',
+        descricao: ['O processo de seleção utilizou análise genômica comparativa de 380 estirpes de Bradyrhizobium coletadas em solos de Cerrado e Amazônia, identificando genes-chave de resposta ao estresse hídrico (dnaK, groEL, treS) super-expressos nas estirpes mais eficientes sob seca.', 'A formulação do inoculante usa turfa esterilizada como veículo, com adição de polissacarídeos extracelulares como protetores celulares e agente de biocontrole (Trichoderma asperellum) para competição radicular com fungos patogênicos.'],
+        metodologia: ['Triagem de 380 estirpes em câmaras de crescimento com ciclos de seca controlada. Seleção das 3 melhores por nódulos efetivos/planta, N total fixado (método ¹⁵N) e sobrevivência após 120 dias em formulação comercial (>10⁸ UFC/g).', 'Ensaios de campo em 8 municípios do Mato Grosso, Paraná e Goiás em 3 safras consecutivas, com análise estatística por ANOVA fatorial com interação solo × estirpe × precipitação.'],
+        resultados: ['Fixação média de 280 kg N/ha/safra em condições favoráveis e 190 kg N/ha/safra em déficit hídrico moderado (30% abaixo da ET₀), contra 95 kg N/ha dos inoculantes comerciais padrão nas mesmas condições de seca.', 'Incremento de produtividade de 10,3% (média de 3 safras) em relação ao inoculante padrão, equivalente a 340 kg de soja/ha adicionais. ROI estimado para o produtor: R$ 780/ha investidos vs. R$ 1.750/ha de ganho.'],
+        biblioChart: [
+            { label: 'Hungria et al. (2006)', citas: 520, pct: 100 },
+            { label: 'Peoples et al. (2009)', citas: 380, pct: 73 },
+            { label: 'Masson-Boivin et al. (2018)', citas: 290, pct: 56 },
+        ],
+        similar: [
+            { title: 'Biofertilizantes para Milho em Seca', meta: '2025 • Embrapa Milho e Sorgo' },
+            { title: 'Microbioma Rizosférico da Soja', meta: '2024 • UFLA' },
+            { title: 'Co-inoculação Bradyrhizobium + Azospirillum', meta: '2023 • IAPAR' },
+        ],
+        refs: [
+            { authors: 'Hungria, M. et al. (2006)', title: 'Nitrogen fixation with soybean: history and future prospects', journal: 'Soil Biology and Biochemistry', citas: '520' },
+            { authors: 'Peoples, M. B. et al. (2009)', title: 'The contributions of nitrogen-fixing crop legumes to the productivity of agricultural systems', journal: 'Symbiosis', citas: '380' },
+            { authors: 'Masson-Boivin, C. et al. (2018)', title: 'Establishing nitrogen-fixing symbiosis with legumes', journal: 'Nature Plants', citas: '290' },
+        ],
+        partnerships: [
+            { name: 'Nitrobakter – Indústria de Inoculantes', role: 'LICENCIAMENTO', desc: 'Parceiro para produção e distribuição comercial do consórcio.', icon: 'factory' },
+            { name: 'APROSOJA – MT', role: 'VALIDAÇÃO EM CAMPO', desc: 'Rede de produtores para ensaios em larga escala.', icon: 'grass' },
+            { name: 'Fundo Amazônia / BNDES', role: 'FINANCIAMENTO', desc: 'Apoio para expansão do programa a pequenos agricultores.', icon: 'account_balance' },
+        ],
+        award: { show: false },
+    },
+    8: {
+        title: 'Computação Quântica Aplicada à Resolução de Problemas de Otimização Combinatória',
+        trl: 2, ods: [4,9,17], inovacao: 65, conexoes: 3, ano: 2026, area: 'Ciências Exatas e da Terra',
+        researcher: {
+            name: 'Prof. Lucas Mendonça', initials: 'LM',
+            institution: 'ITA • Depto. Computação',
+            email: 'lucas.mendonca@ita.br',
+            bio: 'Pesquisador em algoritmos quânticos e teoria da complexidade computacional, pós-doutor pelo MIT CSAIL, com 22 publicações e colaborador do IBM Quantum Network.'
+        },
+        executiveSummary: 'Implementação de algoritmos variacionais quânticos (VQE e QAOA) em hardware supercondutivo de 127 qubits para resolução de problemas NP-difíceis em logística de última milha e design de novos materiais. A pesquisa demonstrou vantagem quântica em escala laboratorial para instâncias de TSP (Problema do Caixeiro Viajante) com 20 cidades, com solução em 0,3s versus 48h em HPC clássico.',
+        descricao: ['O QAOA (Quantum Approximate Optimization Algorithm) é implementado com profundidade p=8 em circuitos transpilados para a topologia Eagle r3 do IBM Quantum. A codificação de problemas de grafos em Hamiltonianos de Ising é automatizada por compilador desenvolvido internamente.', 'Para design de materiais, o VQE mapeia o Hamiltoniano eletrônico de moléculas de interesse (catalisadores para FRN) em qubits via transformação de Jordan-Wigner, calculando energias de estado fundamental com erro < 1 mHartree.'],
+        metodologia: ['Experimentos executados no IBM Quantum Heron r1 (133 qubits, gate fidelity >99,5%) via Qiskit Runtime primitivas. Mitigação de erros por técnicas ZNE (Zero Noise Extrapolation) e PEC (Probabilistic Error Cancellation).', 'Comparação com solvers clássicos state-of-the-art: Gurobi (otimização combinatória) e CCSD(T) (química quântica) em cluster HPC com 1024 núcleos Intel Xeon Platinum.'],
+        resultados: ['Para TSP-20, o QAOA com p=8 encontrou solução ótima em 100% das instâncias testadas (n=50) com tempo de execução 98% inferior ao branch-and-bound clássico no mesmo hardware disponível.', 'Para o catalisador FeMo-co (nitrogenase), o VQE calculou a energia de estado fundamental com erro de 0,8 mHartree em relação ao CCSD(T), abrindo caminho para design racional de catalisadores de fixação de N₂ à temperatura ambiente.'],
+        biblioChart: [
+            { label: 'Farhi et al. (2014)', citas: 1100, pct: 100 },
+            { label: 'Peruzzo et al. (2014)', citas: 870, pct: 79 },
+            { label: 'Preskill, J. (2018)', citas: 650, pct: 59 },
+        ],
+        similar: [
+            { title: 'Quantum Annealing para Roteamento', meta: '2024 • D-Wave / IMPA' },
+            { title: 'VQE para Catálise Heterogênea', meta: '2025 • CBPF' },
+            { title: 'Algoritmos Híbridos Quântico-Clássicos', meta: '2023 • LNLS' },
+        ],
+        refs: [
+            { authors: 'Farhi, E. et al. (2014)', title: 'A Quantum Approximate Optimization Algorithm', journal: 'arXiv:1411.4028', citas: '1.100' },
+            { authors: 'Peruzzo, A. et al. (2014)', title: 'A variational eigenvalue solver on a photonic quantum processor', journal: 'Nature Communications', citas: '870' },
+            { authors: 'Preskill, J. (2018)', title: 'Quantum computing in the NISQ era and beyond', journal: 'Quantum', citas: '650' },
+        ],
+        partnerships: [
+            { name: 'IBM Quantum Network', role: 'ACESSO A HARDWARE', desc: 'Acesso prioritário a processadores quânticos de 133+ qubits.', icon: 'memory' },
+            { name: 'LOGGI – Logística', role: 'CASO DE USO', desc: 'Dados reais de roteamento para validação dos algoritmos.', icon: 'local_shipping' },
+            { name: 'MCTI – PNQC', role: 'FINANCIAMENTO', desc: 'Bolsas e custeio do Programa Nacional de Computação Quântica.', icon: 'account_balance' },
+        ],
+        award: { show: false },
+    },
+    9: {
+        title: 'Exoesqueleto Robótico Leve para Reabilitação de Pacientes com AVC',
+        trl: 7, ods: [3,16], inovacao: 90, conexoes: 17, ano: 2025, area: 'Ciências da Saúde',
+        researcher: {
+            name: 'Dra. Beatriz Cunha', initials: 'BC',
+            institution: 'UNICAMP • Depto. Eng. Biomédica',
+            email: 'beatriz.cunha@unicamp.br',
+            bio: 'Engenheira biomédica especializada em robótica de reabilitação e interfaces cérebro-máquina, com 11 anos de experiência, 41 publicações e CEO da spin-off NeuroWalk Technologies.'
+        },
+        executiveSummary: 'Exoesqueleto bilateral de membros inferiores em liga de titânio e polímeros de alta performance, com controle baseado em intenção de movimento detectada por EMG de superfície (8 canais). O dispositivo pesa 4,2 kg, oferece 3 graus de liberdade por membro e permite sessões de fisioterapia intensiva com feedback háptico em tempo real, a um custo 70% inferior aos equipamentos importados.',
+        descricao: ['O sistema de controle processa sinais EMG em tempo real com latência de 12ms, utilizando rede neural convolucional para decodificação da intenção de movimento antes que ele ocorra. O exoesqueleto aplica torque assistivo apenas quando detecta intenção do paciente, promovendo neuroplasticidade ativa versus assistência passiva.', 'O dispositivo registra automaticamente todas as sessões: ângulos articulares, torques aplicados, padrão de passada e índice de simetria. Os dados são enviados via Wi-Fi ao prontuário eletrônico e ao fisioterapeuta, que ajusta os parâmetros remotamente.'],
+        metodologia: ['Ensaio clínico randomizado controlado (ECRC) com 86 pacientes com AVC isquêmico crônico (>6 meses de lesão), randomizados 1:1 para exoesqueleto vs. fisioterapia convencional intensiva. Desfecho primário: velocidade de caminhada em 10 metros no SAFE-GAIT ao final de 12 semanas.', 'Avaliações cegadas a cada 4 semanas por fisioterapeuta independente, usando escalas FIM, Fugl-Meyer MMSE e acelerometria ambulatorial 7-day. Análise por intenção de tratar (ITT) com imputação múltipla para dados faltantes.'],
+        resultados: ['O grupo exoesqueleto apresentou melhora de 0,34 m/s na velocidade de caminhada vs. 0,18 m/s no grupo controle (p<0,001). 72% dos pacientes do grupo intervenção atingiram velocidade de caminhada comunitária (>0,8 m/s) ao final, contra 41% no controle.', 'Satisfação do paciente (escala de Likert) de 4,8/5,0. Nenhum evento adverso sério relacionado ao dispositivo. Taxa de adesão de 94% (vs. 71% na fisioterapia convencional), atribuída ao feedback gamificado integrado ao sistema.'],
+        biblioChart: [
+            { label: 'Mehrholz et al. (2017)', citas: 680, pct: 100 },
+            { label: 'Conner et al. (2021)', citas: 445, pct: 65 },
+            { label: 'Wolpaw & Birbaumer (2002)', citas: 390, pct: 57 },
+        ],
+        similar: [
+            { title: 'Interface Cérebro-Máquina para Paresia', meta: '2024 • UFABC' },
+            { title: 'Estimulação Elétrica Funcional + Robótica', meta: '2025 • SARAH Network' },
+            { title: 'Robótica para Reabilitação de Membro Superior', meta: '2023 • UNICAMP' },
+        ],
+        refs: [
+            { authors: 'Mehrholz, J. et al. (2017)', title: 'Electromechanical-assisted training for walking after stroke', journal: 'Cochrane Database Syst. Rev.', citas: '680' },
+            { authors: 'Conner, B. C. et al. (2021)', title: 'Ambulatory assist lower limb exoskeleton for stroke rehabilitation', journal: 'Journal of NeuroEngineering and Rehabilitation', citas: '445' },
+            { authors: 'Wolpaw, J. R. & Birbaumer, N. (2002)', title: 'Brain–computer interfaces for communication and control', journal: 'Clinical Neurophysiology', citas: '390' },
+        ],
+        partnerships: [
+            { name: 'SARAH Network', role: 'VALIDAÇÃO CLÍNICA', desc: 'Ensaio clínico multicêntrico em 4 unidades de reabilitação.', icon: 'local_hospital' },
+            { name: 'FINEP – Inova Saúde', role: 'FINANCIAMENTO', desc: 'Subvenção econômica para desenvolvimento e certificação ANVISA.', icon: 'account_balance' },
+            { name: 'ReWalk Robotics', role: 'PARCERIA TECNOLÓGICA', desc: 'Licenciamento cruzado de tecnologias de controle de torque.', icon: 'smart_toy' },
+        ],
+        award: { show: true, title: 'Innovation Award 2025', desc: 'Eleito o melhor projeto de tecnologia assistiva e inclusão pela Academia Global de Ciência.' },
+    },
+    10: {
+        title: 'Reatores Eletroquímicos para Remoção de Microplásticos em Efluentes Industriais',
+        trl: 5, ods: [6,14], inovacao: 76, conexoes: 11, ano: 2024, area: 'Engenharias',
+        researcher: {
+            name: 'Prof. Thiago Pinto', initials: 'TP',
+            institution: 'UFRJ • Depto. Engenharia Química',
+            email: 'thiago.pinto@ufrj.br',
+            bio: 'Professor associado em processos eletroquímicos ambientais, com 16 anos de experiência, 55 publicações e coordenador do Laboratório de Eletroquímica Ambiental da UFRJ.'
+        },
+        executiveSummary: 'Sistema integrado de eletrocoagulação (EC) com eletrodos de alumínio sacrificiais, acoplado a filtros de nanofibras de celulose bacteriana, para remoção de partículas plásticas entre 0,1–500 µm em efluentes têxteis e de lavanderia industrial. Eficiência de remoção superior a 99,4% com consumo energético de 0,8 kWh/m³.',
+        descricao: ['Na etapa de EC, corrente elétrica entre eletrodos de Al gera coágulos de Al(OH)₃ in situ que adsorvem os microplásticos por varredura e adsorção eletrostática. O floco resultante é capturado em filtro de nanofibra de celulose bacteriana produzida por Komagataeibacter xylinus, com poros de 0,05–0,2 µm.', 'O reator é modular, com células de EC em série e filtros descartáveis substituíveis a cada 500 m³ de efluente tratado. A celulose bacteriana saturada de plástico é encaminhada para co-processamento em cimento, fechando o ciclo de resíduos.'],
+        metodologia: ['Caracterização dos microplásticos por µ-FTIR, piro-GC/MS e microscopia de fluorescência. Otimização dos parâmetros de EC (densidade de corrente 5–30 mA/cm², tempo 5–30 min, pH 4–9) por superfície de resposta (RSM).', 'Piloto de 1 m³/h instalado em lavanderia industrial têxtil no Nordeste, com monitoramento contínuo por turbidímetro inline e coleta semanal para análise laboratorial por 6 meses.'],
+        resultados: ['Eficiência de remoção de 99,4% de partículas >1 µm e 97,8% para partículas entre 0,1–1 µm. Consumo energético de 0,82 kWh/m³, viabilizando custo operacional de R$ 0,35/m³ ao preço atual da energia elétrica industrial.', 'No piloto de 6 meses, foram removidos 2,8 kg de microplásticos do efluente de uma única lavanderia, que antes seriam lançados no sistema de esgoto e atingiriam corpos d\'água receptores.'],
+        biblioChart: [
+            { label: 'Bakaraki Turan et al. (2021)', citas: 320, pct: 100 },
+            { label: 'Thompson et al. (2004)', citas: 890, pct: 100 },
+            { label: 'Gao et al. (2022)', citas: 215, pct: 67 },
+        ],
+        similar: [
+            { title: 'Coagulação por Quitosana para Microplásticos', meta: '2025 • UFPE' },
+            { title: 'Membranas Ultrafiltração Anti-fouling', meta: '2024 • PUC-Rio' },
+            { title: 'Oxidação Avançada para Nanoplásticos', meta: '2023 • USP' },
+        ],
+        refs: [
+            { authors: 'Thompson, R. C. et al. (2004)', title: 'Lost at Sea: Where Is All the Plastic?', journal: 'Science', citas: '890' },
+            { authors: 'Bakaraki Turan, N. et al. (2021)', title: 'Microplastics in wastewater treatment plants', journal: 'Chemical Engineering Journal', citas: '320' },
+            { authors: 'Gao, J. et al. (2022)', title: 'Electrocoagulation for microplastic removal', journal: 'Water Research', citas: '215' },
+        ],
+        partnerships: [
+            { name: 'SENAI CETIQT', role: 'PARCEIRO INDUSTRIAL', desc: 'Centro têxtil para piloto e capacitação de operadores.', icon: 'factory' },
+            { name: 'ANA – Agência Nacional de Águas', role: 'REGULAÇÃO', desc: 'Parceria para regulamentação de padrões de descarte de microplásticos.', icon: 'water' },
+            { name: 'SESI / CNI', role: 'DIFUSÃO INDUSTRIAL', desc: 'Difusão da tecnologia para indústrias têxteis de todo o Brasil.', icon: 'business' },
+        ],
+        award: { show: false },
+    },
+    11: {
+        title: 'Kit de Diagnóstico Rápido para Arboviroses Tropicais em Regiões Remotas',
+        trl: 9, ods: [3,1], inovacao: 97, conexoes: 30, ano: 2023, area: 'Ciências da Saúde',
+        researcher: {
+            name: 'Dr. Rafael Sousa', initials: 'RS',
+            institution: 'FIOCRUZ Bahia • Depto. Virologia',
+            email: 'rafael.sousa@fiocruz.ba.gov.br',
+            bio: 'Virologista especializado em doenças tropicais negligenciadas, ex-assessor da OMS para vigilância de arboviroses, com 19 anos de experiência, 78 publicações e criador de 3 kits diagnósticos comercializados em 14 países.'
+        },
+        executiveSummary: 'Dispositivo lab-on-chip baseado em amplificação isotérmica LAMP (Loop-mediated Isothermal Amplification) para detecção simultânea de dengue (sorotipos 1–4), zika e chikungunya em amostras de saliva, sem necessidade de laboratório, cadeia de frio ou operador especializado. Resultado em 12 minutos com sensibilidade de 98,7% e especificidade de 99,2%, aprovado pela ANVISA e por agências de 9 países.',
+        descricao: ['O chip de PDMS (polidimetilsiloxano) integra câmaras de pré-amplificação, zona de reação LAMP com primers fluorescentes específicos para os três vírus e sensor óptico LED/fotodetector para leitura automatizada. A alimentação é por bateria de lítio com 500 testes por carga.', 'O reagente liofilizado é estável por 18 meses sem refrigeração (até 40°C), eliminando dependência da cadeia de frio — crítico para uso em comunidades ribeirinhas da Amazônia, quilombolas e populações de fronteira.'],
+        metodologia: ['Validação analítica em painel de 1.240 amostras de saliva de pacientes com diagnóstico laboratorial confirmado (RT-PCR como referência), coletadas em 6 estados brasileiros e 3 países. Todos os operadores foram treinados em 30 minutos por vídeo tutorial.', 'Estudo de campo em 12 municípios do Pará, Amazonas e Roraima durante surto de dengue (2022–2023), com 3.800 testes aplicados por agentes comunitários de saúde sem formação técnica específica.'],
+        resultados: ['Sensibilidade de 98,7% (IC95%: 97,4–99,5) e especificidade de 99,2% (IC95%: 98,4–99,6) frente ao RT-PCR de referência. Concordância geral (kappa de Cohen) de 0,97.', 'No estudo de campo, o kit permitiu início de tratamento 4 dias antes do resultado do laboratório público central (média de 7 dias vs. 3 dias), com redução de 23% nas hospitalizações por dengue nos municípios piloto.'],
+        biblioChart: [
+            { label: 'Notomi et al. (2000)', citas: 1240, pct: 100 },
+            { label: 'WHO DENV Guidelines (2009)', citas: 780, pct: 63 },
+            { label: 'Pardee et al. (2016)', citas: 560, pct: 45 },
+        ],
+        similar: [
+            { title: 'PCR Portátil para Leishmaniose', meta: '2024 • FIOCRUZ Minas' },
+            { title: 'RDT para Malária em Terras Indígenas', meta: '2023 • PAHO' },
+            { title: 'LAMP para Chagas em Triatomíneos', meta: '2025 • FIOCRUZ Bahia' },
+        ],
+        refs: [
+            { authors: 'Notomi, T. et al. (2000)', title: 'Loop-mediated isothermal amplification of DNA', journal: 'Nucleic Acids Research', citas: '1.240' },
+            { authors: 'WHO (2009)', title: 'Dengue: guidelines for diagnosis, treatment, prevention and control', journal: 'WHO Press', citas: '780' },
+            { authors: 'Pardee, K. et al. (2016)', title: 'Rapid, Low-Cost Detection of Zika Virus Using Programmable Biomolecular Components', journal: 'Cell', citas: '560' },
+        ],
+        partnerships: [
+            { name: 'PAHO / OMS', role: 'ESCALONAMENTO GLOBAL', desc: 'Distribuição para 14 países da América Latina e Caribe.', icon: 'public' },
+            { name: 'Ministério da Saúde / DAB', role: 'INTEGRAÇÃO NO SUS', desc: 'Incorporação no kit de diagnóstico da Atenção Básica.', icon: 'local_hospital' },
+            { name: 'Gates Foundation', role: 'FINANCIAMENTO GLOBAL', desc: 'Grand Challenge para expansão a 6 países africanos endêmicos.', icon: 'volunteer_activism' },
+        ],
+        award: { show: true, title: 'Innovation Award 2023', desc: 'Melhor projeto global em saúde tropical e equidade diagnóstica pela Academia Global de Ciência.' },
+    },
+    12: {
+        title: 'Perovskitas de Haleto para Células Solares Tândem de Alta Eficiência',
+        trl: 4, ods: [7,13], inovacao: 74, conexoes: 7, ano: 2025, area: 'Ciências Exatas e da Terra',
+        researcher: {
+            name: 'Dra. Juliana Freitas', initials: 'JF',
+            institution: 'UFABC • Depto. Física',
+            email: 'juliana.freitas@ufabc.edu.br',
+            bio: 'Física especializada em fotovoltaica avançada e química de superfície de perovskitas, com 9 anos de experiência, 35 publicações e colaboradora do NREL (National Renewable Energy Laboratory).'
+        },
+        executiveSummary: 'Desenvolvimento de células solares tândem perovskita/silício com interface subcamada passivada por auto-assembled monolayers (SAMs) de carbazol derivatizado. A célula atingiu eficiência de conversão certificada de 31,2% em área de 1 cm² com estabilidade operacional superior a 1.000 horas sob iluminação AM1.5G contínua, superando o recorde anterior brasileiro.',
+        descricao: ['A subcamada de perovskita (Cs₀.₀₅FA₀.₈₁MA₀.₁₄PbI₂.₅₅Br₀.₄₅) é depositada sobre substrato de silício heterojunção (HIT) de alta qualidade por spin-coating em ambiente de glovebox N₂ com umidade <1 ppm. O processo de cristalização emprega tratamento antisolvent com acetonitrila em 10ms via spray controlado.', 'A SAM de 4-carbazolyl benzoic acid (4CbBA) é depositada por imersão, passivando defeitos de superfície e alinhando os níveis de Fermi das duas subcamadas sem introduzir estados de armadilha. A eficiência total da pilha é limitada pela subcamada de perovskita, que converte os fótons de maior energia.'],
+        metodologia: ['Caracterização fotovoltaica por curva J-V com máscara de área calibrada, EQE com lamp bias simulado, e estabilidade por tracking de potência máxima (MPP) em câmara climática 85°C/85% UR por 1.000h.', 'Análise de defeitos por DLTS, TRPL e microscopia de elétrons de varredura Kelvin probe (KPFM). Certificação de eficiência pelo laboratório CalLab Fraunhofer ISE.'],
+        resultados: ['Eficiência estabilizada (MPP tracking 1h) de 31,2% (Voc = 1,94 V, Jsc = 19,8 mA/cm², FF = 81,2%). Degradação <5% após 1.000h de estabilidade acelerada, atendendo ao critério ISOS-L1.', 'O custo estimado de fabricação é de US$ 0,22/Wp em escala piloto, compatível com paridade de custo de instalação inferior a US$ 1,00/Wp para mercado residencial, viabilizando competitividade sem subsídios.'],
+        biblioChart: [
+            { label: 'Saliba et al. (2016)', citas: 1560, pct: 100 },
+            { label: 'Al-Ashouri et al. (2020)', citas: 890, pct: 57 },
+            { label: 'Snaith, H. J. (2013)', citas: 740, pct: 47 },
+        ],
+        similar: [
+            { title: 'Perovskita Totalmente Inorgânica', meta: '2024 • UNICAMP' },
+            { title: 'Tandem Perovskita/CIGS Flexível', meta: '2025 • INPE' },
+            { title: 'Estabilização por Encapsulamento de Vidro', meta: '2023 • USP' },
+        ],
+        refs: [
+            { authors: 'Saliba, M. et al. (2016)', title: 'Cesium-containing triple cation perovskite solar cells', journal: 'Energy & Environmental Science', citas: '1.560' },
+            { authors: 'Al-Ashouri, A. et al. (2020)', title: 'Monolithic perovskite/silicon tandem solar cell with >29% efficiency', journal: 'Science', citas: '890' },
+            { authors: 'Snaith, H. J. (2013)', title: 'Perovskites: the emergence of a new era for low-cost, high-efficiency solar cells', journal: 'Journal of Physical Chemistry Letters', citas: '740' },
+        ],
+        partnerships: [
+            { name: 'NREL – Colorado', role: 'PARCERIA ACADÊMICA', desc: 'Acesso a equipamentos de caracterização avançada e co-autoria.', icon: 'science' },
+            { name: 'ANEEL – P&D Solar', role: 'FINANCIAMENTO', desc: 'Edital P&D de energia renovável para escalonamento a 10×10 cm².', icon: 'account_balance' },
+            { name: 'Suntech Brasil', role: 'PARCEIRO INDUSTRIAL', desc: 'Licença de tecnologia e piloto de produção em linha de silício existente.', icon: 'solar_power' },
+        ],
+        award: { show: false },
+    },
+    13: {
+        title: 'Fertirrigação de Precisão por Sensoriamento Remoto Hiperespectral em Drones',
+        trl: 6, ods: [2,12,15], inovacao: 83, conexoes: 13, ano: 2026, area: 'Ciências Agrárias',
+        researcher: {
+            name: 'Prof. Eduardo Lopes', initials: 'EL',
+            institution: 'ESALQ-USP • Depto. Engenharia de Biossistemas',
+            email: 'eduardo.lopes@usp.br',
+            bio: 'Professor titular em agricultura de precisão e sensoriamento remoto agrícola, com 18 anos de experiência, 61 publicações e coordenador do maior programa de mapeamento nutricional de lavouras da América Latina.'
+        },
+        executiveSummary: 'Sistema integrado de vants (drones) DJI Matrice 350 equipados com câmera hiperespectral de 204 bandas (450–1700 nm) e algoritmos de visão computacional para mapeamento nutricional em tempo real de lavouras, gerando mapas de prescrição de fertirrigação diferenciada por zonas de manejo com resolução de 5×5 m², reduzindo em 30% o uso de insumos.',
+        descricao: ['O processamento das imagens hiperespectrais utiliza redes neurais convolucionais 3D treinadas em biblioteca espectral de referência com 12.000 amostras de solo e folha de 8 culturas (soja, milho, cana, algodão, café, laranja, uva, eucalipto). O modelo estima concentrações de N, P, K, Mg, S e Zn com R² > 0,92.', 'Os mapas de prescrição são enviados automaticamente para o sistema de controle do pivô central ou do aspersor de fertirrigação, que aplica a dose correta em cada zona de manejo sem intervenção humana. O ciclo completo (voo → análise → aplicação) é concluído em menos de 6 horas.'],
+        metodologia: ['Validação em 18 lavouras de soja e milho no Mato Grosso do Sul, comparando estimativas espectrais com análise foliar laboratorial (método padrão EMBRAPA). Acurácia avaliada por RMSE, R² e viés sistemático para cada nutriente.', 'Ensaio de eficiência agronômica em área dividida (split-plot) de 120 ha: metade com fertirrigação prescrita pelo sistema, metade com dose uniforme convencional. Avaliação de produtividade e análise residual de solo após a safra.'],
+        resultados: ['Redução média de 31% no consumo de fertilizantes nitrogenados e 27% em fosfatados, com produtividade equivalente ou superior (+ 3,8% para soja) em relação à fertirrigação convencional.', 'Economia média de R$ 480/ha em insumos e redução de 1,2 t CO₂-eq/ha nas emissões do ciclo de produção. O ROI do sistema é estimado em 14 meses para fazendas acima de 500 ha.'],
+        biblioChart: [
+            { label: 'Thenkabail & Lyon (2012)', citas: 680, pct: 100 },
+            { label: 'Hunt et al. (2019)', citas: 420, pct: 62 },
+            { label: 'Mulla, D. J. (2013)', citas: 380, pct: 56 },
+        ],
+        similar: [
+            { title: 'NDVI para Estresse Hídrico em Cana', meta: '2024 • IAC' },
+            { title: 'LiDAR para Biomassa Florestal', meta: '2025 • INPE' },
+            { title: 'Drones Multiespectrais para Pragas', meta: '2023 • Embrapa' },
+        ],
+        refs: [
+            { authors: 'Thenkabail, P. S. & Lyon, J. G. (2012)', title: 'Hyperspectral Remote Sensing of Vegetation', journal: 'CRC Press', citas: '680' },
+            { authors: 'Hunt, E. R. et al. (2019)', title: 'Applications of drone technology for crop nutrient management', journal: 'Remote Sensing', citas: '420' },
+            { authors: 'Mulla, D. J. (2013)', title: 'Twenty five years of remote sensing in precision agriculture', journal: 'European Journal of Agronomy', citas: '380' },
+        ],
+        partnerships: [
+            { name: 'John Deere Brasil', role: 'INTEGRAÇÃO TECNOLÓGICA', desc: 'Integração dos mapas de prescrição com sistemas Operations Center.', icon: 'agriculture' },
+            { name: 'Bunge – Originação Agrícola', role: 'PARCEIRO COMERCIAL', desc: 'Implementação em 80.000 ha de fornecedores de grãos.', icon: 'grass' },
+            { name: 'MAPA – Embrapa Hortaliças', role: 'VALIDAÇÃO AGRONÔMICA', desc: 'Validação científica e publicação de boletins técnicos.', icon: 'account_balance' },
+        ],
+        award: { show: false },
+    },
+    14: {
+        title: 'Robô Colaborativo de Inspeção Submarina para Infraestrutura Portuária',
+        trl: 8, ods: [8,9,11], inovacao: 93, conexoes: 19, ano: 2024, area: 'Engenharias',
+        researcher: {
+            name: 'Dr. Fábio Azevedo', initials: 'FA',
+            institution: 'ITA • Depto. Mecatrônica',
+            email: 'fabio.azevedo@ita.br',
+            bio: 'Engenheiro mecatrônico especializado em robótica submarina e sistemas autônomos, com 13 anos de experiência, 47 publicações e fundador da spin-off SeaBOT Robotics, com 3 ROVs comercializados no mercado offshore.'
+        },
+        executiveSummary: 'ROV (Remotely Operated Vehicle) autônomo de classe work-class leve (45 kg), equipado com sonar multifeixe Teledyne BlueView M900, câmeras de fluorescência UV-A para detecção de corrosão e trincas, e manipulador de 6 graus de liberdade com capacidade de 5 kg. Reduz o tempo médio de docagem para inspeção de infraestrutura portuária em 80% e elimina mergulhadores de ambientes de risco.',
+        descricao: ['O sistema de navegação autônoma funde dados de DVL (Doppler Velocity Log), IMU, sonar e câmera estéreo para posicionamento 3D com precisão de ±5 cm em ambiente com turbidez >10 NTU. O planejamento de trajetória utiliza campo de potencial artificial para desvio de obstáculos em tempo real.', 'O manipulador de titânio/PEEK realiza operações de reparo de pequeno porte (torqueamento de anodos de sacrifício, limpeza de bioincrustações, vedação de pequenas fissuras com composto epóxi subaquático) sem necessidade de docagem do navio.'],
+        metodologia: ['Testes de sistema no Laboratório de Robótica Submarina do ITA em piscina de 25×12×5m. Validação em ambiente real no porto de Santos (SP) e terminal TEFRAN de Angra dos Reis, com supervisão de engenheiros certificados pela Marinha do Brasil.', 'Inspeções de 12 píeres e 3 cascos de embarcações com comparação entre relatório ROV e inspeção humana por mergulhadores certificados IMCA, avaliando concordância em 280 pontos de anomalia.'],
+        resultados: ['O ROV detectou 97,1% das anomalias identificadas por mergulhadores humanos, com 2,4% de falsos positivos e 2,9% de falsos negativos. Em 8 estruturas, identificou 23 anomalias críticas não detectadas na inspeção humana.', 'Redução média de 83% no tempo de inspeção (2,5h vs. 14,5h por píer) e eliminação de 100% do custo de mergulho e suporte de superfície. O payback do sistema é de 18 meses para operadores com 4+ inspeções/ano.'],
+        biblioChart: [
+            { label: 'Yuh, J. (2000)', citas: 580, pct: 100 },
+            { label: 'Antonelli, G. (2018)', citas: 420, pct: 72 },
+            { label: 'Ribas, D. et al. (2019)', citas: 310, pct: 53 },
+        ],
+        similar: [
+            { title: 'AUV para Mapeamento de Dutos Offshore', meta: '2024 • Petrobras / ITA' },
+            { title: 'Inspeção Robótica de Barragens', meta: '2025 • UFMG' },
+            { title: 'ROV para Aquicultura Offshore', meta: '2023 • UFSC' },
+        ],
+        refs: [
+            { authors: 'Yuh, J. (2000)', title: 'Design and control of autonomous underwater robots', journal: 'Autonomous Robots', citas: '580' },
+            { authors: 'Antonelli, G. (2018)', title: 'Underwater Robots (4th ed.)', journal: 'Springer Tracts in Advanced Robotics', citas: '420' },
+            { authors: 'Ribas, D. et al. (2019)', title: 'Underwater SLAM for structured environments', journal: 'IEEE Robotics & Automation', citas: '310' },
+        ],
+        partnerships: [
+            { name: 'Santos Port Authority', role: 'PARCEIRO OPERACIONAL', desc: 'Piloto de inspeção contínua em 40 estruturas do porto de Santos.', icon: 'anchor' },
+            { name: 'Petrobras E&P', role: 'FINANCIAMENTO P&D', desc: 'Contrato de fornecimento e co-desenvolvimento de ROV para aguas profundas.', icon: 'oil_barrel' },
+            { name: 'Marinha do Brasil', role: 'REGULAÇÃO E VALIDAÇÃO', desc: 'Certificação de aeronavegabilidade e validação de inspeção offshore.', icon: 'military_tech' },
+        ],
+        award: { show: true, title: 'Innovation Award 2024', desc: 'Melhor projeto em robótica industrial e segurança de infraestrutura pela Academia Global de Ciência.' },
+    },
+    15: {
+        title: 'Modelo de Linguagem Multimodal para Língua Brasileira de Sinais (LIBRAS)',
+        trl: 5, ods: [4,10,17], inovacao: 85, conexoes: 15, ano: 2025, area: 'Ciências Exatas e da Terra',
+        researcher: {
+            name: 'Profa. Mariana Costa', initials: 'MC',
+            institution: 'UNICAMP • Depto. Ciência da Computação',
+            email: 'mariana.costa@unicamp.br',
+            bio: 'Cientista da computação e pesquisadora em visão computacional e PLN para línguas de sinais, filha surda, com 10 anos de experiência, 38 publicações e coordenadora do maior corpus anotado de LIBRAS do Brasil.'
+        },
+        executiveSummary: 'Sistema de tradução automática bidirecional entre LIBRAS e português escrito/falado, baseado em modelos de visão computacional 3D (estimativa de pose MediaPipe + Graph Convolutional Networks) e modelos de linguagem adaptados (BERT multimodal fine-tuned). Corpus de 500h anotado por surdos nativos, com acurácia de 87% em contextos de discurso espontâneo e aplicativo móvel disponível na App Store e Play Store.',
+        descricao: ['O pipeline de reconhecimento captura o vídeo do sinalizante pela câmera frontal do smartphone, extrai keypoints 3D de mãos, face e corpo com MediaPipe Holistic (543 pontos a 30 fps), e classifica a sequência de sinais por rede GCN-Temporal com atenção espacial. A saída em português é pós-processada por GPT-4 fine-tuned para corrigir erros de gramática visual.', 'A geração de LIBRAS a partir de texto usa modelo seq2seq que produz sequências de parâmetros de animação para avatar 3D fotorrealista renderizado com Unity, representando configurações de mão, locação, movimento e expressão facial gramaticalmente corretas.'],
+        metodologia: ['Coleta do corpus: 500h de vídeo com 120 surdos nativos de 8 estados brasileiros, balanceado por gênero, faixa etária e dialeto regional. Anotação por 40 intérpretes certificados usando ELAN, com verificação por sinalizantes nativos independentes.', 'Treinamento em cluster GPU (32× A100) com fine-tuning de 7B parâmetros por 72h. Avaliação humana cega por 20 surdos nativos e 20 ouvintes usando escala MOS (Mean Opinion Score) e BLEU-4 adaptado para línguas de sinais.'],
+        resultados: ['BLEU-4 de 0,78 para reconhecimento (LIBRAS → texto) e MOS de 3,9/5,0 para geração de avatar (texto → LIBRAS), em avaliação humana cega. Em contextos médicos (consultas via telemedicina), a acurácia semântica foi de 93,2%, validando o uso clínico.', 'Mais de 180.000 downloads do aplicativo em 4 meses. Em pesquisa com usuários surdos (n=524), 89% relataram que o app reduziu barreiras de comunicação no cotidiano, e 76% o utilizaram para acesso a serviços de saúde.'],
+        biblioChart: [
+            { label: 'Luqman & Javed (2021)', citas: 320, pct: 100 },
+            { label: 'Devlin et al. (2019)', citas: 4800, pct: 100 },
+            { label: 'Camgoz et al. (2020)', citas: 510, pct: 71 },
+        ],
+        similar: [
+            { title: 'Reconhecimento de ASL por Transformer', meta: '2024 • MIT CSAIL' },
+            { title: 'Avatar Surdo para Educação Infantil', meta: '2025 • INES / MEC' },
+            { title: 'Corpus Multilíngue de Línguas de Sinais', meta: '2023 • UFSC' },
+        ],
+        refs: [
+            { authors: 'Devlin, J. et al. (2019)', title: 'BERT: Pre-training of Deep Bidirectional Transformers', journal: 'NAACL 2019', citas: '4.800' },
+            { authors: 'Camgoz, N. C. et al. (2020)', title: 'Sign Language Transformers: Joint End-to-end Sign Language Recognition and Translation', journal: 'CVPR 2020', citas: '510' },
+            { authors: 'Luqman, H. & Javed, A. (2021)', title: 'Sign language recognition: A systematic review', journal: 'IEEE Access', citas: '320' },
+        ],
+        partnerships: [
+            { name: 'INES – Instituto Nacional de Surdos', role: 'PARCEIRO INSTITUCIONAL', desc: 'Validação pedagógica e distribuição em escolas bilíngues para surdos.', icon: 'school' },
+            { name: 'Secretaria Especial da Pessoa com Deficiência', role: 'POLÍTICA PÚBLICA', desc: 'Integração ao portal gov.br para acessibilidade de serviços públicos.', icon: 'account_balance' },
+            { name: 'Google.org', role: 'FINANCIAMENTO', desc: 'AI for Social Good grant para expansão a outras línguas de sinais.', icon: 'volunteer_activism' },
+        ],
+        award: { show: false },
+    },
+};
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function odsChip(num) {
+    const o = ODS[num];
+    return `<span class="flex items-center gap-1 px-2 py-1 rounded text-label-caps text-white" style="background:${o.color};">
+        <span class="material-symbols-outlined" style="font-size:14px;color:white;">${o.icon}</span> ODS ${num}
+    </span>`;
+}
+
+function odsCircle(num, size=6) {
+    const o = ODS[num];
+    return `<div class="w-${size} h-${size} rounded-full flex items-center justify-center" style="background:${o.color};" title="${o.label}">
+        <span class="material-symbols-outlined text-white" style="font-size:${size*2.5}px;color:white;">${o.icon}</span>
+    </div>`;
+}
+
+function scoreLabel(v) {
+    if (v >= 90) return 'Excelência';
+    if (v >= 80) return 'Alto Impacto';
+    if (v >= 70) return 'Bom Potencial';
+    return 'Em Desenvolvimento';
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────────
+function render(r) {
+    document.title = r.title + ' | SINNOVATION';
+    document.getElementById('breadcrumb-title').textContent = r.title;
+    document.getElementById('page-title').textContent = r.title;
+
+    // Tags
+    const tagsEl = document.getElementById('page-tags');
+    let tagsHtml = `<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-label-caps font-bold uppercase">TRL ${r.trl}</span>`;
+    r.ods.forEach(n => { tagsHtml += odsChip(n); });
+    tagsHtml += `<span class="border border-outline-variant text-on-surface-variant px-2 py-1 rounded text-label-caps flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;color:#42474c;">description</span> Patente depositada</span>`;
+    tagsEl.innerHTML = tagsHtml;
+
+    // Score ring
+    const circumference = 251.2;
+    const offset = circumference * (1 - r.inovacao / 100);
+    document.getElementById('score-ring').setAttribute('stroke-dashoffset', offset);
+    document.getElementById('score-value').textContent = r.inovacao;
+    document.getElementById('score-label').textContent = scoreLabel(r.inovacao);
+    document.getElementById('inov-pct').textContent = r.inovacao + '%';
+    document.getElementById('inov-bar').style.width = r.inovacao + '%';
+    document.getElementById('conexoes-value').textContent = r.conexoes;
+
+    // Summary & tabs
+    document.getElementById('executive-summary').textContent = r.executiveSummary;
+    document.getElementById('tab-descricao').innerHTML = r.descricao.map(p => `<p>${p}</p>`).join('');
+    document.getElementById('tab-metodologia').innerHTML = r.metodologia.map(p => `<p>${p}</p>`).join('');
+    document.getElementById('tab-resultados').innerHTML = r.resultados.map(p => `<p>${p}</p>`).join('');
+
+    // Researcher
+    document.getElementById('researcher-avatar').textContent = r.researcher.initials;
+    document.getElementById('researcher-name').textContent = r.researcher.name;
+    document.getElementById('researcher-inst').textContent = r.researcher.institution;
+    document.getElementById('researcher-bio').textContent = r.researcher.bio;
+    const emailLink = document.getElementById('researcher-email');
+    emailLink.href = 'mailto:' + r.researcher.email;
+    document.getElementById('researcher-email-text').textContent = r.researcher.email;
+
+    // Biblio chart
+    const maxCitas = Math.max(...r.biblioChart.map(b => b.citas));
+    document.getElementById('biblio-chart').innerHTML = r.biblioChart.map(b => `
+        <div class="space-y-1">
+            <div class="flex justify-between text-label-caps text-on-surface-variant">
+                <span>${b.label}</span><span>${b.citas.toLocaleString('pt-BR')} citas</span>
+            </div>
+            <div class="h-4 w-full bg-surface-container-high rounded-full overflow-hidden">
+                <div class="gradient-primary h-full" style="width:${Math.round(b.citas/maxCitas*100)}%"></div>
+            </div>
+        </div>`).join('');
+
+    // Similar
+    document.getElementById('similar-list').innerHTML = r.similar.map(s => `
+        <li class="group">
+            <a class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container transition-colors border border-transparent hover:border-outline-variant/20" href="#">
+                <div>
+                    <p class="font-bold text-primary group-hover:text-secondary transition-colors">${s.title}</p>
+                    <p class="text-label-caps text-outline">Publicado em ${s.meta}</p>
+                </div>
+                <span class="material-symbols-outlined text-secondary">arrow_forward</span>
+            </a>
+        </li>`).join('');
+
+    // Refs table
+    document.getElementById('refs-table').innerHTML = r.refs.map((ref, i) => `
+        <tr class="${i%2===1?'bg-surface-container-lowest/40 ':''} border-b border-outline-variant/10 hover:bg-surface-container-low/50">
+            <td class="px-md py-sm">${ref.authors}</td>
+            <td class="px-md py-sm font-bold">${ref.title}</td>
+            <td class="px-md py-sm italic">${ref.journal}</td>
+            <td class="px-md py-sm text-right">${ref.citas}</td>
+        </tr>`).join('');
+
+    // Partnerships
+    document.getElementById('partnerships-grid').innerHTML = r.partnerships.map(p => `
+        <div class="bg-surface-container-lowest p-md rounded-lg shadow-soft border border-outline-variant/10 flex flex-col items-center text-center hover:-translate-y-1 transition-spring">
+            <div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-md">
+                <span class="material-symbols-outlined text-secondary" style="font-size:32px;">${p.icon}</span>
+            </div>
+            <h4 class="font-bold text-primary">${p.name}</h4>
+            <p class="text-label-caps text-outline mb-sm">${p.role}</p>
+            <p class="text-body-md text-on-surface-variant">${p.desc}</p>
+        </div>`).join('');
+
+    // Award
+    if (r.award.show) {
+        const sec = document.getElementById('award-section');
+        sec.classList.remove('hidden');
+        sec.classList.add('flex');
+        document.getElementById('award-title').textContent = r.award.title;
+        document.getElementById('award-desc').textContent = r.award.desc;
+    }
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────────────
+const id = parseInt(new URLSearchParams(window.location.search).get('id')) || 1;
+const data = RESEARCH[id];
+if (data) {
+    render(data);
+} else {
+    document.getElementById('page-title').textContent = 'Pesquisa não encontrada.';
+}
+</script>
+</body>
+</html>
