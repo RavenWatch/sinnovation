@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sinnovation Award</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(0,229,255,0.08), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(59,130,246,0.08), transparent 30%),
+                #f8fafc;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .login-input {
+            width: 160px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0 12px;
+            color: white;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .login-input::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .award-card {
+            background: rgba(255,255,255,0.82);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow:
+                0 20px 60px rgba(15,23,42,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+
+        .glow-line {
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #00E5FF,
+                transparent
+            );
+        }
+
+        .prize-card {
+            transition: all 0.25s ease;
+        }
+
+        .prize-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-box {
+            background: linear-gradient(
+                135deg,
+                #7dd3fc,
+                #38bdf8
+            );
+
+            border: 3px solid #0f172a;
+
+            box-shadow:
+                0 18px 35px rgba(14,165,233,0.25),
+                12px 12px 0px rgba(125,211,252,0.65);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════ -->
+<nav class="navbar fixed top-0 left-0 right-0 z-50 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-14 gap-4">
+
+        <!-- Nav links -->
+        <div class="flex items-center gap-6">
+            <span class="text-[13px] font-bold text-white/90 tracking-wide">
+                SINNOVATION
+            </span>
+
+            <div class="hidden md:flex items-center gap-5 text-[13px] text-white/70">
+                <a href="./index.html" class="hover:text-white transition-colors">
+                    Home
+                </a>
+
+                <a href="./explorar.html" class="hover:text-white transition-colors">
+                    Radar
+                </a>
+
+                <a href="./award.html" class="text-[#00E5FF] font-semibold border-b border-[#00E5FF]/60 pb-px">
+                    Sinnovation award
+                </a>
+
+                <a href="./events.html" class="hover:text-white transition-colors">
+                    Eventos
+                </a>
+
+                <a href="./aboutus.html" class="hover:text-white transition-colors">
+                    Acerca de nós
+                </a>
+
+                <a href="./contact.html" class="hover:text-white transition-colors">
+                    Contato
+                </a>
+            </div>
+        </div>
+
+        <!-- Login form -->
+        <div class="hidden lg:flex items-center gap-3">
+            <label class="flex flex-col gap-0.5">
+                <span class="text-[10px] font-semibold tracking-[0.12em] uppercase text-white/40">
+                    Email
+                </span>
+
+                <input class="login-input" placeholder="seu@email.com" type="email"/>
+            </label>
+
+            <label class="flex flex-col gap-0.5">
+                <span class="text-[10px] font-semibold tracking-[0.12em] uppercase text-white/40">
+                    Senha
+                </span>
+
+                <input class="login-input" placeholder="••••••••" type="password"/>
+            </label>
+
+            <div class="flex flex-col gap-1 mt-3">
+                <label class="flex items-center gap-1 text-[11px] text-white/50 cursor-pointer select-none whitespace-nowrap">
+                    <input type="checkbox" class="accent-[#00E5FF] w-3 h-3"/>
+                    lembrar senha
+                </label>
+
+                <button class="text-[11px] text-[#00E5FF] hover:underline text-left whitespace-nowrap">
+                    Criar nova conta
+                </button>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     MAIN SECTION
+════════════════════════════════════════════ -->
+<section class="pt-36 pb-24 px-6">
+
+    <div class="max-w-6xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-14">
+
+            <div class="h-[2px] w-40 mx-auto mb-6 glow-line"></div>
+
+            <span class="text-cyan-500 font-bold tracking-[0.2em] uppercase text-sm">
+                Reconhecimento & Inovação
+            </span>
+
+            <h1 class="text-5xl md:text-6xl font-black text-slate-800 mt-5">
+                Sinnovation Award
+            </h1>
+
+            <p class="text-slate-500 mt-6 text-lg max-w-3xl mx-auto leading-relaxed">
+                Transformando potencial científico em oportunidade real.
+            </p>
+
+        </div>
+
+        <!-- Main Card -->
+        <div class="award-card rounded-[36px] p-10 md:p-16">
+
+            <!-- Intro -->
+            <div class="space-y-10 text-slate-700 text-[21px] leading-[1.7]">
+
+                <p>
+                    O <strong class="text-slate-900">Sinnovation Award</strong>
+                    é o prêmio anual da nossa plataforma que transforma
+                    o índice de inovação em oportunidade real para pesquisas
+                    da <strong class="text-slate-900">UFSC</strong> que ainda
+                    não tiveram sua chance.
+                </p>
+
+                <p>
+                    Anualmente a Sinnovation selecionará as pesquisas
+                    com maior índice de inovação que ainda não conquistaram
+                    nenhuma conexão de financiamento via plataforma.
+                </p>
+
+            </div>
+
+            <!-- Prize Section -->
+            <div class="grid lg:grid-cols-2 gap-16 items-center mt-20">
+
+                <!-- Left -->
+                <div>
+
+                    <h2 class="text-4xl font-black text-slate-800 leading-tight mb-10">
+                        Premiações para acelerar pesquisas inovadoras
+                    </h2>
+
+                    <div class="grid gap-5">
+
+                        <div class="prize-card bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                            <div class="text-sm uppercase tracking-[0.2em] text-cyan-500 font-bold mb-2">
+                                Primeiro lugar
+                            </div>
+
+                            <div class="text-4xl font-black text-slate-800">
+                                R$12.000
+                            </div>
+                        </div>
+
+                        <div class="prize-card bg-cyan-50 border border-cyan-100 rounded-2xl p-6">
+                            <div class="text-sm uppercase tracking-[0.2em] text-cyan-600 font-bold mb-2">
+                                Segundo lugar
+                            </div>
+
+                            <div class="text-4xl font-black text-slate-800">
+                                R$5.000
+                            </div>
+                        </div>
+
+                        <div class="prize-card bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                            <div class="text-sm uppercase tracking-[0.2em] text-cyan-500 font-bold mb-2">
+                                Terceiro lugar
+                            </div>
+
+                            <div class="text-4xl font-black text-slate-800">
+                                R$3.000
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Trophy -->
+                <div class="flex justify-center">
+
+                    <div class="relative">
+
+                        <div class="absolute inset-0 bg-cyan-300/30 blur-3xl rounded-full"></div>
+
+                        <div class="relative text-[240px] select-none animate-pulse">
+                            🏆
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Description -->
+            <div class="mt-20">
+
+                <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 md:p-10">
+
+                    <p class="text-center text-slate-700 text-[22px] leading-[1.7] max-w-4xl mx-auto">
+                        Esse valor pode ser usado para experimentos-chave,
+                        provas de conceito, protótipos, consultorias
+                        e qualquer ação que aumente as chances
+                        de a pesquisa virar uma solução aplicada.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-16 flex justify-center">
+
+                <div class="highlight-box rounded-3xl px-10 py-7 max-w-3xl">
+
+                    <p class="text-[24px] md:text-[28px] text-slate-900 font-semibold text-center leading-[1.4]">
+                        Fique ligado para o próximo período
+                        de inscrição para o Sinnovation Award
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>

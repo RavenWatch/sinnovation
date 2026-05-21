@@ -1,995 +1,951 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="light">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Explorar Pesquisas | SINNOVATION</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                "colors": {
-                    "on-primary-fixed-variant": "#2d4960",
-                    "surface-container-highest": "#e0e3e6",
-                    "on-tertiary-fixed": "#001f24",
-                    "surface-container-low": "#f2f4f7",
-                    "on-secondary-fixed": "#25005a",
-                    "secondary-fixed": "#eaddff",
-                    "on-primary-fixed": "#001e30",
-                    "error": "#ba1a1a",
-                    "surface-dim": "#d8dadd",
-                    "surface-container-high": "#e6e8eb",
-                    "on-tertiary-container": "#009fb1",
-                    "outline-variant": "#c3c7cd",
-                    "inverse-primary": "#adcae5",
-                    "surface-bright": "#f7f9fc",
-                    "primary-fixed": "#cbe6ff",
-                    "on-error": "#ffffff",
-                    "surface-container": "#eceef1",
-                    "on-error-container": "#93000a",
-                    "on-primary": "#ffffff",
-                    "inverse-on-surface": "#eff1f4",
-                    "tertiary-fixed-dim": "#00daf3",
-                    "tertiary": "#00181c",
-                    "outline": "#73777d",
-                    "inverse-surface": "#2d3133",
-                    "primary-fixed-dim": "#adcae5",
-                    "on-secondary": "#ffffff",
-                    "secondary": "#6a09e6",
-                    "surface-container-lowest": "#ffffff",
-                    "surface": "#f7f9fc",
-                    "tertiary-fixed": "#9cf0ff",
-                    "on-tertiary": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "primary-container": "#0b2b40",
-                    "on-background": "#191c1e",
-                    "on-surface-variant": "#42474c",
-                    "on-primary-container": "#7793ac",
-                    "on-secondary-container": "#f6edff",
-                    "on-secondary-fixed-variant": "#5900c6",
-                    "tertiary-container": "#002e34",
-                    "surface-tint": "#456179",
-                    "background": "#f7f9fc",
-                    "secondary-fixed-dim": "#d2bbff",
-                    "on-tertiary-fixed-variant": "#004f58",
-                    "secondary-container": "#833cff",
-                    "primary": "#001625",
-                    "on-surface": "#191c1e",
-                    "surface-variant": "#e0e3e6"
-                },
-                "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-                },
-                "spacing": {
-                    "xs": "0.5rem",
-                    "xl": "4rem",
-                    "md": "1.5rem",
-                    "lg": "2.5rem",
-                    "container-max": "1280px",
-                    "unit": "4px",
-                    "sm": "1rem",
-                    "gutter": "24px"
-                },
-                "fontFamily": {
-                    "body-md": ["Inter"],
-                    "h2": ["Inter"],
-                    "h3": ["Inter"],
-                    "h1": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "label-caps": ["Inter"]
-                },
-                "fontSize": {
-                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
-                    "h2": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.5%", "fontWeight": "700"}],
-                    "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.5%", "fontWeight": "700"}],
-                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.5%", "fontWeight": "700"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
-                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
-                }
-            },
-        },
-    }
-</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Sinnovation — Explorar Pesquisas</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <style>
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        color: #00E5FF;
-        font-size: 20px;
-    }
-    .gradient-button {
-        background: linear-gradient(135deg, #7B2FF7 0%, #00E5FF 100%);
-    }
-    .ods-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 4px;
-    }
-    .custom-shadow {
-        box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
-    }
-    .trl-active {
-        background: #833cff;
-        color: white;
-    }
-    .trl-btn {
-        aspect-ratio: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #c3c7cd;
-        border-radius: 0.5rem;
-        font-size: 12px;
-        cursor: pointer;
-        transition: all 0.15s;
-        user-select: none;
-    }
-    .trl-btn:hover:not(.trl-active) {
-        background: #eaddff;
-        border-color: #833cff;
-    }
-    .ods-btn {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.15s;
-        opacity: 0.45;
-        transform: scale(0.9);
-    }
-    .ods-btn.active {
-        opacity: 1;
-        transform: scale(1);
-        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #00daf3;
-    }
-    .card-item {
-        transition: all 0.3s ease;
-    }
-    .card-item.hidden-card {
-        display: none;
-    }
-    /* Range slider styling */
-    input[type=range] {
-        -webkit-appearance: none;
-        appearance: none;
-        height: 4px;
-        border-radius: 4px;
-        outline: none;
-        cursor: pointer;
-    }
-    input[type=range]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: white;
-        border: 2px solid #6a09e6;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        cursor: pointer;
-    }
-    #range-min { background: linear-gradient(to right, #e0e3e6 0%, #e0e3e6 72%, #7B2FF7 72%, #00E5FF 100%); }
+
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background:#F5F7FB;
+    overflow-x:hidden;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    background: rgba(11, 43, 64, 0.88);
+    backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-gradient{
+    background:
+        linear-gradient(
+            135deg,
+            #071B29 0%,
+            #10003B 100%
+        );
+
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-gradient::before{
+    content:"";
+
+    position:absolute;
+
+    width:520px;
+    height:520px;
+
+    background: radial-gradient(circle,#7B2FF7 0%,transparent 70%);
+
+    opacity:.20;
+
+    filter:blur(80px);
+
+    top:-160px;
+    left:-100px;
+}
+
+.hero-gradient::after{
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    background: radial-gradient(circle,#00E5FF 0%,transparent 70%);
+
+    opacity:.14;
+
+    filter:blur(80px);
+
+    bottom:-120px;
+    right:-100px;
+}
+
+/* =========================================================
+   GLASS CARD
+========================================================= */
+
+.glass-card{
+    background: rgba(255,255,255,.82);
+
+    backdrop-filter: blur(18px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.04);
+}
+
+/* =========================================================
+   RESEARCH CARD
+========================================================= */
+
+.research-card{
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease;
+}
+
+.research-card:hover{
+    transform: translateY(-4px);
+
+    border-color: rgba(0,229,255,.28);
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.08);
+}
+
+/* =========================================================
+   ODS
+========================================================= */
+
+.ods{
+    width:28px;
+    height:28px;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:10px;
+    font-weight:800;
+
+    color:white;
+}
+
+.ods-7{ background:#F9A826; }
+.ods-9{ background:#F15A29; }
+.ods-13{ background:#3F7E44; }
+.ods-3{ background:#4C9F38; }
+.ods-6{ background:#00AED9; }
+
+/* =========================================================
+   TRL BUTTONS
+========================================================= */
+
+.trl-btn{
+    width:48px;
+    height:48px;
+
+    border-radius:14px;
+
+    border:1px solid #DCE3ED;
+
+    font-weight:700;
+    font-size:14px;
+
+    transition:.2s;
+}
+
+.trl-btn.active{
+    background: linear-gradient(
+        135deg,
+        #7B2FF7 0%,
+        #00CFFF 100%
+    );
+
+    color:white;
+
+    border-color:transparent;
+}
+
+/* =========================================================
+   FILTER CHECKBOX
+========================================================= */
+
+.filter-check{
+    accent-color:#7B2FF7;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-input:focus{
+    box-shadow:
+        0 0 0 5px rgba(0,229,255,.08);
+}
+
+/* =========================================================
+   RANGE
+========================================================= */
+
+.range{
+    accent-color:#7B2FF7;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#C7D2E2;
+    border-radius:999px;
+}
+
 </style>
 </head>
-<body class="bg-background font-body-md text-on-surface">
 
-<div class="flex min-h-screen">
-    <!-- SideNavBar / Filters -->
-    <aside class="fixed left-0 top-0 bottom-0 w-80 overflow-y-auto p-md flex flex-col gap-sm bg-surface-container-low border-r border-outline-variant/20">
-        <!-- Logo -->
-        <div class="flex items-center gap-sm mb-md pt-sm">
-            <a href="index.html" class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors">
-                <span class="material-symbols-outlined" style="color:#6a09e6; font-size:18px;">arrow_back</span>
-            </a>
-            <span class="font-h3 text-h3 font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-tertiary-fixed-dim">SINNOVATION</span>
-        </div>
+<body>
 
-        <div class="mb-md">
-            <h2 class="font-h3 text-h3 text-primary-container mb-xs">Filtros Avançados</h2>
-            <p class="text-on-surface-variant text-body-md">Refine sua busca por inovações de alto impacto.</p>
-        </div>
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-        <!-- Potencial de Inovação -->
-        <div class="space-y-sm mb-lg">
-            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
-                Potencial de Inovação: <span id="range-label" class="text-secondary font-bold">0 – 100</span>
-            </label>
-            <div class="flex gap-xs items-center">
-                <span class="text-label-caps text-outline">0</span>
-                <input type="range" id="range-min" min="0" max="100" value="0" class="flex-1" style="background: #e0e3e6;"/>
-                <span class="text-label-caps text-outline">100</span>
+<nav class="navbar fixed top-0 left-0 right-0 z-50 px-6">
+
+    <div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
+
+        <div class="flex items-center gap-10">
+
+            <div class="text-white font-black tracking-wide text-sm">
+                SINNOVATION
             </div>
-            <div class="flex gap-xs items-center">
-                <span class="text-label-caps text-outline">0</span>
-                <input type="range" id="range-max" min="0" max="100" value="100" class="flex-1" style="background: linear-gradient(to right, #7B2FF7 0%, #00E5FF 100%);"/>
-                <span class="text-label-caps text-outline">100</span>
+
+            <div class="hidden md:flex items-center gap-6 text-[14px] text-white/70">
+
+                <a href="./index.html"
+                   class="hover:text-white transition-colors">
+                    Home
+                </a>
+
+                <a href="#"
+                   class="text-cyan-300 font-semibold">
+                    Radar
+                </a>
+
+                <a href="./award.html"
+                   class="hover:text-white transition-colors">
+                    Sinnovation award
+                </a>
+
+                <a href="./events.html"
+                   class="hover:text-white transition-colors">
+                    Eventos
+                </a>
+
+                <a href="./aboutus.html"
+                   class="hover:text-white transition-colors">
+                    Acerca de nós
+                </a>
+
+                <a href="./contact.html"
+                   class="hover:text-white transition-colors">
+                    Contato
+                </a>
+
             </div>
+
         </div>
 
-        <!-- Área da Pesquisa -->
-        <div class="space-y-sm mb-lg">
-            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Área da Pesquisa</label>
-            <div class="flex flex-col gap-xs">
-                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
-                    <input checked class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="engenharias"/>
-                    Engenharias
-                </label>
-                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
-                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="saude"/>
-                    Ciências da Saúde
-                </label>
-                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
-                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="agrarias"/>
-                    Ciências Agrárias
-                </label>
-                <label class="flex items-center gap-xs text-body-md cursor-pointer hover:translate-x-1 transition-transform">
-                    <input class="area-check rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox" value="exatas"/>
-                    Ciências Exatas e da Terra
-                </label>
-            </div>
-        </div>
+        <div class="hidden xl:flex items-center gap-3">
 
-        <!-- ODS Grid -->
-        <div class="space-y-sm mb-lg">
-            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Objetivos ODS <span class="text-secondary" id="ods-count"></span></label>
-            <div class="ods-grid">
-                <div class="ods-btn active" data-ods="1" style="background:#E5243B;"><span class="material-symbols-outlined !text-white !text-[18px]">emergency</span></div>
-                <div class="ods-btn" data-ods="2" style="background:#DDA63A;"><span class="material-symbols-outlined !text-white !text-[18px]">nutrition</span></div>
-                <div class="ods-btn" data-ods="3" style="background:#4C9F38;"><span class="material-symbols-outlined !text-white !text-[18px]">medical_services</span></div>
-                <div class="ods-btn" data-ods="4" style="background:#C5192D;"><span class="material-symbols-outlined !text-white !text-[18px]">school</span></div>
-                <div class="ods-btn active" data-ods="5" style="background:#FF3A21;"><span class="material-symbols-outlined !text-white !text-[18px]">wc</span></div>
-                <div class="ods-btn" data-ods="6" style="background:#26BDE2;"><span class="material-symbols-outlined !text-white !text-[18px]">water_drop</span></div>
-                <div class="ods-btn" data-ods="7" style="background:#FCC30B;"><span class="material-symbols-outlined !text-white !text-[18px]">bolt</span></div>
-                <div class="ods-btn" data-ods="8" style="background:#A21942;"><span class="material-symbols-outlined !text-white !text-[18px]">work</span></div>
-                <div class="ods-btn" data-ods="9" style="background:#FD6925;"><span class="material-symbols-outlined !text-white !text-[18px]">factory</span></div>
-                <div class="ods-btn" data-ods="10" style="background:#DD1367;"><span class="material-symbols-outlined !text-white !text-[18px]">diversity_3</span></div>
-                <div class="ods-btn" data-ods="11" style="background:#FD9D24;"><span class="material-symbols-outlined !text-white !text-[18px]">location_city</span></div>
-                <div class="ods-btn" data-ods="12" style="background:#BF8B2E;"><span class="material-symbols-outlined !text-white !text-[18px]">recycling</span></div>
-                <div class="ods-btn" data-ods="13" style="background:#3F7E44;"><span class="material-symbols-outlined !text-white !text-[18px]">public</span></div>
-                <div class="ods-btn" data-ods="14" style="background:#0A97D9;"><span class="material-symbols-outlined !text-white !text-[18px]">waves</span></div>
-                <div class="ods-btn" data-ods="15" style="background:#56C02B;"><span class="material-symbols-outlined !text-white !text-[18px]">forest</span></div>
-                <div class="ods-btn" data-ods="16" style="background:#00689D;"><span class="material-symbols-outlined !text-white !text-[18px]">gavel</span></div>
-                <div class="ods-btn" data-ods="17" style="background:#19486A;"><span class="material-symbols-outlined !text-white !text-[18px]">handshake</span></div>
-            </div>
-        </div>
+            <input
+                type="text"
+                placeholder="Usuário"
+                class="h-10 rounded-xl bg-white/8 border border-white/10
+                       px-4 text-sm text-white placeholder:text-white/35
+                       focus:outline-none focus:border-cyan-400"
+            />
 
-        <!-- TRL Grid -->
-        <div class="space-y-sm mb-lg">
-            <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Nível TRL</label>
-            <div class="grid grid-cols-5 gap-xs" id="trl-grid">
-                <div class="trl-btn" data-trl="1">1</div>
-                <div class="trl-btn" data-trl="2">2</div>
-                <div class="trl-btn" data-trl="3">3</div>
-                <div class="trl-btn trl-active" data-trl="4">4</div>
-                <div class="trl-btn trl-active" data-trl="5">5</div>
-                <div class="trl-btn trl-active" data-trl="6">6</div>
-                <div class="trl-btn trl-active" data-trl="7">7</div>
-                <div class="trl-btn" data-trl="8">8</div>
-                <div class="trl-btn" data-trl="9">9</div>
-            </div>
-        </div>
+            <input
+                type="password"
+                placeholder="Senha"
+                class="h-10 rounded-xl bg-white/8 border border-white/10
+                       px-4 text-sm text-white placeholder:text-white/35
+                       focus:outline-none focus:border-cyan-400"
+            />
 
-        <div class="mt-auto pt-md space-y-sm">
-            <button id="btn-apply" class="w-full py-3 rounded-xl text-white font-bold gradient-button shadow-lg active:scale-95 transition-all">
-                Aplicar Filtros
+            <button class="h-10 px-5 rounded-xl
+                           bg-gradient-to-r from-[#7B2FF7] to-[#00D2FF]
+                           text-white text-sm font-semibold">
+                Entrar
             </button>
-            <button id="btn-clear" class="w-full text-center text-body-md text-secondary hover:underline transition-all">
-                Limpar filtros
-            </button>
+
         </div>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="ml-80 flex-1 p-lg bg-background">
-        <div class="max-w-container-max mx-auto">
-            <!-- Header -->
-            <header class="mb-lg">
-                <h1 class="font-h2 text-h2 text-primary-container">Explorar Pesquisas</h1>
-                <p class="text-body-lg text-on-surface-variant mt-xs">Encontre projetos com alto potencial de inovação e conecte-se aos pesquisadores.</p>
-            </header>
+    </div>
 
-            <!-- Sorting and View Controls -->
-            <div class="flex justify-between items-center mb-md">
-                <span id="result-count" class="text-body-md font-semibold text-on-surface-variant">Exibindo 4 pesquisas</span>
-                <div class="flex items-center gap-md">
-                    <div class="flex items-center gap-xs">
-                        <span class="text-label-caps text-outline uppercase">Ordenar por:</span>
-                        <select id="sort-select" class="bg-transparent border-none text-body-md font-semibold focus:ring-0 cursor-pointer">
-                            <option value="inovacao">Maior Potencial</option>
-                            <option value="recentes">Recentes</option>
-                            <option value="trl">TRL</option>
-                        </select>
-                    </div>
+</nav>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero-gradient pt-32 pb-20 px-6">
+
+    <div class="max-w-7xl mx-auto relative z-10">
+
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+
+            <div>
+
+                <div class="inline-flex items-center gap-2
+                            px-4 py-2 rounded-full
+                            border border-cyan-400/20
+                            bg-cyan-400/10
+                            text-cyan-300
+                            text-xs font-semibold tracking-wide mb-6">
+
+                    Universidade Federal de Santa Catarina — UFSC
+
                 </div>
-            </div>
 
-            <!-- Results Grid -->
-            <div id="results-grid" class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
-
-                <!-- Card 1 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="7" data-inovacao="84" data-ano="2026" data-area="engenharias" data-ods="1,5,6">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 7</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#E5243B] flex items-center justify-center" title="ODS 1"><span class="material-symbols-outlined !text-white !text-[14px]">emergency</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FF3A21] flex items-center justify-center" title="ODS 5"><span class="material-symbols-outlined !text-white !text-[14px]">wc</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Sistema de Purificação de Hidrogênio Verde via Membranas Cerâmicas</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dr. Roberto Fernandes</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Desenvolvimento de uma nova classe de membranas cerâmicas de alta porosidade para separação ultra-eficiente de hidrogênio em processos de eletrólise, reduzindo o custo operacional em até 35%...
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Inovação</span>
-                            <span class="text-h3 font-bold text-tertiary-fixed-dim">84/100</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">ODS</span>
-                            <span class="flex items-center gap-1 mt-1">
-                                <div class="w-5 h-5 rounded-full bg-[#E5243B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">emergency</span></div>
-                                <div class="w-5 h-5 rounded-full bg-[#FF3A21] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">wc</span></div>
-                                <div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div>
-                            </span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Conexões</span>
-                            <span class="text-h3 font-bold text-on-surface-variant">8</span>
-                        </div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
-                            Ver detalhes
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Card 2 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="6" data-inovacao="91" data-ano="2025" data-area="saude" data-ods="3,6">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Nanobiossensores para Detecção Precoce de Patógenos em Águas Residuais</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dra. Alice Moretti</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Uso de nanopartículas de ouro funcionalizadas para detecção em tempo real de contaminantes biológicos em matrizes complexas, com sensibilidade superior aos métodos ELISA tradicionais.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Inovação</span>
-                            <span class="text-h3 font-bold text-tertiary-fixed-dim">91/100</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">ODS</span>
-                            <span class="flex items-center gap-1 mt-1">
-                                <div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div>
-                                <div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div>
-                            </span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Conexões</span>
-                            <span class="text-h3 font-bold text-on-surface-variant">12</span>
-                        </div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
-                            Ver detalhes
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Card 3 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="4" data-inovacao="78" data-ano="2026" data-area="exatas" data-ods="7,9">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 4</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#FCC30B] flex items-center justify-center" title="ODS 7"><span class="material-symbols-outlined !text-white !text-[14px]">bolt</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Algoritmos de IA para Otimização de Micro-grids de Energia Solar</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Prof. Marcos Silva</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Plataforma baseada em Reinforcement Learning para gestão dinâmica de carga em comunidades isoladas, permitindo autonomia energética total com fontes renováveis intermitentes.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Inovação</span>
-                            <span class="text-h3 font-bold text-tertiary-fixed-dim">78/100</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">ODS</span>
-                            <span class="flex items-center gap-1 mt-1">
-                                <div class="w-5 h-5 rounded-full bg-[#FCC30B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">bolt</span></div>
-                                <div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div>
-                            </span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Conexões</span>
-                            <span class="text-h3 font-bold text-on-surface-variant">4</span>
-                        </div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
-                            Ver detalhes
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Card 4 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="8" data-inovacao="95" data-ano="2024" data-area="agrarias" data-ods="12">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 8</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#BF8B2E] flex items-center justify-center" title="ODS 12"><span class="material-symbols-outlined !text-white !text-[14px]">recycling</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Bioplásticos de Base Amilácea para Embalagens de Logística Reversa</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dr. Jonas Albuquerque</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Polímero 100% biodegradável derivado de subprodutos da agroindústria com propriedades mecânicas similares ao polietileno, já testado em ambiente operacional de larga escala.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Inovação</span>
-                            <span class="text-h3 font-bold text-tertiary-fixed-dim">95/100</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">ODS</span>
-                            <span class="flex items-center gap-1 mt-1">
-                                <div class="w-5 h-5 rounded-full bg-[#BF8B2E] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">recycling</span></div>
-                            </span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-label-caps text-outline uppercase">Conexões</span>
-                            <span class="text-h3 font-bold text-on-surface-variant">21</span>
-                        </div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">
-                            Ver detalhes
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Card 5 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="3" data-inovacao="72" data-ano="2025" data-area="saude" data-ods="3,10">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 3</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#DD1367] flex items-center justify-center" title="ODS 10"><span class="material-symbols-outlined !text-white !text-[14px]">diversity_3</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Plataforma de Diagnóstico de Doenças Raras por Análise de Expressão Gênica</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dra. Fernanda Oliveira</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Modelo de aprendizado de máquina treinado em perfis transcriptômicos para identificar padrões associados a mais de 200 doenças raras com acurácia superior a 92%, reduzindo o tempo médio de diagnóstico de anos para semanas.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">72/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#DD1367] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">diversity_3</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">6</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 6 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="5" data-inovacao="88" data-ano="2026" data-area="engenharias" data-ods="9,11,13">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FD9D24] flex items-center justify-center" title="ODS 11"><span class="material-symbols-outlined !text-white !text-[14px]">location_city</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#3F7E44] flex items-center justify-center" title="ODS 13"><span class="material-symbols-outlined !text-white !text-[14px]">public</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Concreto Geopolimérico com Resíduos Industriais para Construção de Baixo Carbono</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Prof. André Carvalho</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Formulação de concreto geopolimérico utilizando escória de alto-forno e cinzas volantes como substitutos ao cimento Portland, com redução de 65% nas emissões de CO₂ e resistência mecânica equivalente.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">88/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#FD9D24] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">location_city</span></div><div class="w-5 h-5 rounded-full bg-[#3F7E44] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">public</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">14</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 7 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="6" data-inovacao="80" data-ano="2024" data-area="agrarias" data-ods="2,15">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#DDA63A] flex items-center justify-center" title="ODS 2"><span class="material-symbols-outlined !text-white !text-[14px]">nutrition</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#56C02B] flex items-center justify-center" title="ODS 15"><span class="material-symbols-outlined !text-white !text-[14px]">forest</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Inoculantes Microbianos para Fixação Biológica de Nitrogênio em Culturas de Soja</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dra. Camila Ramos</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Consórcio de bactérias diazotróficas selecionadas por critérios genômicos para máxima eficiência de fixação de N₂ em condições de estresse hídrico, reduzindo em 40% a necessidade de fertilizantes nitrogenados sintéticos.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">80/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#DDA63A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">nutrition</span></div><div class="w-5 h-5 rounded-full bg-[#56C02B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">forest</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">9</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 8 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="2" data-inovacao="65" data-ano="2026" data-area="exatas" data-ods="4,9,17">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 2</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#C5192D] flex items-center justify-center" title="ODS 4"><span class="material-symbols-outlined !text-white !text-[14px]">school</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#19486A] flex items-center justify-center" title="ODS 17"><span class="material-symbols-outlined !text-white !text-[14px]">handshake</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Computação Quântica Aplicada à Resolução de Problemas de Otimização Combinatória</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Prof. Lucas Mendonça</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Implementação de algoritmos variacionais quânticos (VQE e QAOA) em hardware supercondutivo para resolução de problemas NP-difíceis em logística e design de materiais, com vantagem quântica demonstrada em escala laboratorial.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">65/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#C5192D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">school</span></div><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#19486A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">handshake</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">3</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 9 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="7" data-inovacao="90" data-ano="2025" data-area="saude" data-ods="3,16">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 7</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#00689D] flex items-center justify-center" title="ODS 16"><span class="material-symbols-outlined !text-white !text-[14px]">gavel</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Exoesqueleto Robótico Leve para Reabilitação de Pacientes com AVC</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dra. Beatriz Cunha</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Exoesqueleto de membros inferiores com controle baseado em intenção de movimento detectada por EMG de superfície, permitindo sessões de fisioterapia intensiva com feedback háptico em tempo real e custo 70% inferior ao estado da arte.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">90/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#00689D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">gavel</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">17</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 10 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="5" data-inovacao="76" data-ano="2024" data-area="engenharias" data-ods="6,14">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#26BDE2] flex items-center justify-center" title="ODS 6"><span class="material-symbols-outlined !text-white !text-[14px]">water_drop</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#0A97D9] flex items-center justify-center" title="ODS 14"><span class="material-symbols-outlined !text-white !text-[14px]">waves</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Reatores Eletroquímicos para Remoção de Microplásticos em Efluentes Industriais</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Prof. Thiago Pinto</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Sistema de eletrocoagulação acoplado a filtros de nanofibras de celulose bacteriana para remoção de partículas plásticas menores que 1 µm em efluentes têxteis, com eficiência de remoção superior a 99,4%.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">76/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#26BDE2] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">water_drop</span></div><div class="w-5 h-5 rounded-full bg-[#0A97D9] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">waves</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">11</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 11 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="9" data-inovacao="97" data-ano="2023" data-area="saude" data-ods="3,1">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 9</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#4C9F38] flex items-center justify-center" title="ODS 3"><span class="material-symbols-outlined !text-white !text-[14px]">medical_services</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#E5243B] flex items-center justify-center" title="ODS 1"><span class="material-symbols-outlined !text-white !text-[14px]">emergency</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Kit de Diagnóstico Rápido para Arboviroses Tropicais em Regiões Remotas</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dr. Rafael Sousa</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Dispositivo lab-on-chip baseado em LAMP isotérmica para detecção simultânea de dengue, zika e chikungunya em amostras de saliva, sem necessidade de laboratório ou cadeia de frio, com resultado em 12 minutos.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">97/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#4C9F38] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">medical_services</span></div><div class="w-5 h-5 rounded-full bg-[#E5243B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">emergency</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">30</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2023</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 12 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="4" data-inovacao="74" data-ano="2025" data-area="exatas" data-ods="7,13">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 4</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#FCC30B] flex items-center justify-center" title="ODS 7"><span class="material-symbols-outlined !text-white !text-[14px]">bolt</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#3F7E44] flex items-center justify-center" title="ODS 13"><span class="material-symbols-outlined !text-white !text-[14px]">public</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Perovskitas de Haleto para Células Solares Tândem de Alta Eficiência</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dra. Juliana Freitas</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Desenvolvimento de células solares tândem perovskita/silício com camada de interface passivada por auto-assembled monolayers, atingindo eficiência de conversão certificada de 31,2% em área de 1 cm², com estabilidade superior a 1000h sob iluminação contínua.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">74/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#FCC30B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">bolt</span></div><div class="w-5 h-5 rounded-full bg-[#3F7E44] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">public</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">7</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 13 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="6" data-inovacao="83" data-ano="2026" data-area="agrarias" data-ods="2,12,15">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 6</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#DDA63A] flex items-center justify-center" title="ODS 2"><span class="material-symbols-outlined !text-white !text-[14px]">nutrition</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#BF8B2E] flex items-center justify-center" title="ODS 12"><span class="material-symbols-outlined !text-white !text-[14px]">recycling</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#56C02B] flex items-center justify-center" title="ODS 15"><span class="material-symbols-outlined !text-white !text-[14px]">forest</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Fertirrigação de Precisão por Sensoriamento Remoto Hiperespectral em Drones</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Prof. Eduardo Lopes</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Sistema integrado de drones com câmera hiperespectral e algoritmos de visão computacional para mapeamento nutricional em tempo real de lavouras, permitindo fertirrigação diferenciada por zonas de manejo com redução de 30% no uso de insumos.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">83/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#DDA63A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">nutrition</span></div><div class="w-5 h-5 rounded-full bg-[#BF8B2E] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">recycling</span></div><div class="w-5 h-5 rounded-full bg-[#56C02B] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">forest</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">13</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2026</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 14 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="8" data-inovacao="93" data-ano="2024" data-area="engenharias" data-ods="8,9,11">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 8</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#A21942] flex items-center justify-center" title="ODS 8"><span class="material-symbols-outlined !text-white !text-[14px]">work</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FD6925] flex items-center justify-center" title="ODS 9"><span class="material-symbols-outlined !text-white !text-[14px]">factory</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#FD9D24] flex items-center justify-center" title="ODS 11"><span class="material-symbols-outlined !text-white !text-[14px]">location_city</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Robô Colaborativo de Inspeção Submarina para Infraestrutura Portuária</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Dr. Fábio Azevedo</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        ROV autônomo equipado com sonar multifeixe, câmeras de fluorescência UV e braço manipulador de 6 graus de liberdade para inspeção e reparos menores em cascos, píeres e dutos submersos, reduzindo tempo de docagem em 80%.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">93/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#A21942] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">work</span></div><div class="w-5 h-5 rounded-full bg-[#FD6925] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">factory</span></div><div class="w-5 h-5 rounded-full bg-[#FD9D24] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">location_city</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">19</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2024</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
-
-                <!-- Card 15 -->
-                <article class="card-item bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 custom-shadow hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-                    data-trl="5" data-inovacao="85" data-ano="2025" data-area="exatas" data-ods="4,10,17">
-                    <div class="flex justify-between items-start mb-md">
-                        <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps font-bold">TRL 5</span>
-                        <div class="flex gap-1">
-                            <div class="w-6 h-6 rounded-full bg-[#C5192D] flex items-center justify-center" title="ODS 4"><span class="material-symbols-outlined !text-white !text-[14px]">school</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#DD1367] flex items-center justify-center" title="ODS 10"><span class="material-symbols-outlined !text-white !text-[14px]">diversity_3</span></div>
-                            <div class="w-6 h-6 rounded-full bg-[#19486A] flex items-center justify-center" title="ODS 17"><span class="material-symbols-outlined !text-white !text-[14px]">handshake</span></div>
-                        </div>
-                    </div>
-                    <h3 class="font-h3 text-h3 text-primary-container leading-tight group-hover:text-secondary transition-colors">Modelo de Linguagem Multimodal para Língua Brasileira de Sinais (LIBRAS)</h3>
-                    <div class="flex items-center gap-xs mt-sm text-body-md text-on-surface-variant">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span>Profa. Mariana Costa</span>
-                    </div>
-                    <p class="mt-md text-body-md text-on-surface-variant line-clamp-3">
-                        Sistema de tradução automática bidirecional entre LIBRAS e português escrito/falado, baseado em visão computacional 3D e modelos de linguagem adaptados, com corpus de 500h anotado por surdos nativos e acurácia de 87% em contextos espontâneos.
-                    </p>
-                    <div class="grid grid-cols-3 gap-md my-md py-md border-y border-outline-variant/10">
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Inovação</span><span class="text-h3 font-bold text-tertiary-fixed-dim">85/100</span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">ODS</span><span class="flex items-center gap-1 mt-1"><div class="w-5 h-5 rounded-full bg-[#C5192D] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">school</span></div><div class="w-5 h-5 rounded-full bg-[#DD1367] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">diversity_3</span></div><div class="w-5 h-5 rounded-full bg-[#19486A] flex items-center justify-center"><span class="material-symbols-outlined !text-white !text-[12px]">handshake</span></div></span></div>
-                        <div class="flex flex-col"><span class="text-label-caps text-outline uppercase">Conexões</span><span class="text-h3 font-bold text-on-surface-variant">15</span></div>
-                    </div>
-                    <div class="mt-auto flex justify-between items-center">
-                        <span class="text-label-caps font-semibold text-outline">ANO: 2025</span>
-                        <button class="px-6 py-2 border-2 border-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-lg font-bold hover:bg-tertiary-fixed-dim/10 transition-all active:scale-95">Ver detalhes</button>
-                    </div>
-                </article>
+                <h1 class="text-5xl md:text-6xl font-black text-white leading-[1.05] max-w-3xl">
+                    Explorar Pesquisas
+                </h1>
 
             </div>
 
-            <!-- Empty state -->
-            <div id="empty-state" class="hidden flex-col items-center justify-center py-xl text-center">
-                <span class="material-symbols-outlined" style="font-size:48px; color:#c3c7cd;">search_off</span>
-                <p class="text-h3 text-on-surface-variant mt-md">Nenhuma pesquisa encontrada</p>
-                <p class="text-body-md text-outline mt-xs">Tente ajustar os filtros para ver mais resultados.</p>
+            <div class="max-w-xl">
+
+                <p class="text-white/68 text-lg leading-relaxed">
+                    Descubra pesquisas com alto potencial de inovação,
+                    impacto social e conexão tecnológica dentro da UFSC.
+                </p>
+
             </div>
+
         </div>
-    </main>
-</div>
 
-<!-- FAB -->
-<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full gradient-button text-white shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
-    <span class="material-symbols-outlined" style="color: white; font-size: 32px;">add</span>
-</button>
+    </div>
+
+</section>
+
+<!-- =========================================================
+     CONTENT
+========================================================= -->
+
+<section class="px-6 py-10">
+
+    <div class="max-w-7xl mx-auto">
+
+        <!-- SEARCH -->
+        <div class="relative mb-8">
+
+            <span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
+                search
+            </span>
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Buscar por tecnologia, laboratório, pesquisador, área..."
+                class="search-input w-full h-16 rounded-3xl border border-slate-200
+                       bg-white px-14 text-[15px]
+                       shadow-[0_10px_30px_rgba(0,0,0,0.04)]
+                       outline-none transition-all duration-300"
+            />
+
+        </div>
+
+        <!-- GRID -->
+        <div class="grid grid-cols-1 xl:grid-cols-[340px_1fr] gap-8">
+
+            <!-- =========================================================
+                 FILTERS
+            ========================================================= -->
+
+            <aside class="glass-card rounded-[34px] p-8 h-fit sticky top-24">
+
+                <div class="flex items-center gap-3 mb-10">
+
+                    <span class="material-symbols-outlined text-[#7B2FF7]">
+                        tune
+                    </span>
+
+                    <h2 class="text-3xl font-black text-[#0B2B40]">
+                        Filtros
+                    </h2>
+
+                </div>
+
+                <!-- SCORE -->
+                <div class="mb-10">
+
+                    <div class="flex items-center justify-between mb-3">
+
+                        <span class="font-bold text-[#0B2B40]">
+                            Indicador de inovação
+                        </span>
+
+                        <span id="scoreValue"
+                              class="text-[#7B2FF7] font-black">
+                            50
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        id="innovationRange"
+                        class="range w-full"
+                    />
+
+                </div>
+
+                <!-- AREA -->
+                <div class="mb-10">
+
+                    <h3 class="font-bold text-[#0B2B40] mb-5">
+                        Área da pesquisa
+                    </h3>
+
+                    <div class="space-y-4">
+
+                        <label class="flex items-center gap-3 cursor-pointer">
+
+                            <input
+                                type="checkbox"
+                                value="engenharias"
+                                class="area-filter filter-check"
+                                checked
+                            />
+
+                            <span class="text-slate-600">
+                                Engenharias
+                            </span>
+
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer">
+
+                            <input
+                                type="checkbox"
+                                value="saude"
+                                class="area-filter filter-check"
+                                checked
+                            />
+
+                            <span class="text-slate-600">
+                                Ciências da Saúde
+                            </span>
+
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer">
+
+                            <input
+                                type="checkbox"
+                                value="energia"
+                                class="area-filter filter-check"
+                                checked
+                            />
+
+                            <span class="text-slate-600">
+                                Energia
+                            </span>
+
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer">
+
+                            <input
+                                type="checkbox"
+                                value="ia"
+                                class="area-filter filter-check"
+                                checked
+                            />
+
+                            <span class="text-slate-600">
+                                Inteligência Artificial
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!-- TRL -->
+                <div class="mb-10">
+
+                    <h3 class="font-bold text-[#0B2B40] mb-5">
+                        Nível TRL
+                    </h3>
+
+                    <div class="grid grid-cols-4 gap-3">
+
+                        <button class="trl-btn active" data-trl="1">1</button>
+                        <button class="trl-btn active" data-trl="2">2</button>
+                        <button class="trl-btn active" data-trl="3">3</button>
+                        <button class="trl-btn active" data-trl="4">4</button>
+                        <button class="trl-btn active" data-trl="5">5</button>
+                        <button class="trl-btn active" data-trl="6">6</button>
+                        <button class="trl-btn active" data-trl="7">7</button>
+                        <button class="trl-btn active" data-trl="8">8</button>
+
+                    </div>
+
+                </div>
+
+                <!-- RESET -->
+                <button
+                    id="clearFilters"
+                    class="w-full h-14 rounded-2xl
+                           bg-gradient-to-r from-[#7B2FF7] to-[#00D2FF]
+                           text-white font-bold
+                           shadow-lg"
+                >
+                    Limpar filtros
+                </button>
+
+            </aside>
+
+            <!-- =========================================================
+                 RESULTS
+            ========================================================= -->
+
+            <div>
+
+                <!-- TOPBAR -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-7">
+
+                    <div class="text-slate-500 text-sm">
+                        Exibindo
+                        <span id="resultsCount"
+                              class="font-bold text-[#0B2B40]">
+                            6
+                        </span>
+                        pesquisas
+                    </div>
+
+                    <select
+                        id="sortSelect"
+                        class="h-12 rounded-2xl border border-slate-200 bg-white
+                               px-5 text-sm text-slate-700 outline-none"
+                    >
+
+                        <option value="innovation">
+                            Maior potencial
+                        </option>
+
+                        <option value="recent">
+                            Mais recentes
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- RESULTS GRID -->
+                <div
+                    id="resultsGrid"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-6"
+                >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="mt-20 border-t border-slate-200 py-12 px-6">
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+
+        <div>
+
+            <div class="text-[#0B2B40] font-black text-xl mb-3">
+                SINNOVATION
+            </div>
+
+            <p class="text-slate-500">
+                Plataforma de inovação acadêmica da UFSC.
+            </p>
+
+        </div>
+
+        <div class="flex gap-6 text-slate-500 text-sm">
+
+            <a href="#">Privacidade</a>
+            <a href="#">Termos</a>
+            <a href="#">Contato</a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- =========================================================
+     SCRIPT
+========================================================= -->
 
 <script>
-    // ── State ──────────────────────────────────────────────────────────────────
-    let activeTRL = new Set([4, 5, 6, 7]);
-    let activeODS = new Set([1, 5]);
-    let rangeMin = 0;
-    let rangeMax = 100;
-    let activeAreas = new Set();
 
-    // ── TRL toggle ─────────────────────────────────────────────────────────────
-    document.querySelectorAll('.trl-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const val = parseInt(btn.dataset.trl);
-            if (activeTRL.has(val)) {
-                activeTRL.delete(val);
-                btn.classList.remove('trl-active');
-            } else {
-                activeTRL.add(val);
-                btn.classList.add('trl-active');
-            }
-        });
-    });
+const researchData = [
 
-    // ── ODS toggle ─────────────────────────────────────────────────────────────
-    document.querySelectorAll('.ods-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const val = parseInt(btn.dataset.ods);
-            if (activeODS.has(val)) {
-                activeODS.delete(val);
-                btn.classList.remove('active');
-            } else {
-                activeODS.add(val);
-                btn.classList.add('active');
-            }
-            updateODSCount();
-        });
-    });
+{
+    id: 0,
+    title: "Sistema de Purificação de Hidrogênio Verde via Membranas Cerâmicas",
+    researcher: "Dr. Roberto Fernandes",
+    area: "engenharias",
+    trl: 7,
+    innovation: 84,
+    year: 2026,
+    ods: [7,9,13],
+    description: "Desenvolvimento de membranas cerâmicas avançadas para separação ultraeficiente de hidrogênio verde.",
+},
 
-    function updateODSCount() {
-        const el = document.getElementById('ods-count');
-        el.textContent = activeODS.size > 0 ? `(${activeODS.size} selecionado${activeODS.size > 1 ? 's' : ''})` : '';
-    }
-    updateODSCount();
+{
+    id: 1,
+    title: "IA para Diagnóstico Precoce de Alzheimer",
+    researcher: "Dra. Marina Costa",
+    area: "ia",
+    trl: 5,
+    innovation: 92,
+    year: 2025,
+    ods: [3],
+    description: "Modelo de inteligência artificial para análise de exames cerebrais e detecção precoce de Alzheimer.",
+},
 
-    // ── Range sliders ──────────────────────────────────────────────────────────
-    const rMin = document.getElementById('range-min');
-    const rMax = document.getElementById('range-max');
-    const rLabel = document.getElementById('range-label');
+{
+    id: 2,
+    title: "Microgrid Inteligente para Comunidades Isoladas",
+    researcher: "Dr. Lucas Martins",
+    area: "energia",
+    trl: 6,
+    innovation: 88,
+    year: 2026,
+    ods: [7,13],
+    description: "Arquitetura energética inteligente baseada em energia solar e baterias de lítio.",
+},
 
-    function updateRangeLabel() {
-        rangeMin = parseInt(rMin.value);
-        rangeMax = parseInt(rMax.value);
-        if (rangeMin > rangeMax) {
-            [rangeMin, rangeMax] = [rangeMax, rangeMin];
-            rMin.value = rangeMin;
-            rMax.value = rangeMax;
-        }
-        rLabel.textContent = `${rangeMin} – ${rangeMax}`;
-    }
+{
+    id: 3,
+    title: "Robótica Subaquática para Monitoramento Costeiro",
+    researcher: "Prof. Felipe Duarte",
+    area: "engenharias",
+    trl: 4,
+    innovation: 81,
+    year: 2024,
+    ods: [13],
+    description: "Veículos subaquáticos autônomos para análise de ecossistemas marinhos da costa catarinense.",
+},
 
-    rMin.addEventListener('input', updateRangeLabel);
-    rMax.addEventListener('input', updateRangeLabel);
-    updateRangeLabel();
+{
+    id: 4,
+    title: "Bioimpressão 3D de Tecidos Regenerativos",
+    researcher: "Dra. Camila Ribeiro",
+    area: "saude",
+    trl: 5,
+    innovation: 95,
+    year: 2026,
+    ods: [3,9],
+    description: "Bioimpressão de tecidos humanos utilizando biomateriais de alta compatibilidade.",
+},
 
-    // ── Area checkboxes ────────────────────────────────────────────────────────
-    document.querySelectorAll('.area-check').forEach(cb => {
-        if (cb.checked) activeAreas.add(cb.value);
-        cb.addEventListener('change', () => {
-            if (cb.checked) activeAreas.add(cb.value);
-            else activeAreas.delete(cb.value);
-        });
-    });
+{
+    id: 5,
+    title: "Plataforma de IA para Previsão Climática",
+    researcher: "Dr. Rafael Teixeira",
+    area: "ia",
+    trl: 3,
+    innovation: 77,
+    year: 2025,
+    ods: [13],
+    description: "Modelos neurais para previsão climática de alta resolução aplicados ao sul do Brasil.",
+}
 
-    // ── Apply filters ──────────────────────────────────────────────────────────
-    function applyFilters() {
-        const cards = document.querySelectorAll('.card-item');
-        let visible = 0;
+];
 
-        cards.forEach(card => {
-            const trl    = parseInt(card.dataset.trl);
-            const inov   = parseInt(card.dataset.inovacao);
-            const area   = card.dataset.area;
-            const cardODS = card.dataset.ods.split(',').map(Number);
+const resultsGrid = document.getElementById('resultsGrid');
+const searchInput = document.getElementById('searchInput');
+const innovationRange = document.getElementById('innovationRange');
+const scoreValue = document.getElementById('scoreValue');
+const resultsCount = document.getElementById('resultsCount');
+const sortSelect = document.getElementById('sortSelect');
 
-            const trlOk  = activeTRL.size === 0 || activeTRL.has(trl);
-            const inovOk = inov >= rangeMin && inov <= rangeMax;
-            const areaOk = activeAreas.size === 0 || activeAreas.has(area);
-            const odsOk  = activeODS.size === 0 || cardODS.some(o => activeODS.has(o));
+let activeTrls = [1,2,3,4,5,6,7,8];
 
-            const show = trlOk && inovOk && areaOk && odsOk;
-            card.style.display = show ? '' : 'none';
-            if (show) visible++;
-        });
+document.querySelectorAll('.trl-btn').forEach(btn => {
 
-        document.getElementById('result-count').textContent = `Exibindo ${visible} pesquisa${visible !== 1 ? 's' : ''}`;
-        const empty = document.getElementById('empty-state');
-        if (visible === 0) {
-            empty.classList.remove('hidden');
-            empty.classList.add('flex');
+    btn.addEventListener('click', () => {
+
+        const trl = Number(btn.dataset.trl);
+
+        btn.classList.toggle('active');
+
+        if(activeTrls.includes(trl)){
+            activeTrls = activeTrls.filter(t => t !== trl);
         } else {
-            empty.classList.add('hidden');
-            empty.classList.remove('flex');
+            activeTrls.push(trl);
         }
+
+        render();
+    });
+
+});
+
+innovationRange.addEventListener('input', () => {
+    scoreValue.innerText = innovationRange.value;
+    render();
+});
+
+searchInput.addEventListener('input', render);
+
+sortSelect.addEventListener('change', render);
+
+document.querySelectorAll('.area-filter')
+.forEach(el => el.addEventListener('change', render));
+
+document.getElementById('clearFilters')
+.addEventListener('click', () => {
+
+    searchInput.value = '';
+
+    innovationRange.value = 50;
+
+    scoreValue.innerText = 50;
+
+    activeTrls = [1,2,3,4,5,6,7,8];
+
+    document.querySelectorAll('.trl-btn')
+    .forEach(btn => btn.classList.add('active'));
+
+    document.querySelectorAll('.area-filter')
+    .forEach(el => el.checked = true);
+
+    render();
+
+});
+
+function render(){
+
+    const search = searchInput.value.toLowerCase();
+
+    const minInnovation = Number(innovationRange.value);
+
+    const selectedAreas =
+        [...document.querySelectorAll('.area-filter:checked')]
+        .map(el => el.value);
+
+    let filtered = researchData.filter(item => {
+
+        const matchesSearch =
+            item.title.toLowerCase().includes(search) ||
+            item.researcher.toLowerCase().includes(search) ||
+            item.description.toLowerCase().includes(search);
+
+        const matchesInnovation =
+            item.innovation >= minInnovation;
+
+        const matchesArea =
+            selectedAreas.includes(item.area);
+
+        const matchesTrl =
+            activeTrls.includes(item.trl);
+
+        return (
+            matchesSearch &&
+            matchesInnovation &&
+            matchesArea &&
+            matchesTrl
+        );
+
+    });
+
+    if(sortSelect.value === 'innovation'){
+
+        filtered.sort((a,b) =>
+            b.innovation - a.innovation
+        );
+
+    } else {
+
+        filtered.sort((a,b) =>
+            b.year - a.year
+        );
+
     }
 
-    document.getElementById('btn-apply').addEventListener('click', applyFilters);
+    resultsCount.innerText = filtered.length;
 
-    // ── Clear filters ──────────────────────────────────────────────────────────
-    document.getElementById('btn-clear').addEventListener('click', () => {
-        // TRL: select all
-        activeTRL = new Set([1,2,3,4,5,6,7,8,9]);
-        document.querySelectorAll('.trl-btn').forEach(b => b.classList.add('trl-active'));
+    resultsGrid.innerHTML = filtered.map(item => `
 
-        // ODS: deselect all
-        activeODS = new Set();
-        document.querySelectorAll('.ods-btn').forEach(b => b.classList.remove('active'));
-        updateODSCount();
+        <div onclick="goToResearch(${item.id})" class="research-card glass-card rounded-[30px] p-6 border border-white/40 cursor-pointer">
 
-        // Range: reset
-        rMin.value = 0; rMax.value = 100;
-        updateRangeLabel();
+            <div class="flex items-start justify-between gap-4 mb-5">
 
-        // Areas: check all
-        activeAreas = new Set(['engenharias','saude','agrarias','exatas']);
-        document.querySelectorAll('.area-check').forEach(cb => { cb.checked = true; });
+                <div class="inline-flex px-3 py-1 rounded-full
+                            bg-[#EFE7FF]
+                            text-[#7B2FF7]
+                            text-[11px]
+                            font-black">
+                    TRL ${item.trl}
+                </div>
 
-        applyFilters();
-    });
+                <div class="flex gap-2">
 
-    // ── Sort ───────────────────────────────────────────────────────────────────
-    document.getElementById('sort-select').addEventListener('change', function () {
-        const grid = document.getElementById('results-grid');
-        const cards = [...grid.querySelectorAll('.card-item')];
-        cards.sort((a, b) => {
-            if (this.value === 'inovacao') return parseInt(b.dataset.inovacao) - parseInt(a.dataset.inovacao);
-            if (this.value === 'recentes') return parseInt(b.dataset.ano) - parseInt(a.dataset.ano);
-            if (this.value === 'trl')      return parseInt(b.dataset.trl) - parseInt(a.dataset.trl);
-            return 0;
-        });
-        cards.forEach(c => grid.appendChild(c));
-    });
+                    ${item.ods.map(ods => `
+                        <div class="ods ods-${ods}">
+                            ${ods}
+                        </div>
+                    `).join('')}
 
-    // Initial render
-    applyFilters();
+                </div>
 
-    // ── Assign data-id to each card and enable click-to-detail navigation ─────
-    const cardIds = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-    document.querySelectorAll(".card-item").forEach((card, i) => {
-        const id = cardIds[i];
-        if (!id) return;
-        card.dataset.id = id;
-        card.style.cursor = "pointer";
-        card.addEventListener("click", (e) => {
-            if (e.target.closest("button")) return;
-            window.location.href = "pesquisa.html?id=" + id;
-        });
-        const btn = card.querySelector("button");
-        if (btn) {
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                window.location.href = "pesquisa.html?id=" + id;
-            });
-        }
-    });
+            </div>
+
+            <h3 class="text-2xl font-black text-[#0B2B40]
+                       leading-tight mb-4">
+                ${item.title}
+            </h3>
+
+            <div class="flex items-center gap-2 text-slate-500 text-sm mb-5">
+
+                <span class="material-symbols-outlined text-[18px] text-cyan-500">
+                    person
+                </span>
+
+                ${item.researcher}
+
+            </div>
+
+            <p class="text-slate-500 leading-relaxed mb-8">
+                ${item.description}
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 mb-7">
+
+                <div>
+
+                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                        Inovação
+                    </div>
+
+                    <div class="text-3xl font-black text-cyan-500">
+                        ${item.innovation}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                        Universidade
+                    </div>
+
+                    <div class="font-bold text-slate-700">
+                        UFSC
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                        Ano
+                    </div>
+
+                    <div class="font-bold text-slate-700">
+                        ${item.year}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="flex items-center justify-between">
+
+                <div class="flex items-center gap-3">
+
+                    <button class="w-12 h-12 rounded-2xl
+                                   bg-[#F4F7FB]
+                                   hover:bg-[#EAF7FB]
+                                   transition-all
+                                   flex items-center justify-center">
+
+                        <span class="material-symbols-outlined text-slate-500">
+                            favorite
+                        </span>
+
+                    </button>
+
+                    <button class="w-12 h-12 rounded-2xl
+                                   bg-[#F4F7FB]
+                                   hover:bg-[#EAF7FB]
+                                   transition-all
+                                   flex items-center justify-center">
+
+                        <span class="material-symbols-outlined text-slate-500">
+                            share
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <button onclick="goToResearch(${item.id})"
+                        class="h-12 px-6 rounded-2xl
+                            border border-cyan-300
+                            text-cyan-600
+                            font-bold
+                            hover:bg-cyan-50
+                            transition-all">
+
+                    Ver detalhes
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join('');
+
+}
+
+render();
+
+function goToResearch(id){
+    window.location.href = `./pesquisa.html?id=${id}`;
+}
+
 </script>
+
 </body>
 </html>

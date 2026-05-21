@@ -12,7 +12,51 @@
     }
     .hero-gradient {
         background: linear-gradient(135deg, #0B2B40 0%, #25005a 100%);
+        position: relative;
+        overflow: hidden;
     }
+
+    /* ── Subtle animated orbs ── */
+    .hero-gradient::before,
+    .hero-gradient::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.25;
+        animation: float 12s ease-in-out infinite;
+        pointer-events: none;
+    }
+    .hero-gradient::before {
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, #7B2FF7, transparent 70%);
+        top: -120px;
+        left: -80px;
+        animation-delay: 0s;
+    }
+    .hero-gradient::after {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #00E5FF, transparent 70%);
+        bottom: -80px;
+        right: -60px;
+        animation-delay: -5s;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50%       { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* ── Stars / noise overlay ── */
+    .hero-noise {
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.04;
+        pointer-events: none;
+    }
+
     .cta-gradient {
         background: linear-gradient(135deg, #7B2FF7 0%, #00E5FF 100%);
     }
@@ -20,6 +64,288 @@
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(226, 232, 240, 0.5);
+    }
+
+    /* ── Logo entrance ── */
+    @keyframes logo-in {
+        from { opacity: 0; transform: scale(0.85) translateY(-12px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .logo-anim { animation: logo-in 0.8s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+    /* ── Text stagger ── */
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up-1 { animation: fade-up 0.6s ease both 0.4s; }
+    .fade-up-2 { animation: fade-up 0.6s ease both 0.6s; }
+    .fade-up-3 { animation: fade-up 0.6s ease both 0.8s; }
+    .fade-up-4 { animation: fade-up 0.6s ease both 1.0s; }
+    .fade-up-5 { animation: fade-up 0.6s ease both 1.2s; }
+
+    /* ── Bounce arrow ── */
+    @keyframes bounce-y {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(8px); }
+    }
+    .bounce-arrow { animation: bounce-y 1.6s ease-in-out infinite; }
+
+    /* ── Radar card pulse border ── */
+    @keyframes border-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.35); }
+        50%       { box-shadow: 0 0 0 8px rgba(0,229,255,0); }
+    }
+    .radar-card { animation: border-pulse 3s ease-in-out infinite; }
+
+    /* ── Navbar ── */
+    .navbar {
+        background: rgba(11, 43, 64, 0.88);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ── Login inputs ── */
+/* ──────────────────────────────────────────
+   LOGIN AREA — MODERN GLASS STYLE
+────────────────────────────────────────── */
+.login-panel {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle glow */
+.login-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at top left,
+        rgba(0,229,255,0.08),
+        transparent 35%);
+
+    pointer-events: none;
+}
+
+/* form column */
+.login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+/* labels */
+.login-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.42);
+
+    padding-left: 2px;
+}
+
+/* inputs */
+.login-input {
+    width: 170px;
+    height: 42px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.08),
+            rgba(255,255,255,0.03)
+        );
+
+    color: white;
+
+    padding: 0 14px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        transform 0.2s ease;
+}
+
+/* placeholder */
+.login-input::placeholder {
+    color: rgba(255,255,255,0.28);
+}
+
+/* focus */
+.login-input:focus {
+    border-color: rgba(0,229,255,0.45);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.11),
+            rgba(255,255,255,0.05)
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(0,229,255,0.08),
+        0 0 18px rgba(0,229,255,0.12);
+
+    transform: translateY(-1px);
+}
+
+/* actions area */
+.login-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    padding-bottom: 2px;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* checkbox row */
+.login-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+/* checkbox */
+.login-checkbox input {
+    width: 13px;
+    height: 13px;
+    accent-color: #00E5FF;
+}
+
+/* register button */
+.login-create {
+    border: none;
+    background: transparent;
+
+    color: #00E5FF;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.login-create:hover {
+    opacity: 0.85;
+    transform: translateX(2px);
+}
+
+/* login CTA button */
+.login-submit {
+    height: 42px;
+
+    padding: 0 18px;
+
+    border-radius: 14px;
+    border: 1px solid rgba(0,229,255,0.18);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7B2FF7 0%,
+            #00E5FF 100%
+        );
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
+
+    box-shadow:
+        0 8px 20px rgba(0,229,255,0.18);
+}
+
+.login-submit:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(0,229,255,0.22);
+}
+
+.login-submit:active {
+    transform: scale(0.98);
+}
+
+/* responsive */
+@media (max-width: 1200px) {
+    .login-panel {
+        display: none;
+    }
+}
+
+    /* ── "Feito para" tags ── */
+    .audience-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(8px);
+        font-size: 14px;
+        color: rgba(255,255,255,0.85);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .audience-tag:hover {
+        background: rgba(255,255,255,0.12);
+        transform: translateY(-2px);
     }
 </style>
 <script id="tailwind-config">
@@ -115,57 +441,624 @@
 </head>
 <body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
 
-<!-- Hero Section -->
-<section class="hero-gradient min-h-screen flex flex-col items-center justify-center px-gutter text-center text-on-primary">
-    <div class="max-w-container-max mx-auto flex flex-col items-center">
-        <div class="relative w-full max-w-[240px] mb-lg">
-            <img alt="SINNOVATION Logo" class="w-full h-auto rounded-xl" src="./logo.png"/>
+<!-- ══════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════ -->
+<nav class="navbar fixed top-0 left-0 right-0 z-50 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-14 gap-4">
+
+        <!-- Nav links -->
+        <div class="flex items-center gap-6">
+            <span class="text-[13px] font-bold text-white/90 tracking-wide">
+                SINNOVATION
+            </span>
+
+            <div class="hidden md:flex items-center gap-5 text-[13px] text-white/70">
+                <a href="./index.html" class="text-[#00E5FF] font-semibold border-b border-[#00E5FF]/60 pb-px">
+                    Home
+                </a>
+
+                <a href="./explorar.html" class="hover:text-white transition-colors">
+                    Radar
+                </a>
+
+                <a href="./award.html" class="hover:text-white transition-colors">
+                    Sinnovation award
+                </a>
+
+                <a href="./events.html" class="hover:text-white transition-colors">
+                    Eventos
+                </a>
+
+                <a href="./aboutus.html" class="hover:text-white transition-colors">
+                    Acerca de nós
+                </a>
+
+                <a href="./contact.html" class="hover:text-white transition-colors">
+                    Contato
+                </a>
+            </div>
         </div>
-        <h1 class="font-h1 text-h1 max-w-4xl mb-sm leading-tight">Transforme pesquisa em inovação real.</h1>
-        <p class="font-body-lg text-body-lg max-w-2xl text-on-primary/80 mb-lg">Conectamos sua pesquisa aos incentivos, patentes e parcerias certas.</p>
-        <a href="explorar.html" class="cta-gradient px-lg py-md rounded-xl font-label-caps text-label-caps text-on-primary shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+
+        <!-- Login form -->
+<div class="login-panel hidden xl:flex">
+
+    <label class="login-field">
+        <span class="login-label">
+            Email
+        </span>
+
+        <input
+            class="login-input"
+            placeholder="seu@email.com"
+            type="email"
+        />
+    </label>
+
+    <label class="login-field">
+        <span class="login-label">
+            Senha
+        </span>
+
+        <input
+            class="login-input"
+            placeholder="••••••••"
+            type="password"
+        />
+    </label>
+
+    <div class="login-actions">
+
+        <label class="login-checkbox">
+            <input type="checkbox"/>
+            lembrar senha
+        </label>
+
+        <button class="login-create">
+            Criar nova conta
+        </button>
+
+    </div>
+
+    <button class="login-submit">
+        Entrar
+    </button>
+
+</div>
+
+    </div>
+</nav>
+<!-- ══════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════ -->
+<section class="hero-gradient min-h-screen flex flex-col items-center justify-center px-gutter text-center text-on-primary pt-14">
+    <!-- texture overlay -->
+    <div class="hero-noise"></div>
+
+    <div class="relative z-10 max-w-container-max mx-auto flex flex-col items-center">
+
+        <!-- Logo -->
+        <div class="logo-anim relative w-full max-w-[200px] mb-8">
+            <div class="absolute inset-0 rounded-xl blur-2xl opacity-30"
+                 style="background: radial-gradient(circle, #00E5FF 0%, transparent 70%);"></div>
+            <img alt="SINNOVATION Logo" class="w-full h-auto rounded-xl relative" src="./logo.png"/>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="fade-up-1 font-h1 text-h1 max-w-4xl mb-4 leading-tight">
+            Transforme pesquisa em<br/>inovação real.
+        </h1>
+
+        <!-- Subline -->
+        <p class="fade-up-2 text-body-lg max-w-2xl text-white/70 mb-8">
+            Conectamos sua pesquisa aos incentivos, patentes e parcerias certas.
+        </p>
+
+        <!-- CTA primary -->
+        <a href="explorar.html"
+           class="fade-up-3 cta-gradient px-10 py-4 rounded-xl font-semibold text-sm uppercase tracking-widest text-white shadow-xl
+                  transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_32px_rgba(123,47,247,0.5)] active:scale-[0.97] mb-10">
             Explorar a Plataforma
         </a>
+
+        <!-- "Feito para:" audience tags -->
+        <div class="fade-up-4 flex flex-col items-center gap-3 mb-12">
+            <span class="text-xs font-semibold tracking-[0.15em] uppercase text-white/40 mb-1">Feito para:</span>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="audience-tag">
+                    <span class="material-symbols-outlined text-[16px] text-[#00E5FF]">person_search</span>
+                    Pesquisadores que querem visibilidade e conexão
+                </span>
+                <span class="audience-tag">
+                    <span class="material-symbols-outlined text-[16px] text-[#7B2FF7]">manage_accounts</span>
+                    Gestores que precisam priorizar projetos
+                </span>
+                <span class="audience-tag">
+                    <span class="material-symbols-outlined text-[16px] text-[#00E5FF]">domain</span>
+                    Empresas e governo que buscam soluções acadêmicas
+                </span>
+            </div>
+        </div>
+
+        <!-- Radar CTA card -->
+        <div class="fade-up-5 radar-card border border-[#00E5FF]/40 rounded-2xl px-12 py-7 mb-8
+                    bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300
+                    cursor-pointer hover:scale-[1.02] group max-w-xs w-full">
+            <a href="./explorar.html" class="flex flex-col items-center gap-2 text-white no-underline">
+                <span class="material-symbols-outlined text-[32px] text-[#00E5FF]
+                             group-hover:rotate-12 transition-transform duration-300">radar</span>
+                <span class="text-lg font-bold leading-snug text-center">
+                    Explore nosso<br/>radar de inovação
+                </span>
+            </a>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="fade-up-5 flex flex-col items-center gap-1 text-white/40">
+            <span class="text-xs tracking-[0.18em] uppercase">Conheça mais</span>
+            <span class="material-symbols-outlined text-[22px] bounce-arrow">arrow_downward</span>
+        </div>
     </div>
 </section>
 
-<!-- Value Propositions (Bento Grid Style) -->
-<section class="py-xl bg-surface">
+<!-- ══════════════════════════════════════════
+     VALUE PROPOSITIONS — unchanged
+════════════════════════════════════════════ -->
+<section class="py-xl bg-surface" id="valor">
     <div class="max-w-container-max mx-auto px-gutter">
-        <h2 class="font-h2 text-h2 text-center mb-xl">O que faz a Sinnovation diferente?</h2>
+        <h2 class="font-h2 text-h2 text-center mb-xl">O que faz a Sinnovation?</h2>
         <div class="grid grid-cols-1 md:grid-cols-6 gap-md">
-            <!-- Card 1 -->
             <div class="md:col-span-3 glass-card p-lg rounded-xl shadow-[0px_8px_20px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 group">
                 <span class="material-symbols-outlined text-[40px] text-tertiary-fixed-dim mb-md">lightbulb</span>
                 <h3 class="font-h3 text-h3 mb-sm">Priorização Inteligente</h3>
                 <p class="font-body-md text-on-surface-variant">Direcionamos esforços para pesquisas com maior potencial de transformação social, ambiental e econômica.</p>
             </div>
-            <!-- Card 2 -->
             <div class="md:col-span-3 glass-card p-lg rounded-xl shadow-[0px_8px_20px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 group">
                 <span class="material-symbols-outlined text-[40px] text-tertiary-fixed-dim mb-md">shield</span>
                 <h3 class="font-h3 text-h3 mb-sm">Visibilidade Protegida</h3>
-                <p class="font-body-md text-on-surface-variant">Camada aberta de dados para ampliar alcance, com governança SINOVA para dados sensíveis.</p>
+                <p class="font-body-md text-on-surface-variant">Metadados abertos para o mundo. Detalhes sensíveis protegidos</p>
             </div>
-            <!-- Card 3 -->
             <div class="md:col-span-2 glass-card p-lg rounded-xl shadow-[0px_8px_20px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 group">
                 <span class="material-symbols-outlined text-[40px] text-tertiary-fixed-dim mb-md">timer</span>
-                <h3 class="font-h3 text-h3 mb-sm">Respeito ao Pesquisador</h3>
-                <p class="font-body-md text-on-surface-variant">Fluxos otimizados que valorizam cada minuto do seu tempo.</p>
+                <h3 class="font-h3 text-h3 mb-sm">Respeito ao Tempo do Pesquisador</h3>
+                <p class="font-body-md text-on-surface-variant">Fluxos otimizados que valorizam cada minuto do seu tempo. Integramos suas informações do lattes também!</p>
             </div>
-            <!-- Card 4 -->
             <div class="md:col-span-2 glass-card p-lg rounded-xl shadow-[0px_8px_20px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 group">
                 <span class="material-symbols-outlined text-[40px] text-tertiary-fixed-dim mb-md">workspace_premium</span>
                 <h3 class="font-h3 text-h3 mb-sm">Reconhecimento Anual</h3>
-                <p class="font-body-md text-on-surface-variant">Premiamos as pesquisas mais inovadoras com o Innovation Award.</p>
+                <p class="font-body-md text-on-surface-variant">Premiamos as pesquisas mais inovadoras com o Sinnovation Award.</p>
             </div>
-            <!-- Card 5 (Destaque) -->
             <div class="md:col-span-2 bg-primary-container p-lg rounded-xl shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                 <span class="material-symbols-outlined text-[40px] text-tertiary-fixed-dim mb-md">analytics</span>
                 <h3 class="font-h3 text-h3 mb-sm text-on-primary">Análise Bibliométrica Inteligente</h3>
                 <p class="font-body-md text-on-primary-container">Ferramenta exclusiva que estima o nível de inovação da sua proposta desde o início.</p>
             </div>
         </div>
+
+        <!-- Wrapper para centralizar horizontalmente -->
+        <div class="w-full flex justify-center mt-10">
+
+            <!-- Radar CTA card -->
+            <div class="fade-up-5 radar-card border border-cyan-300 rounded-2xl px-12 py-7 mb-8
+                        bg-white shadow-md hover:shadow-lg transition-all duration-300
+                        cursor-pointer hover:scale-[1.02] group max-w-xs w-full">
+                
+                <a href="./explorar.html" class="flex flex-col items-center gap-2 text-slate-800 no-underline">
+                    
+                    <span class="material-symbols-outlined text-[32px] text-cyan-500
+                                group-hover:rotate-12 transition-transform duration-300">
+                        radar
+                    </span>
+
+                    <span class="text-lg font-bold leading-snug text-center text-slate-700">
+                        Explore nosso<br/>radar de inovação
+                    </span>
+
+                </a>
+            </div>
+
+        </div>
+
     </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     HOW IT WORKS SECTION — STYLED VERSION
+     ADICIONE ESTE BLOCO ANTES DO FOOTER
+════════════════════════════════════════════ -->
+<section class="py-24 bg-surface overflow-hidden" id="como-funciona">
+
+    <div class="max-w-container-max mx-auto px-gutter">
+
+        <!-- Main Hero Card -->
+        <div class="relative rounded-[42px] overflow-hidden
+                    bg-[linear-gradient(135deg,#060022_0%,#0A013D_45%,#12004E_100%)]
+                    px-8 md:px-16 py-16
+                    shadow-[0_30px_80px_rgba(30,0,80,0.28)]">
+
+            <!-- Background Glow -->
+            <div class="absolute top-[-180px] left-[-120px]
+                        w-[420px] h-[420px]
+                        rounded-full bg-[#7B2FF7]/20 blur-3xl"></div>
+
+            <div class="absolute bottom-[-160px] right-[-80px]
+                        w-[360px] h-[360px]
+                        rounded-full bg-[#00E5FF]/10 blur-3xl"></div>
+
+            <!-- Noise -->
+            <div class="absolute inset-0 opacity-[0.03]"
+                 style="background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.75%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');">
+            </div>
+
+            <div class="relative z-10">
+
+                <!-- Label -->
+                <div class="inline-flex items-center gap-2
+                            rounded-full px-5 py-2
+                            bg-white/5 border border-white/10
+                            backdrop-blur-sm mb-8">
+
+                    <span class="text-[11px] uppercase tracking-[0.18em]
+                                 text-white/70 font-semibold">
+                        Como funciona
+                    </span>
+
+                </div>
+
+                <!-- Title -->
+                <h2 class="font-h1 text-[42px] md:text-[56px]
+                           leading-[1.08] font-black text-white
+                           max-w-4xl mb-16">
+                    Da demanda à<br/>
+                    conexão em segundos
+                </h2>
+
+                <!-- Flow -->
+                <div class="flex flex-wrap lg:flex-nowrap
+                            justify-center items-start
+                            gap-8 lg:gap-0 mb-16">
+
+                    <!-- STEP -->
+                    <div class="flex flex-col items-center group">
+
+                        <div class="w-28 h-28 md:w-32 md:h-32 rounded-full
+                                    border-[6px] border-[#8B5CF6]
+                                    bg-white/[0.03]
+                                    backdrop-blur-md
+                                    flex items-center justify-center
+                                    transition-all duration-300
+                                    group-hover:scale-105
+                                    group-hover:shadow-[0_0_35px_rgba(139,92,246,0.45)]">
+
+                            <span class="material-symbols-outlined
+                                         text-[38px] text-white/85">
+                                upload
+                            </span>
+
+                        </div>
+
+                        <span class="mt-5 text-white/80
+                                     text-[15px] font-semibold">
+                            Submissão
+                        </span>
+
+                    </div>
+
+                    <!-- CONNECTOR -->
+                    <div class="hidden lg:flex items-center px-3 pt-14">
+                        <div class="w-10 h-[4px]
+                                    rounded-full
+                                    bg-gradient-to-r
+                                    from-[#8B5CF6]
+                                    to-[#00E5FF]"></div>
+                    </div>
+
+                    <!-- STEP -->
+                    <div class="flex flex-col items-center group">
+
+                        <div class="w-28 h-28 md:w-32 md:h-32 rounded-full
+                                    border-[6px] border-[#8B5CF6]
+                                    bg-white/[0.03]
+                                    backdrop-blur-md
+                                    flex items-center justify-center
+                                    transition-all duration-300
+                                    group-hover:scale-105
+                                    group-hover:shadow-[0_0_35px_rgba(139,92,246,0.45)]">
+
+                            <span class="material-symbols-outlined
+                                         text-[38px] text-white/85">
+                                filter_alt
+                            </span>
+
+                        </div>
+
+                        <span class="mt-5 text-white/80
+                                     text-[15px] font-semibold">
+                            Filtragem
+                        </span>
+
+                    </div>
+
+                    <!-- CONNECTOR -->
+                    <div class="hidden lg:flex items-center px-3 pt-14">
+                        <div class="w-10 h-[4px]
+                                    rounded-full
+                                    bg-gradient-to-r
+                                    from-[#8B5CF6]
+                                    to-[#00E5FF]"></div>
+                    </div>
+
+                    <!-- STEP -->
+                    <div class="flex flex-col items-center group">
+
+                        <div class="w-28 h-28 md:w-32 md:h-32 rounded-full
+                                    border-[6px] border-[#8B5CF6]
+                                    bg-white/[0.03]
+                                    backdrop-blur-md
+                                    flex items-center justify-center
+                                    transition-all duration-300
+                                    group-hover:scale-105
+                                    group-hover:shadow-[0_0_35px_rgba(139,92,246,0.45)]">
+
+                            <span class="material-symbols-outlined
+                                         text-[38px] text-white/85">
+                                checklist
+                            </span>
+
+                        </div>
+
+                        <span class="mt-5 text-white/80
+                                     text-[15px] font-semibold text-center">
+                            Lista<br/>Ranqueda
+                        </span>
+
+                    </div>
+
+                    <!-- CONNECTOR -->
+                    <div class="hidden lg:flex items-center px-3 pt-14">
+                        <div class="w-10 h-[4px]
+                                    rounded-full
+                                    bg-gradient-to-r
+                                    from-[#8B5CF6]
+                                    to-[#00E5FF]"></div>
+                    </div>
+
+                    <!-- STEP -->
+                    <div class="flex flex-col items-center group">
+
+                        <div class="w-28 h-28 md:w-32 md:h-32 rounded-full
+                                    border-[6px] border-[#8B5CF6]
+                                    bg-white/[0.03]
+                                    backdrop-blur-md
+                                    flex items-center justify-center
+                                    transition-all duration-300
+                                    group-hover:scale-105
+                                    group-hover:shadow-[0_0_35px_rgba(139,92,246,0.45)]">
+
+                            <span class="material-symbols-outlined
+                                         text-[38px] text-white/85">
+                                info
+                            </span>
+
+                        </div>
+
+                        <span class="mt-5 text-white/80
+                                     text-[15px] font-semibold text-center">
+                            Detalhes<br/>Rápidos
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Description -->
+                <p class="text-center text-white/65
+                          text-body-lg max-w-4xl mx-auto leading-relaxed">
+                    O que antes levava horas de busca manual agora acontece em
+                    tempo real — com precisão, rastreabilidade e zero atrito.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+
+            <!-- Card -->
+            <div class="glass-card rounded-[28px] p-10
+                        shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+                        hover:-translate-y-1 transition-all duration-300
+                        relative overflow-hidden">
+
+                <div class="absolute top-0 left-0 w-full h-1
+                            bg-gradient-to-r from-[#7B2FF7] to-[#00E5FF]"></div>
+
+                <h3 class="font-h3 text-h3 mb-5 text-on-surface">
+                    Conecta pessoas e projetos
+                </h3>
+
+                <p class="text-body-md text-on-surface-variant leading-relaxed">
+                    Pesquisadores cadastram seus projetos, encontram
+                    outros pesquisadores, formam equipes e buscam
+                    parceiros de financiamento. Assim, agências de
+                    fomento e indústria ganham um ponto único de contato.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="glass-card rounded-[28px] p-10
+                        shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+                        hover:-translate-y-1 transition-all duration-300
+                        relative overflow-hidden">
+
+                <div class="absolute top-0 left-0 w-full h-1
+                            bg-gradient-to-r from-[#7B2FF7] to-[#00E5FF]"></div>
+
+                <h3 class="font-h3 text-h3 mb-5 text-on-surface">
+                    Da plataforma ao encontro presencial
+                </h3>
+
+                <p class="text-body-md text-on-surface-variant leading-relaxed">
+                    Nosso calendário de eventos conecta pessoas
+                    além do digital, transformando networking
+                    acadêmico em colaborações reais no mundo físico.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Radar CTA -->
+        <div class="flex justify-center mt-12">
+
+            <div class="radar-card border border-cyan-300 rounded-2xl
+                        px-10 py-6
+                        bg-white shadow-md hover:shadow-xl
+                        transition-all duration-300
+                        cursor-pointer hover:scale-[1.02]
+                        group max-w-sm w-full">
+
+                <a href="./explorar.html"
+                   class="flex flex-col items-center gap-3
+                          text-slate-800 no-underline">
+
+                    <span class="material-symbols-outlined
+                                 text-[30px] text-cyan-500
+                                 group-hover:rotate-12
+                                 transition-transform duration-300">
+                        radar
+                    </span>
+
+                    <span class="text-xl font-bold
+                                 leading-snug text-center
+                                 text-slate-700">
+                        Explore nosso<br/>
+                        radar de inovação
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="w-full py-16 px-6 md:px-12 bg-[#0B1020] border-t border-white/10">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="max-w-3xl mb-12">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-300 text-xs font-medium tracking-wide">
+        Ecossistema de inovação
+      </span>
+
+      <h2 class="mt-4 text-2xl md:text-4xl font-semibold text-white leading-tight">
+        Feito para quem quer tirar pesquisa da gaveta
+      </h2>
+
+      <p class="mt-4 text-sm md:text-base text-slate-400 leading-relaxed">
+        Uma plataforma para conectar pesquisa, inovação e impacto real —
+        aproximando universidades, empresas, governo e pesquisadores em um
+        único ambiente.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+      <!-- Card -->
+      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/[0.05]">
+        
+        <div class="absolute top-0 right-0 h-32 w-32 bg-cyan-500/10 blur-3xl opacity-60"></div>
+
+        <div class="relative z-10">
+          <div class="w-11 h-11 rounded-2xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6"></path>
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Pesquisadores
+          </h3>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Coloque seus projetos em evidência, sem burocracia. A
+            Sinnovation puxa o que já existe no Lattes e organiza em um
+            perfil onde sua pesquisa aparece por área, TRL, ODS e impacto.
+          </p>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Receba alertas de editais e encontre grupos e parceiros para
+            transformar resultados acadêmicos em projetos financiados.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/[0.05]">
+        
+        <div class="absolute top-0 right-0 h-32 w-32 bg-violet-500/10 blur-3xl opacity-60"></div>
+
+        <div class="relative z-10">
+          <div class="w-11 h-11 rounded-2xl bg-violet-400/10 border border-violet-400/20 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-violet-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h13M9 17l-4-4m4 4l-4 4"></path>
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Gestores de inovação
+          </h3>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Chega de caçar informação em mil planilhas. Em poucos cliques,
+            visualize quais pesquisas possuem maior índice de inovação,
+            impacto social e ambiental, além de aderência a políticas públicas.
+          </p>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Priorize bolsas, proteção de PI e chamadas internas usando dados
+            estruturados e acompanhe as conexões que surgem pela plataforma.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/[0.05]">
+        
+        <div class="absolute top-0 right-0 h-32 w-32 bg-emerald-500/10 blur-3xl opacity-60"></div>
+
+        <div class="relative z-10">
+          <div class="w-11 h-11 rounded-2xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 13V7a2 2 0 00-2-2h-5m7 8v6a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h6"></path>
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Empresas e governo
+          </h3>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Em vez de depender de contatos informais, visualize um mapa claro
+            de competências, grupos de pesquisa e projetos disponíveis para
+            colaboração.
+          </p>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-400">
+            Filtre por tema, maturidade tecnológica e área de atuação para
+            encontrar parceiros ideais para P&D, testes e pilotos com apoio
+            institucional na construção da parceria.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- Footer -->
