@@ -29,7 +29,6 @@ body{
 .navbar{
     background: rgba(11, 43, 64, 0.88);
     backdrop-filter: blur(16px);
-
     border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
@@ -51,36 +50,24 @@ body{
 
 .hero-gradient::before{
     content:"";
-
     position:absolute;
-
     width:520px;
     height:520px;
-
     background: radial-gradient(circle,#7B2FF7 0%,transparent 70%);
-
     opacity:.20;
-
     filter:blur(80px);
-
     top:-160px;
     left:-100px;
 }
 
 .hero-gradient::after{
     content:"";
-
     position:absolute;
-
     width:420px;
     height:420px;
-
     background: radial-gradient(circle,#00E5FF 0%,transparent 70%);
-
     opacity:.14;
-
     filter:blur(80px);
-
     bottom:-120px;
     right:-100px;
 }
@@ -91,9 +78,7 @@ body{
 
 .glass-card{
     background: rgba(255,255,255,.82);
-
     backdrop-filter: blur(18px);
-
     border:1px solid rgba(255,255,255,.7);
 
     box-shadow:
@@ -125,10 +110,10 @@ body{
 ========================================================= */
 
 .ods{
-    width:28px;
-    height:28px;
+    width:30px;
+    height:30px;
 
-    border-radius:8px;
+    border-radius:10px;
 
     display:flex;
     align-items:center;
@@ -140,11 +125,42 @@ body{
     color:white;
 }
 
+.ods-3{ background:#4C9F38; }
+.ods-6{ background:#00AED9; }
 .ods-7{ background:#F9A826; }
 .ods-9{ background:#F15A29; }
 .ods-13{ background:#3F7E44; }
-.ods-3{ background:#4C9F38; }
-.ods-6{ background:#00AED9; }
+
+.ods-filter-btn{
+    height:44px;
+    padding:0 16px;
+
+    border-radius:16px;
+
+    border:1px solid #DCE3ED;
+
+    background:white;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.ods-filter-btn.active{
+    background:linear-gradient(
+        135deg,
+        #7B2FF7 0%,
+        #00D2FF 100%
+    );
+
+    color:white;
+    border-color:transparent;
+}
 
 /* =========================================================
    TRL BUTTONS
@@ -172,16 +188,7 @@ body{
     );
 
     color:white;
-
     border-color:transparent;
-}
-
-/* =========================================================
-   FILTER CHECKBOX
-========================================================= */
-
-.filter-check{
-    accent-color:#7B2FF7;
 }
 
 /* =========================================================
@@ -219,10 +226,6 @@ body{
 
 <body>
 
-<!-- =========================================================
-     NAVBAR
-========================================================= -->
-
 <nav class="navbar fixed top-0 left-0 right-0 z-50 px-6">
 
     <div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
@@ -255,53 +258,13 @@ body{
                     Eventos
                 </a>
 
-                <a href="./aboutus.html"
-                   class="hover:text-white transition-colors">
-                    Acerca de nós
-                </a>
-
-                <a href="./contact.html"
-                   class="hover:text-white transition-colors">
-                    Contato
-                </a>
-
             </div>
-
-        </div>
-
-        <div class="hidden xl:flex items-center gap-3">
-
-            <input
-                type="text"
-                placeholder="Usuário"
-                class="h-10 rounded-xl bg-white/8 border border-white/10
-                       px-4 text-sm text-white placeholder:text-white/35
-                       focus:outline-none focus:border-cyan-400"
-            />
-
-            <input
-                type="password"
-                placeholder="Senha"
-                class="h-10 rounded-xl bg-white/8 border border-white/10
-                       px-4 text-sm text-white placeholder:text-white/35
-                       focus:outline-none focus:border-cyan-400"
-            />
-
-            <button class="h-10 px-5 rounded-xl
-                           bg-gradient-to-r from-[#7B2FF7] to-[#00D2FF]
-                           text-white text-sm font-semibold">
-                Entrar
-            </button>
 
         </div>
 
     </div>
 
 </nav>
-
-<!-- =========================================================
-     HERO
-========================================================= -->
 
 <section class="hero-gradient pt-32 pb-20 px-6">
 
@@ -343,10 +306,6 @@ body{
 
 </section>
 
-<!-- =========================================================
-     CONTENT
-========================================================= -->
-
 <section class="px-6 py-10">
 
     <div class="max-w-7xl mx-auto">
@@ -361,7 +320,7 @@ body{
             <input
                 id="searchInput"
                 type="text"
-                placeholder="Buscar por tecnologia, laboratório, pesquisador, área..."
+                placeholder="Buscar por tecnologia, laboratório, pesquisador..."
                 class="search-input w-full h-16 rounded-3xl border border-slate-200
                        bg-white px-14 text-[15px]
                        shadow-[0_10px_30px_rgba(0,0,0,0.04)]
@@ -370,13 +329,9 @@ body{
 
         </div>
 
-        <!-- GRID -->
         <div class="grid grid-cols-1 xl:grid-cols-[340px_1fr] gap-8">
 
-            <!-- =========================================================
-                 FILTERS
-            ========================================================= -->
-
+            <!-- FILTERS -->
             <aside class="glass-card rounded-[34px] p-8 h-fit sticky top-24">
 
                 <div class="flex items-center gap-3 mb-10">
@@ -418,78 +373,106 @@ body{
 
                 </div>
 
-                <!-- AREA -->
-                <div class="mb-10">
+                <!-- =========================================================
+     ODS FILTER
+========================================================= -->
 
-                    <h3 class="font-bold text-[#0B2B40] mb-5">
-                        Área da pesquisa
-                    </h3>
+<div class="mb-10">
 
-                    <div class="space-y-4">
+    <h3 class="font-bold text-[#0B2B40] mb-5">
+        Objetivos ODS
+    </h3>
 
-                        <label class="flex items-center gap-3 cursor-pointer">
+    <div class="grid grid-cols-1 gap-3">
 
-                            <input
-                                type="checkbox"
-                                value="engenharias"
-                                class="area-filter filter-check"
-                                checked
-                            />
+        <button class="ods-filter-btn active" data-ods="1">
+            <div class="ods ods-1">1</div>
+            Erradicação da Pobreza
+        </button>
 
-                            <span class="text-slate-600">
-                                Engenharias
-                            </span>
+        <button class="ods-filter-btn active" data-ods="2">
+            <div class="ods ods-2">2</div>
+            Fome Zero
+        </button>
 
-                        </label>
+        <button class="ods-filter-btn active" data-ods="3">
+            <div class="ods ods-3">3</div>
+            Saúde e Bem-estar
+        </button>
 
-                        <label class="flex items-center gap-3 cursor-pointer">
+        <button class="ods-filter-btn active" data-ods="4">
+            <div class="ods ods-4">4</div>
+            Educação de Qualidade
+        </button>
 
-                            <input
-                                type="checkbox"
-                                value="saude"
-                                class="area-filter filter-check"
-                                checked
-                            />
+        <button class="ods-filter-btn active" data-ods="5">
+            <div class="ods ods-5">5</div>
+            Igualdade de Gênero
+        </button>
 
-                            <span class="text-slate-600">
-                                Ciências da Saúde
-                            </span>
+        <button class="ods-filter-btn active" data-ods="6">
+            <div class="ods ods-6">6</div>
+            Água Potável
+        </button>
 
-                        </label>
+        <button class="ods-filter-btn active" data-ods="7">
+            <div class="ods ods-7">7</div>
+            Energia Limpa
+        </button>
 
-                        <label class="flex items-center gap-3 cursor-pointer">
+        <button class="ods-filter-btn active" data-ods="8">
+            <div class="ods ods-8">8</div>
+            Trabalho Decente
+        </button>
 
-                            <input
-                                type="checkbox"
-                                value="energia"
-                                class="area-filter filter-check"
-                                checked
-                            />
+        <button class="ods-filter-btn active" data-ods="9">
+            <div class="ods ods-9">9</div>
+            Indústria e Inovação
+        </button>
 
-                            <span class="text-slate-600">
-                                Energia
-                            </span>
+        <button class="ods-filter-btn active" data-ods="10">
+            <div class="ods ods-10">10</div>
+            Redução das Desigualdades
+        </button>
 
-                        </label>
+        <button class="ods-filter-btn active" data-ods="11">
+            <div class="ods ods-11">11</div>
+            Cidades Sustentáveis
+        </button>
 
-                        <label class="flex items-center gap-3 cursor-pointer">
+        <button class="ods-filter-btn active" data-ods="12">
+            <div class="ods ods-12">12</div>
+            Consumo Responsável
+        </button>
 
-                            <input
-                                type="checkbox"
-                                value="ia"
-                                class="area-filter filter-check"
-                                checked
-                            />
+        <button class="ods-filter-btn active" data-ods="13">
+            <div class="ods ods-13">13</div>
+            Ação Climática
+        </button>
 
-                            <span class="text-slate-600">
-                                Inteligência Artificial
-                            </span>
+        <button class="ods-filter-btn active" data-ods="14">
+            <div class="ods ods-14">14</div>
+            Vida na Água
+        </button>
 
-                        </label>
+        <button class="ods-filter-btn active" data-ods="15">
+            <div class="ods ods-15">15</div>
+            Vida Terrestre
+        </button>
 
-                    </div>
+        <button class="ods-filter-btn active" data-ods="16">
+            <div class="ods ods-16">16</div>
+            Paz e Justiça
+        </button>
 
-                </div>
+        <button class="ods-filter-btn active" data-ods="17">
+            <div class="ods ods-17">17</div>
+            Parcerias
+        </button>
+
+    </div>
+
+</div>
 
                 <!-- TRL -->
                 <div class="mb-10">
@@ -526,20 +509,16 @@ body{
 
             </aside>
 
-            <!-- =========================================================
-                 RESULTS
-            ========================================================= -->
-
+            <!-- RESULTS -->
             <div>
 
-                <!-- TOPBAR -->
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-7">
 
                     <div class="text-slate-500 text-sm">
                         Exibindo
                         <span id="resultsCount"
                               class="font-bold text-[#0B2B40]">
-                            6
+                            0
                         </span>
                         pesquisas
                     </div>
@@ -562,13 +541,10 @@ body{
 
                 </div>
 
-                <!-- RESULTS GRID -->
                 <div
                     id="resultsGrid"
                     class="grid grid-cols-1 md:grid-cols-2 gap-6"
-                >
-
-                </div>
+                ></div>
 
             </div>
 
@@ -578,42 +554,6 @@ body{
 
 </section>
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer class="mt-20 border-t border-slate-200 py-12 px-6">
-
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
-
-        <div>
-
-            <div class="text-[#0B2B40] font-black text-xl mb-3">
-                SINNOVATION
-            </div>
-
-            <p class="text-slate-500">
-                Plataforma de inovação acadêmica da UFSC.
-            </p>
-
-        </div>
-
-        <div class="flex gap-6 text-slate-500 text-sm">
-
-            <a href="#">Privacidade</a>
-            <a href="#">Termos</a>
-            <a href="#">Contato</a>
-
-        </div>
-
-    </div>
-
-</footer>
-
-<!-- =========================================================
-     SCRIPT
-========================================================= -->
-
 <script>
 
 const researchData = [
@@ -622,72 +562,55 @@ const researchData = [
     id: 0,
     title: "Sistema de Purificação de Hidrogênio Verde via Membranas Cerâmicas",
     researcher: "Dr. Roberto Fernandes",
-    area: "engenharias",
     trl: 7,
     innovation: 84,
     year: 2026,
     ods: [7,9,13],
-    description: "Desenvolvimento de membranas cerâmicas avançadas para separação ultraeficiente de hidrogênio verde.",
+    description: "Desenvolvimento de membranas cerâmicas avançadas para separação ultraeficiente de hidrogênio verde."
 },
 
 {
     id: 1,
     title: "IA para Diagnóstico Precoce de Alzheimer",
     researcher: "Dra. Marina Costa",
-    area: "ia",
     trl: 5,
     innovation: 92,
     year: 2025,
     ods: [3],
-    description: "Modelo de inteligência artificial para análise de exames cerebrais e detecção precoce de Alzheimer.",
+    description: "Modelo de inteligência artificial para análise de exames cerebrais."
 },
 
 {
     id: 2,
     title: "Microgrid Inteligente para Comunidades Isoladas",
     researcher: "Dr. Lucas Martins",
-    area: "energia",
     trl: 6,
     innovation: 88,
     year: 2026,
     ods: [7,13],
-    description: "Arquitetura energética inteligente baseada em energia solar e baterias de lítio.",
+    description: "Arquitetura energética inteligente baseada em energia solar."
 },
 
 {
     id: 3,
-    title: "Robótica Subaquática para Monitoramento Costeiro",
-    researcher: "Prof. Felipe Duarte",
-    area: "engenharias",
-    trl: 4,
-    innovation: 81,
-    year: 2024,
-    ods: [13],
-    description: "Veículos subaquáticos autônomos para análise de ecossistemas marinhos da costa catarinense.",
-},
-
-{
-    id: 4,
     title: "Bioimpressão 3D de Tecidos Regenerativos",
     researcher: "Dra. Camila Ribeiro",
-    area: "saude",
     trl: 5,
     innovation: 95,
     year: 2026,
     ods: [3,9],
-    description: "Bioimpressão de tecidos humanos utilizando biomateriais de alta compatibilidade.",
+    description: "Bioimpressão de tecidos humanos utilizando biomateriais."
 },
 
 {
-    id: 5,
+    id: 4,
     title: "Plataforma de IA para Previsão Climática",
     researcher: "Dr. Rafael Teixeira",
-    area: "ia",
     trl: 3,
     innovation: 77,
     year: 2025,
     ods: [13],
-    description: "Modelos neurais para previsão climática de alta resolução aplicados ao sul do Brasil.",
+    description: "Modelos neurais para previsão climática de alta resolução."
 }
 
 ];
@@ -700,8 +623,44 @@ const resultsCount = document.getElementById('resultsCount');
 const sortSelect = document.getElementById('sortSelect');
 
 let activeTrls = [1,2,3,4,5,6,7,8];
+let activeOds = [3,6,7,9,13];
 
-document.querySelectorAll('.trl-btn').forEach(btn => {
+/* =========================================================
+   ODS FILTERS
+========================================================= */
+
+document.querySelectorAll('.ods-filter-btn')
+.forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        const ods = Number(btn.dataset.ods);
+
+        btn.classList.toggle('active');
+
+        if(activeOds.includes(ods)){
+
+            activeOds =
+                activeOds.filter(item => item !== ods);
+
+        }else{
+
+            activeOds.push(ods);
+
+        }
+
+        render();
+
+    });
+
+});
+
+/* =========================================================
+   TRL FILTERS
+========================================================= */
+
+document.querySelectorAll('.trl-btn')
+.forEach(btn => {
 
     btn.addEventListener('click', () => {
 
@@ -710,27 +669,37 @@ document.querySelectorAll('.trl-btn').forEach(btn => {
         btn.classList.toggle('active');
 
         if(activeTrls.includes(trl)){
-            activeTrls = activeTrls.filter(t => t !== trl);
-        } else {
+
+            activeTrls =
+                activeTrls.filter(item => item !== trl);
+
+        }else{
+
             activeTrls.push(trl);
+
         }
 
         render();
+
     });
 
 });
 
 innovationRange.addEventListener('input', () => {
+
     scoreValue.innerText = innovationRange.value;
+
     render();
+
 });
 
 searchInput.addEventListener('input', render);
 
 sortSelect.addEventListener('change', render);
 
-document.querySelectorAll('.area-filter')
-.forEach(el => el.addEventListener('change', render));
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
 
 document.getElementById('clearFilters')
 .addEventListener('click', () => {
@@ -743,25 +712,29 @@ document.getElementById('clearFilters')
 
     activeTrls = [1,2,3,4,5,6,7,8];
 
+    activeOds = [3,6,7,9,13];
+
     document.querySelectorAll('.trl-btn')
     .forEach(btn => btn.classList.add('active'));
 
-    document.querySelectorAll('.area-filter')
-    .forEach(el => el.checked = true);
+    document.querySelectorAll('.ods-filter-btn')
+    .forEach(btn => btn.classList.add('active'));
 
     render();
 
 });
 
+/* =========================================================
+   RENDER
+========================================================= */
+
 function render(){
 
-    const search = searchInput.value.toLowerCase();
+    const search =
+        searchInput.value.toLowerCase();
 
-    const minInnovation = Number(innovationRange.value);
-
-    const selectedAreas =
-        [...document.querySelectorAll('.area-filter:checked')]
-        .map(el => el.value);
+    const minInnovation =
+        Number(innovationRange.value);
 
     let filtered = researchData.filter(item => {
 
@@ -773,17 +746,19 @@ function render(){
         const matchesInnovation =
             item.innovation >= minInnovation;
 
-        const matchesArea =
-            selectedAreas.includes(item.area);
-
         const matchesTrl =
             activeTrls.includes(item.trl);
+
+        const matchesOds =
+            item.ods.some(ods =>
+                activeOds.includes(ods)
+            );
 
         return (
             matchesSearch &&
             matchesInnovation &&
-            matchesArea &&
-            matchesTrl
+            matchesTrl &&
+            matchesOds
         );
 
     });
@@ -794,7 +769,7 @@ function render(){
             b.innovation - a.innovation
         );
 
-    } else {
+    }else{
 
         filtered.sort((a,b) =>
             b.year - a.year
@@ -806,7 +781,9 @@ function render(){
 
     resultsGrid.innerHTML = filtered.map(item => `
 
-        <div onclick="goToResearch(${item.id})" class="research-card glass-card rounded-[30px] p-6 border border-white/40 cursor-pointer">
+        <div onclick="goToResearch(${item.id})"
+             class="research-card glass-card rounded-[30px]
+                    p-6 border border-white/40 cursor-pointer">
 
             <div class="flex items-start justify-between gap-4 mb-5">
 
@@ -835,9 +812,11 @@ function render(){
                 ${item.title}
             </h3>
 
-            <div class="flex items-center gap-2 text-slate-500 text-sm mb-5">
+            <div class="flex items-center gap-2
+                        text-slate-500 text-sm mb-5">
 
-                <span class="material-symbols-outlined text-[18px] text-cyan-500">
+                <span class="material-symbols-outlined
+                             text-[18px] text-cyan-500">
                     person
                 </span>
 
@@ -853,7 +832,9 @@ function render(){
 
                 <div>
 
-                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                    <div class="text-[11px]
+                                uppercase tracking-wide
+                                text-slate-400 mb-1">
                         Inovação
                     </div>
 
@@ -865,7 +846,9 @@ function render(){
 
                 <div>
 
-                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                    <div class="text-[11px]
+                                uppercase tracking-wide
+                                text-slate-400 mb-1">
                         Universidade
                     </div>
 
@@ -877,7 +860,9 @@ function render(){
 
                 <div>
 
-                    <div class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
+                    <div class="text-[11px]
+                                uppercase tracking-wide
+                                text-slate-400 mb-1">
                         Ano
                     </div>
 
@@ -919,13 +904,14 @@ function render(){
 
                 </div>
 
-                <button onclick="goToResearch(${item.id})"
-                        class="h-12 px-6 rounded-2xl
-                            border border-cyan-300
-                            text-cyan-600
-                            font-bold
-                            hover:bg-cyan-50
-                            transition-all">
+                <button
+                    onclick="goToResearch(${item.id})"
+                    class="h-12 px-6 rounded-2xl
+                           border border-cyan-300
+                           text-cyan-600
+                           font-bold
+                           hover:bg-cyan-50
+                           transition-all">
 
                     Ver detalhes
 
@@ -942,7 +928,10 @@ function render(){
 render();
 
 function goToResearch(id){
-    window.location.href = `./pesquisa.html?id=${id}`;
+
+    window.location.href =
+        `./pesquisa.html?id=${id}`;
+
 }
 
 </script>
